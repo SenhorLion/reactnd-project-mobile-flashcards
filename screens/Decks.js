@@ -6,12 +6,13 @@ import {
   TouchableOpacity,
   Platform,
 } from 'react-native';
+import { connect } from 'react-redux';
 import { Constants, AppLoading } from 'expo';
 import Header from '../components/ui/Header';
 import Footer from '../components/ui/Footer';
 import DeckList from '../components/DeckList';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
-import { fetchDecksData } from '../api';
+import * as actions from '../actions';
 import { enforcePromiseDelay } from '../utils/helpers';
 import {
   black,
@@ -28,39 +29,6 @@ backgroundColor={purple}
 flex={1}
 marginBottom={6}
 /> */
-}
-
-export default class Decks extends React.Component {
-  static navigationOptions = {
-    // headerTitle instead of title
-    title: 'Flash Cards',
-  };
-  state = {
-    isReady: false,
-    isDecksLoaded: false,
-    decks: {},
-  };
-
-  componentDidMount() {
-    enforcePromiseDelay(1000).then(() => {
-      fetchDecksData().then(decks => {
-        this.setState(() => ({
-          isDecksLoaded: true,
-          decks,
-        }));
-      });
-    });
-  }
-
-  render() {
-    const { decks, isDecksLoaded } = this.state;
-    return (
-      <View style={styles.container}>
-        <Header title="Flash Cards" backgroundColor={purple} marginBottom={6} />
-        <DeckList decks={decks} isDecksLoaded={isDecksLoaded} {...this.props} />
-      </View>
-    );
-  }
 }
 
 const styles = StyleSheet.create({
@@ -98,3 +66,47 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+class Decks extends React.Component {
+  static navigationOptions = {
+    // headerTitle instead of title
+    title: 'Flash Cards',
+  };
+  state = {
+    isReady: false,
+    isDecksLoaded: false,
+  };
+
+  componentDidMount() {
+    const { fetchAllDecks } = this.props;
+
+    // TODO: Remove enforcePromiseDelay for production
+    enforcePromiseDelay(1000).then(() => {
+      fetchAllDecks().then(decks => {
+        this.setState(() => ({
+          isDecksLoaded: true,
+        }));
+      });
+    });
+  }
+
+  render() {
+    const { isDecksLoaded } = this.state;
+    const { decks } = this.props;
+
+    return (
+      <View style={styles.container}>
+        <Header title="Flash Cards" backgroundColor={purple} marginBottom={6} />
+        <DeckList decks={decks} isDecksLoaded={isDecksLoaded} {...this.props} />
+      </View>
+    );
+  }
+}
+
+const mapStateToProps = ({ decks }) => {
+  return {
+    decks,
+  };
+};
+
+export default connect(mapStateToProps, actions)(Decks);

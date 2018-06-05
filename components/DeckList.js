@@ -18,7 +18,9 @@ import ErrorBoundary from '../error/ErrorBoundary';
 class DeckList extends Component {
   render() {
     const { decks, isDecksLoaded } = this.props;
-    const hasDecks = !!(decks && Object.keys(decks).length);
+    const { isFetching, items } = decks;
+
+    const hasDecks = !!(items && Object.keys(items).length);
 
     if (!isDecksLoaded) {
       return (
@@ -54,34 +56,14 @@ class DeckList extends Component {
 
     return (
       <ScrollView style={{ flex: 1 }}>
-        <ErrorBoundary>
-          {hasDecks &&
-            Object.keys(decks).map(deck => (
-              <Deck
-                key={decks[deck].title}
-                deck={decks[deck]}
-                {...this.props}
-              />
-            ))}
-        </ErrorBoundary>
+        {hasDecks &&
+          Object.values(items).map(deck => (
+            <Deck key={deck.title} deck={deck} {...this.props} />
+          ))}
       </ScrollView>
     );
   }
 }
-
-// React: {
-//     title: 'React',
-//     questions: [
-//       {
-//         question: 'What is React?',
-//         answer: 'A library for managing user interfaces',
-//       },
-//       {
-//         question: 'Where do you make Ajax requests in React?',
-//         answer: 'The componentDidMount lifecycle event',
-//       },
-//     ],
-//   },
 
 const styles = StyleSheet.create({
   container: {

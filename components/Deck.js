@@ -10,9 +10,9 @@ import {
 } from '../utils/colors';
 import { FontAwesome } from '@expo/vector-icons';
 
-const Deck = ({ deck: { title, questions }, navigation }) => {
-  const hasDeck = !!(title && questions);
-  console.log('hasDeck', hasDeck);
+const Deck = ({ deck, deck: { title, questions }, navigation }) => {
+  const hasDeck = !!(deck && Object.keys(deck).length);
+
   if (!hasDeck) {
     return (
       <View style={styles.deck}>
@@ -28,7 +28,7 @@ const Deck = ({ deck: { title, questions }, navigation }) => {
         <TouchableOpacity
           style={[styles.button, { marginTop: 20, width: 150 }]}
           onPress={() => {
-            return navigation.navigate('DeckDetail', { entryId: title });
+            return navigation.navigate('DeckDetail', { deck, entryId: title });
           }}
         >
           <FontAwesome name="plus" size={20} color={antiFlashWhite} />
