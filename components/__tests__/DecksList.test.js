@@ -4,7 +4,6 @@ import DeckList from '../DeckList';
 
 it('renders without crashing', () => {
   const DeckListComponent = TestRenderer.create(<DeckList />).toJSON();
-
   expect(DeckListComponent).toMatchSnapshot();
 });
 
