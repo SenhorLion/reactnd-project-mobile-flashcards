@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 
-const DECKS_STORAGE_KEY = 'mobileflashcards:deckzz';
+const DECKS_STORAGE_KEY = 'mobileflashcards:deckabc';
+
 const decksData = {
   React: {
     title: 'React',
@@ -34,16 +35,36 @@ const decksData = {
       },
     ],
   },
+  Wot: {
+    title: 'Wot',
+    questions: [
+      {
+        question: 'What is Wot?',
+        answer: 'Lorem ipsum dolor sit amec wot wot wot.',
+      },
+    ],
+  },
 };
 
-function setDummyData() {
+const setDummyData = () => {
+  console.log('API::@setDummyData');
   AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decksData));
 
   return decksData;
-}
-export const fetchDecksData = () => {
-  return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(results => {
-    console.log(`fetchDecksData [results] ${results}`);
-    return results === null ? setDummyData() : JSON.parse(results);
-  });
 };
+
+const formatResults = results => {
+  console.log('API::@formatResults', results);
+  return results ? JSON.parse(results) : setDummyData();
+};
+
+export const fetchAllDecks = () => {
+  console.log('API::@fetchAllDecks');
+
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(formatResults);
+};
+
+export const getDecks = () =>
+  AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY).then(
+    results => (results ? JSON.parse(results) : setDummyData())
+  );

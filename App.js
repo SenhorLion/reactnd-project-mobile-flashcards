@@ -14,19 +14,27 @@ import {
   createBottomTabNavigator,
 } from 'react-navigation';
 
-import { Constants, AppLoading } from 'expo';
+import { AppLoading } from 'expo';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'remote-redux-devtools';
+import rootReducer from './reducers';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
 import { white, purple } from './utils/colors';
 import Decks from './screens/Decks';
 import DeckDetail from './screens/DeckDetail';
 import AddDeck from './screens/AddDeck';
-import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import AddCard from './screens/AddCard';
+import AppStatusBar from './components/ui/AppStatusBar';
 
-// TODO: make AppStatusBar its own module
-const AppStatusBar = ({ backgroundColor, ...props }) => (
-  <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
-    <StatusBar translucent backgroundColor={backgroundColor} {...props} />
-  </View>
+// NOTE: composeWithDevTools not currently working in redux dev
+const composeEnhancers = composeWithDevTools({ realtime: true });
+const middleWare = [thunk];
+const store = createStore(
+  rootReducer /* preloadState */,
+  composeEnhancers(applyMiddleware(...middleWare))
 );
 
 // TODO make Tabs navigation its own module
@@ -86,12 +94,36 @@ const MainNavigator = createStackNavigator({
       },
     },
   },
+  // Quiz: {
+  //   screen: Quiz,
+  //   navigationOptions: {
+  //     title: 'Quiz',
+  //     headerTintColor: white,
+  //     headerStyle: {
+  //       backgroundColor: purple,
+  //     },
+  //   },
+  // },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      title: 'Add Card',
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      },
+    },
+  },
 });
 
 export default class App extends Component {
   state = {
     isReady: false,
   };
+
+  componentDidMount() {
+    // setLocalNotification();
+  }
 
   render() {
     // TODO: AppLoading not working?
@@ -100,10 +132,12 @@ export default class App extends Component {
     // }
 
     return (
-      <View style={styles.container}>
-        <AppStatusBar backgroundColor={purple} barStyle="light-content" />
-        <MainNavigator />
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <AppStatusBar backgroundColor={purple} barStyle="light-content" />
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }
