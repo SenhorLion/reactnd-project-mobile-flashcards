@@ -9,60 +9,66 @@ import {
 } from 'react-native';
 import { Constants, AppLoading } from 'expo';
 import Header from '../components/ui/Header';
-import Footer from '../components/ui/Footer';
-
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import {
   black,
+  gray,
   purple,
   lightPurple,
   white,
   antiFlashWhite,
 } from '../utils/colors';
 
-// TODO: Make Button into a module component
-const AddDeckButton = ({ onPress }) => (
-  <TouchableOpacity
-    style={[styles.button, { marginTop: 20, width: 150 }]}
-    onPress={onPress}
-  >
-    <FontAwesome name="plus" size={20} color={antiFlashWhite} />
-    <Text style={{ fontSize: 18, color: antiFlashWhite }}>Add Deck</Text>
-  </TouchableOpacity>
-);
-
-export default class AddDeck extends React.Component {
+export default class AddCard extends React.Component {
   state = {
     isReady: false,
-    title: '',
+    question: '',
+    answer: '',
   };
 
-  handleAddDeck = () => {
-    const { title } = this.state;
+  handleAddCard = () => {
+    const { question, answer } = this.state;
 
-    console.log('@handleAddDeck', title);
+    // TODO: check for values
+    console.log('@handleAddCard', question, answer);
 
-    // TODO: check input values
-    // TODO: Add deck to decks data
+    // TODO: add card to deck
   };
 
   render() {
+    const { deck, entryId } = this.props.navigation.state.params;
+
     return (
       <View style={styles.container}>
-        <Header title="Add Deck" backgroundColor={purple} marginBottom={6} />
-        <View
-          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-        >
-          <Text style={styles.title}>Enter the Deck title</Text>
+        <View>
+          <Text>EntryId - {entryId}</Text>
+          <Text style={styles.title}>{deck.title}</Text>
 
           <TextInput
             style={styles.textInput}
             underlineColorAndroid="transparent"
-            placeholder="Deck Ttitle"
+            placeholder="Add Question"
             placeholderTextColor={black}
-            onChangeText={title => this.setState(() => ({ title }))}
+            onChangeText={question => this.setState(() => ({ question }))}
           />
-          <AddDeckButton onPress={this.handleAddDeck} />
+
+          <TextInput
+            style={styles.textInput}
+            underlineColorAndroid="transparent"
+            placeholder="Add Answer"
+            placeholderTextColor={black}
+            onChangeText={answer => this.setState(() => ({ answer }))}
+          />
+
+          <TouchableOpacity
+            style={[styles.button, { marginTop: 20, width: 150 }]}
+            onPress={this.handleAddCard}
+          >
+            <FontAwesome name="plus" size={20} color={antiFlashWhite} />
+            <Text style={{ fontSize: 18, color: antiFlashWhite }}>
+              Add Card
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -78,7 +84,6 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 15,
     height: 50,
-    width: 280,
     backgroundColor: antiFlashWhite,
     borderRadius: 3,
     color: black,
@@ -99,10 +104,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     backgroundColor: purple,
-  },
-  submitBtnText: {
-    color: purple,
-    fontSize: 22,
-    textAlign: 'center',
   },
 });
