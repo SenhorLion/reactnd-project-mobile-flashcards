@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   iosSubmitBtn: {
-    // backgroundColor: purple,
     padding: 4,
     borderRadius: 2,
     height: 35,
@@ -94,6 +93,7 @@ class Decks extends React.Component {
     const { isDecksLoaded } = this.state;
     const { decks } = this.props;
 
+    // TODO: Only pass props needed, instead of {...props}
     return (
       <View style={styles.container}>
         <Header title="Flash Cards" backgroundColor={purple} marginBottom={6} />

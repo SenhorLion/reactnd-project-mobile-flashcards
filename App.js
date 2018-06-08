@@ -37,6 +37,17 @@ const store = createStore(
   composeEnhancers(applyMiddleware(...middleWare))
 );
 
+const AddDeckStack = createStackNavigator({
+  // AddDeck: AddDeck,
+  AddDeck: {
+    screen: AddDeck,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  AddCard: AddCard,
+});
+
 // TODO make Tabs navigation its own module
 const Tabs = createBottomTabNavigator(
   {
@@ -50,7 +61,7 @@ const Tabs = createBottomTabNavigator(
       },
     },
     AddDeck: {
-      screen: AddDeck,
+      screen: AddDeckStack,
       navigationOptions: {
         tabBarLabel: 'Add Deck',
         tabBarIcon: ({ tintColor }) => (

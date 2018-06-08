@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   StyleSheet,
   Text,
@@ -8,6 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import { Constants, AppLoading } from 'expo';
+import { onAddDeck } from '../actions/deck-actions';
 import Header from '../components/ui/Header';
 import Footer from '../components/ui/Footer';
 
@@ -31,19 +33,42 @@ const AddDeckButton = ({ onPress }) => (
   </TouchableOpacity>
 );
 
-export default class AddDeck extends React.Component {
+class AddDeck extends React.Component {
   state = {
     isReady: false,
-    title: '',
+    deckTitle: '',
   };
 
   handleAddDeck = () => {
-    const { title } = this.state;
+    const { deckTitle } = this.state;
 
-    console.log('@handleAddDeck', title);
+    console.log('@handleAddDeck', deckTitle);
 
     // TODO: check input values
+    if (!deckTitle) {
+      // return  error notification
+      console.warn('You must submit a title for the deck');
+      return;
+    }
+    const newDeck = {
+      title: deckTitle,
+      questions: [],
+    };
+
     // TODO: Add deck to decks data
+    // TODO: Save to DB
+    this.props.dispatch(onAddDeck(newDeck));
+
+    console.log(`Added ${newDeck} deck to storage`);
+
+    // TODO: Navigate to AddCard
+    this.props.navigation.navigate('AddCard', {
+      deck: newDeck,
+      entryId: deckTitle,
+    });
+
+    // TODO: Show notification
+    // clearLocalNotifications().then(setLocalNotification);
   };
 
   render() {
@@ -53,14 +78,14 @@ export default class AddDeck extends React.Component {
         <View
           style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
         >
-          <Text style={styles.title}>Enter the Deck title</Text>
+          <Text style={styles.title}>Enter the title for this Deck:</Text>
 
           <TextInput
             style={styles.textInput}
             underlineColorAndroid="transparent"
-            placeholder="Deck Ttitle"
+            placeholder="Deck Title"
             placeholderTextColor={black}
-            onChangeText={title => this.setState(() => ({ title }))}
+            onChangeText={deckTitle => this.setState(() => ({ deckTitle }))}
           />
           <AddDeckButton onPress={this.handleAddDeck} />
         </View>
@@ -106,3 +131,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default connect()(AddDeck);
