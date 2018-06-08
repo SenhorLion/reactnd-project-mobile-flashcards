@@ -9,9 +9,18 @@ import {
   antiFlashWhite,
 } from '../utils/colors';
 import { FontAwesome } from '@expo/vector-icons';
+import ButtonTouchableOpacity from './ui/ButtonTouchableOpacity';
 
-const Deck = ({ deck, deck: { title, questions }, navigation }) => {
+const Deck = props => {
+  const { deck, deck: { title, questions }, navigation } = props;
+
+  console.log('DECK PROPS: ', props);
   const hasDeck = !!(deck && Object.keys(deck).length);
+
+  const handleDeleteDeck = deckId => {
+    console.log('DECK :: handleDeleteDeck', title);
+    props.onDeleteDeck(title);
+  };
 
   if (!hasDeck) {
     return (
@@ -34,6 +43,18 @@ const Deck = ({ deck, deck: { title, questions }, navigation }) => {
           <FontAwesome name="plus" size={20} color={antiFlashWhite} />
           <Text style={{ fontSize: 18, color: antiFlashWhite }}>View deck</Text>
         </TouchableOpacity>
+
+        <ButtonTouchableOpacity
+          backgroundColor={lightPurple}
+          marginTop={20}
+          width={150}
+          onPress={handleDeleteDeck}
+        >
+          <FontAwesome name="trash" size={20} color={antiFlashWhite} />
+          <Text style={{ fontSize: 18, color: antiFlashWhite }}>
+            Delete deck
+          </Text>
+        </ButtonTouchableOpacity>
       </View>
     </View>
   );

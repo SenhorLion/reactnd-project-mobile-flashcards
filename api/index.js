@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-const DECKS_STORAGE_KEY = 'mobileflashcards:deckabc';
+const DECKS_STORAGE_KEY = 'mobileflashcards:deck';
 
 const decksData = {
   React: {
@@ -61,10 +61,60 @@ const formatResults = results => {
 export const fetchAllDecks = () => {
   console.log('API::@fetchAllDecks');
 
+  // FOR TESTING: Clear storage
+  // AsyncStorage.clear();
+
   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(formatResults);
 };
 
-export const getDecks = () =>
-  AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY).then(
-    results => (results ? JSON.parse(results) : setDummyData())
+const asyncFetchAllDecks = () => {
+  console.log('API::@asyncFetchAllDecks');
+
+  // FOR TESTING: Clear storage
+  // AsyncStorage.clear();
+
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(decks =>
+    JSON.parse(decks)
   );
+};
+
+export const addDeck = deck => {
+  console.log('API::addDeck::', JSON.stringify(deck, null, 2));
+
+  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(deck));
+};
+
+export const deleteDeck = deckId => {
+  console.log('API::deleteDeck::', deckId);
+
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(result => {
+    const decks = JSON.parse(result);
+
+    decks[deckId] = undefined;
+    delete decks[deckId];
+
+    AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks));
+  });
+};
+
+export const addCardToDeck = (title, card) => {
+  console.log('API::addCardToDeck::', title, card);
+
+  return fetchAllDecks().then(decks => {
+    console.log('decks', decks);
+
+    // TODO: Refactor this
+    const updatedDecks = {
+      ...decks,
+      [title]: {
+        ...decks[title],
+        questions: decks[title].questions.concat([card]),
+      },
+    };
+
+    return AsyncStorage.setItem(
+      DECKS_STORAGE_KEY,
+      JSON.stringify(updatedDecks)
+    );
+  });
+};

@@ -9,15 +9,20 @@ import {
   antiFlashWhite,
 } from '../../utils/colors';
 
-const Button = props => {
-  const { marginTop, text, width, onPress, icon = 'plus' } = props;
+const ButtonTouchableOpacity = props => {
+  const {
+    marginTop,
+    width,
+    backgroundColor = '#f0f',
+    onPress,
+    children,
+  } = props;
   return (
     <TouchableOpacity
-      style={[styles.button, { marginTop, width }]}
+      style={[styles.button, { backgroundColor, marginTop, width }]}
       onPress={onPress}
     >
-      <FontAwesome name={icon} size={20} color={antiFlashWhite} />
-      <Text style={{ fontSize: 18, color: antiFlashWhite }}>{text}</Text>
+      {children}
     </TouchableOpacity>
   );
 };
@@ -34,4 +39,4 @@ const styles = StyleSheet.create({
     backgroundColor: purple,
   },
 });
-export default Button;
+export default ButtonTouchableOpacity;

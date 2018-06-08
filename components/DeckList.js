@@ -17,12 +17,12 @@ import ErrorBoundary from '../error/ErrorBoundary';
 
 class DeckList extends Component {
   render() {
-    const { decks, isDecksLoaded } = this.props;
+    const { decks } = this.props;
     const { isFetching, items } = decks;
 
     const hasDecks = !!(items && Object.keys(items).length);
 
-    if (!isDecksLoaded) {
+    if (isFetching) {
       return (
         <View
           style={{
@@ -38,7 +38,7 @@ class DeckList extends Component {
       );
     }
 
-    if (isDecksLoaded && !hasDecks) {
+    if (!isFetching && !hasDecks) {
       return (
         <View
           style={{

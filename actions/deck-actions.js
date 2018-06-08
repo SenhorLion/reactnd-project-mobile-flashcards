@@ -1,17 +1,18 @@
 import {
   ADD_CARD,
   ADD_DECK,
+  DELETE_DECK,
   FETCH_DECKS_REQUEST,
   FETCH_DECKS_SUCCESS,
 } from './actionTypes';
 
 import * as API from '../api';
 
-const requestAllDecks = () => ({
+export const requestAllDecks = () => ({
   type: FETCH_DECKS_REQUEST,
 });
 
-const receiveAllDecks = decks => ({
+export const receiveAllDecks = decks => ({
   type: FETCH_DECKS_SUCCESS,
   decks,
 });
@@ -19,6 +20,16 @@ const receiveAllDecks = decks => ({
 export const addDeck = deck => ({
   type: ADD_DECK,
   deck,
+});
+
+export const deleteDeck = deckId => ({
+  type: DELETE_DECK,
+  deckId,
+});
+
+export const addCard = card => ({
+  type: ADD_CARD,
+  card,
 });
 
 const fetchAllDecks = () => dispatch => {
@@ -33,4 +44,23 @@ const fetchAllDecks = () => dispatch => {
   });
 };
 
-export { fetchAllDecks };
+const onAddDeck = deck => dispatch => {
+  return API.addDeck(deck).then(deckData => {
+    return dispatch(addDeck(deck));
+  });
+};
+
+const onDeleteDeck = deckId => dispatch => {
+  return API.deleteDeck(deckId).then(deckData => {
+    return dispatch(deleteDeck(deckId));
+  });
+};
+
+const onAddCard = (title, card) => dispatch => {
+  return API.addCardToDeck(title, card).then(cardData => {
+    console.log('===\nACTION::onAddCard.then', cardData, '\n===');
+    return dispatch(addCard(cardData));
+  });
+};
+
+export { fetchAllDecks, onAddDeck, onAddCard, onDeleteDeck };
