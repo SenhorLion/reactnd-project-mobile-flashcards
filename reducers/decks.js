@@ -128,14 +128,23 @@ const decks = (state = defaultState, action) => {
     }
 
     case ADD_CARD: {
-      const { card } = action;
-      return state;
-      // return Object.assign({}, state, {
-      //   items: {
-      //     ...state.items,
-      //     [deck.title]: deck,
-      //   },
-      // });
+      const { entryId, card } = action;
+
+      console.log('==> ADD_CARD', state, action);
+
+      const newDeck = Object.assign({}, state, {
+        items: {
+          ...state.items,
+          [entryId]: {
+            ...state.items[entryId],
+            questions: [...state.items[entryId].questions, card],
+          },
+        },
+      });
+
+      console.log('\tnewDeckzzz', newDeck);
+
+      return newDeck;
     }
 
     default:

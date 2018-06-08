@@ -80,8 +80,14 @@ const asyncFetchAllDecks = () => {
 
 export const addDeck = deck => {
   console.log('API::addDeck::', JSON.stringify(deck, null, 2));
+  // TODO: sanitize data
+  const newDeck = {
+    [deck.title]: {
+      ...deck,
+    },
+  };
 
-  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(deck));
+  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(newDeck));
 };
 
 export const deleteDeck = deckId => {
@@ -100,15 +106,14 @@ export const deleteDeck = deckId => {
 export const addCardToDeck = (title, card) => {
   console.log('API::addCardToDeck::', title, card);
 
-  return fetchAllDecks().then(decks => {
-    console.log('decks', decks);
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(data => {
+    const decks = JSON.parse(data);
 
-    // TODO: Refactor this
     const updatedDecks = {
       ...decks,
       [title]: {
         ...decks[title],
-        questions: decks[title].questions.concat([card]),
+        questions: [...decks[title].questions, card],
       },
     };
 

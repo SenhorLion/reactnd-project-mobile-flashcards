@@ -16,19 +16,19 @@ it('renders Deck component without crashing', () => {
       },
     ],
   };
-  const DeckComponent = TestRenderer.create(<Deck />).toJSON();
+  const DeckComponent = TestRenderer.create(<Deck deck={deckMock} />).toJSON();
 
   expect(DeckComponent).toMatchSnapshot();
 });
 
-it.only('renders no deck avaialble message when no deck exists', () => {
+it('renders no deck avaialble message when no deck exists', () => {
   const decksMock = {};
   const DeckComponent = TestRenderer.create(<Deck deck={decksMock} />).toJSON();
 
   expect(DeckComponent).toMatchSnapshot();
 });
 
-it.only('renders deck', () => {
+it('renders deck', () => {
   const deckMock = {
     title: 'React',
     questions: [

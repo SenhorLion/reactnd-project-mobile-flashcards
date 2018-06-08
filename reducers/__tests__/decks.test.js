@@ -3,6 +3,7 @@ import {
   FETCH_DECKS_REQUEST,
   FETCH_DECKS_SUCCESS,
   ADD_DECK,
+  DELETE_DECK,
   ADD_CARD,
 } from '../../actions/actionTypes';
 
@@ -11,10 +12,11 @@ import {
   receiveAllDecks,
   addDeck,
   deleteDeck,
+  addCard,
 } from '../../actions/index';
 import decks from '../decks';
 
-describe.only('decks reducer tests', () => {
+describe('decks reducer tests', () => {
   it('should handle initial state', () => {
     const defaultState = {
       isFetching: true,
@@ -80,6 +82,9 @@ describe.only('decks reducer tests', () => {
     );
   });
 
+  /**
+   * ADD A DECK
+   */
   it('should ADD a Deck wihtout mutating state', () => {
     const defaultState = {
       isFetching: false,
@@ -141,6 +146,10 @@ describe.only('decks reducer tests', () => {
     expect(decks(defaultState, addDeck(deckPayload))).toEqual(expected);
   });
 
+  /**
+   * DELETE A DECK
+   */
+
   it('should DELETE a Deck wihtout mutating state', () => {
     const defaultState = {
       isFetching: false,
@@ -162,5 +171,54 @@ describe.only('decks reducer tests', () => {
     };
 
     expect(decks(defaultState, deleteDeck(deckId))).toEqual(expected);
+  });
+
+  /**
+   * ADD A CARD TO DECK
+   */
+  it('should ADD a new Card to a Deck wihtout mutating state', () => {
+    const defaultState = {
+      isFetching: false,
+      items: {
+        React: {
+          title: 'React',
+          questions: [],
+        },
+      },
+    };
+
+    deepFreeze(defaultState);
+
+    // {
+    //   question: 'What is React?',
+    //   answer: 'A library for managing user interfaces',
+    // },
+    // {
+    //   question: 'Where do you make Ajax requests in React?',
+    //   answer: 'The componentDidMount lifecycle event',
+    // },
+
+    const entryId = 'React';
+    const newCard = {
+      question: 'What is React?',
+      answer: 'A library for managing user interfaces',
+    };
+
+    const expected = {
+      isFetching: false,
+      items: {
+        React: {
+          title: 'React',
+          questions: [
+            {
+              question: 'What is React?',
+              answer: 'A library for managing user interfaces',
+            },
+          ],
+        },
+      },
+    };
+
+    expect(decks(defaultState, addCard(entryId, newCard))).toEqual(expected);
   });
 });

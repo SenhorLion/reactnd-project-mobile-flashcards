@@ -27,23 +27,21 @@ export const deleteDeck = deckId => ({
   deckId,
 });
 
-export const addCard = card => ({
+export const addCard = (entryId, card) => ({
   type: ADD_CARD,
+  entryId,
   card,
 });
 
 const fetchAllDecks = () => dispatch => {
-  console.log('DECKS_ACTIONS::fetchAllDecks');
-
   dispatch(requestAllDecks());
 
   return API.fetchAllDecks().then(decks => {
-    console.log('DECKS_ACTIONS::fetchAllDecks.then()', decks);
-
     return dispatch(receiveAllDecks(decks));
   });
 };
 
+// TODO: sanitize ALL data
 const onAddDeck = deck => dispatch => {
   return API.addDeck(deck).then(deckData => {
     return dispatch(addDeck(deck));
@@ -56,10 +54,9 @@ const onDeleteDeck = deckId => dispatch => {
   });
 };
 
-const onAddCard = (title, card) => dispatch => {
-  return API.addCardToDeck(title, card).then(cardData => {
-    console.log('===\nACTION::onAddCard.then', cardData, '\n===');
-    return dispatch(addCard(cardData));
+const onAddCard = (entryId, card) => dispatch => {
+  return API.addCardToDeck(entryId, card).then(cardData => {
+    return dispatch(addCard(entryId, card));
   });
 };
 
