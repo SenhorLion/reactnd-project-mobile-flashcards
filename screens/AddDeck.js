@@ -59,12 +59,16 @@ class AddDeck extends React.Component {
     // TODO: Save to DB
     this.props.dispatch(onAddDeck(newDeck));
 
+    this.setState(() => ({
+      deckTitle: '',
+    }));
+
     console.log(`Added ${newDeck} deck to storage`);
 
     // TODO: Navigate to AddCard
     this.props.navigation.navigate('AddCard', {
       deck: newDeck,
-      entryId: deckTitle,
+      entryId: newDeck.title,
     });
 
     // TODO: Show notification
@@ -72,6 +76,8 @@ class AddDeck extends React.Component {
   };
 
   render() {
+    const { deckTitle } = this.state;
+
     return (
       <View style={styles.container}>
         <Header title="Add Deck" backgroundColor={purple} marginBottom={6} />
@@ -86,6 +92,7 @@ class AddDeck extends React.Component {
             placeholder="Deck Title"
             placeholderTextColor={black}
             onChangeText={deckTitle => this.setState(() => ({ deckTitle }))}
+            value={deckTitle}
           />
           <AddDeckButton onPress={this.handleAddDeck} />
         </View>
