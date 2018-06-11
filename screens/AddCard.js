@@ -5,7 +5,6 @@ import {
   Text,
   TextInput,
   TouchableHighlight,
-  ToastAndroid,
   View,
   Platform,
 } from 'react-native';
@@ -23,7 +22,7 @@ import {
 } from '../utils/colors';
 import { onAddCard } from '../actions/deck-actions';
 import { getDeck } from '../api/index';
-import Modal from 'react-native-modal';
+import AppModal from '../components/ui/AppModal';
 
 class AddCard extends React.Component {
   state = {
@@ -74,7 +73,19 @@ class AddCard extends React.Component {
     this.setState({ modalVisible: visible });
   };
 
-  // NOTE: getAsyncDeck - used just for testing at the mo, remove if not being used
+  toggleModalVisible = () => {
+    this.setState(prevState => ({ modalVisible: !prevState.modalVisible }));
+  };
+
+  closeModal = () => {
+    this.setState({ modalVisible: false });
+  };
+
+  modalAction = () => {
+    console.log('@modalAction');
+  };
+
+  // NOTE: getAsyncDeck - used just for testing at the mo, remove if
   getAsyncDeck = async entryId => {
     console.log('\n@@@getAsyncDeck :: entryId', entryId);
     const deck = await getDeck(entryId);
@@ -112,6 +123,7 @@ class AddCard extends React.Component {
           <ButtonTouchableOpacity
             marginTop={20}
             width={150}
+            backgroundColor={lightPurple}
             onPress={this.handleAddCard}
           >
             <FontAwesome name="plus" size={20} color={antiFlashWhite} />
@@ -121,23 +133,24 @@ class AddCard extends React.Component {
           </ButtonTouchableOpacity>
         </View>
 
-        <Modal
-          animationIn="slideInUp"
+        <AppModal
           backdropColor={black}
           isVisible={this.state.modalVisible}
-          onBackdropPress={() => this.setModalVisible(!this.state.modalVisible)}
+          closeModal={this.closeModal}
+          closeModalTimer={1000}
+          onBackdropPress={this.toggleModalVisible}
         >
-          <View style={styles.modalContent}>
+          <View>
             <Text>New card added!</Text>
-            <TouchableHighlight
-              onPress={() => {
-                this.setModalVisible(!this.state.modalVisible);
-              }}
+            <ButtonTouchableOpacity
+              width={150}
+              backgroundColor={lightPurple}
+              onPress={this.toggleModalVisible}
             >
               <Text>Close Modal</Text>
-            </TouchableHighlight>
+            </ButtonTouchableOpacity>
           </View>
-        </Modal>
+        </AppModal>
       </View>
     );
   }
@@ -148,14 +161,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  modalContent: {
-    backgroundColor: 'white',
-    padding: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 4,
-    borderColor: 'rgba(0, 0, 0, 0.1)',
-  },
+
   textInput: {
     margin: 10,
     padding: 15,
