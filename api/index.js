@@ -67,6 +67,14 @@ export const fetchAllDecks = () => {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(formatResults);
 };
 
+export const getDeck = deckId => {
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(result => {
+    const decks = JSON.parse(result);
+
+    return decks[deckId];
+  });
+};
+
 const asyncFetchAllDecks = () => {
   console.log('API::@asyncFetchAllDecks');
 

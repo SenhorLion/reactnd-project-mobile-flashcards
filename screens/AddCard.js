@@ -6,7 +6,6 @@ import {
   TextInput,
   TouchableHighlight,
   ToastAndroid,
-  Modal,
   View,
   Platform,
 } from 'react-native';
@@ -23,6 +22,8 @@ import {
   antiFlashWhite,
 } from '../utils/colors';
 import { onAddCard } from '../actions/deck-actions';
+import { getDeck } from '../api/index';
+import Modal from 'react-native-modal';
 
 class AddCard extends React.Component {
   state = {
@@ -32,12 +33,18 @@ class AddCard extends React.Component {
     modalVisible: false,
   };
 
+  componentDidMount() {
+    console.log('@componentDidMount');
+
+    const { deck, entryId } = this.props.navigation.state.params;
+
+    // NOTE: getAsyncDeck for testing at the mo, remove if not using!
+    this.getAsyncDeck(entryId);
+  }
+
   handleAddCard = () => {
     const { question, answer } = this.state;
     const { deck, entryId } = this.props.navigation.state.params;
-
-    console.log('@handleAddCard');
-    console.log('DECK_INFO', entryId, question, answer);
 
     // TODO: check for values
 
@@ -46,7 +53,6 @@ class AddCard extends React.Component {
       answer,
     };
 
-    // TODO: Clear form - this aint woikin gright now??!
     this.setState({
       question: '',
       answer: '',
@@ -66,6 +72,14 @@ class AddCard extends React.Component {
 
   setModalVisible = visible => {
     this.setState({ modalVisible: visible });
+  };
+
+  // NOTE: getAsyncDeck - used just for testing at the mo, remove if not being used
+  getAsyncDeck = async entryId => {
+    console.log('\n@@@getAsyncDeck :: entryId', entryId);
+    const deck = await getDeck(entryId);
+
+    console.log('\treturned deck', deck);
   };
 
   render() {
@@ -108,25 +122,20 @@ class AddCard extends React.Component {
         </View>
 
         <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            console.log('Modal has been closed.');
-          }}
+          animationIn="slideInUp"
+          backdropColor={black}
+          isVisible={this.state.modalVisible}
+          onBackdropPress={() => this.setModalVisible(!this.state.modalVisible)}
         >
-          <View style={{ marginTop: 80 }}>
-            <View>
-              <Text>New card added!</Text>
-
-              <TouchableHighlight
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}
-              >
-                <Text>Close Modal</Text>
-              </TouchableHighlight>
-            </View>
+          <View style={styles.modalContent}>
+            <Text>New card added!</Text>
+            <TouchableHighlight
+              onPress={() => {
+                this.setModalVisible(!this.state.modalVisible);
+              }}
+            >
+              <Text>Close Modal</Text>
+            </TouchableHighlight>
           </View>
         </Modal>
       </View>
@@ -138,6 +147,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
   },
   textInput: {
     margin: 10,
