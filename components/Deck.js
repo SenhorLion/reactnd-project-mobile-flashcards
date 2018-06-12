@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import {
   black,
@@ -11,54 +11,62 @@ import {
 import { FontAwesome } from '@expo/vector-icons';
 import ButtonTouchableOpacity from './ui/ButtonTouchableOpacity';
 
-const Deck = props => {
-  const { deck, deck: { title, questions }, navigation } = props;
+class Deck extends Component {
+  render() {
+    const {
+      deck,
+      deck: { title, questions },
+      handleDeleteDeck,
+      navigation,
+    } = this.props;
 
-  console.log('DECK PROPS: ', props);
-  const hasDeck = !!(deck && Object.keys(deck).length);
+    const hasDeck = !!(deck && Object.keys(deck).length);
 
-  const handleDeleteDeck = deckId => {
-    console.log('DECK :: handleDeleteDeck', title);
-    props.onDeleteDeck(title);
-  };
-
-  if (!hasDeck) {
+    if (!hasDeck) {
+      return (
+        <View style={styles.deck}>
+          <Text>No Deck exists</Text>
+        </View>
+      );
+    }
     return (
       <View style={styles.deck}>
-        <Text>No Deck exists</Text>
+        <View style={styles.deckContainer}>
+          <Text style={[styles.titleText, {}]}>{title}</Text>
+          <Text style={styles.subText}>{`${questions.length} cards`}</Text>
+          <ButtonTouchableOpacity
+            backgroundColor={purple}
+            marginTop={10}
+            width={150}
+            onPress={() => {
+              return navigation.navigate('DeckDetail', {
+                deck,
+                deckId: title,
+              });
+            }}
+          >
+            <FontAwesome name="plus" size={20} color={antiFlashWhite} />
+            <Text style={{ fontSize: 18, color: antiFlashWhite }}>
+              View deck
+            </Text>
+          </ButtonTouchableOpacity>
+
+          <ButtonTouchableOpacity
+            backgroundColor={lightPurple}
+            marginTop={10}
+            width={150}
+            onPress={() => handleDeleteDeck(deck)}
+          >
+            <FontAwesome name="trash" size={20} color={antiFlashWhite} />
+            <Text style={{ fontSize: 18, color: antiFlashWhite }}>
+              Delete deck
+            </Text>
+          </ButtonTouchableOpacity>
+        </View>
       </View>
     );
   }
-  return (
-    <View style={styles.deck}>
-      <View style={styles.deckContainer}>
-        <Text style={[styles.titleText, {}]}>{title}</Text>
-        <Text style={styles.subText}>{`${questions.length} cards`}</Text>
-        <TouchableOpacity
-          style={[styles.button, { marginTop: 20, width: 150 }]}
-          onPress={() => {
-            return navigation.navigate('DeckDetail', { deck, entryId: title });
-          }}
-        >
-          <FontAwesome name="plus" size={20} color={antiFlashWhite} />
-          <Text style={{ fontSize: 18, color: antiFlashWhite }}>View deck</Text>
-        </TouchableOpacity>
-
-        <ButtonTouchableOpacity
-          backgroundColor={lightPurple}
-          marginTop={20}
-          width={150}
-          onPress={handleDeleteDeck}
-        >
-          <FontAwesome name="trash" size={20} color={antiFlashWhite} />
-          <Text style={{ fontSize: 18, color: antiFlashWhite }}>
-            Delete deck
-          </Text>
-        </ButtonTouchableOpacity>
-      </View>
-    </View>
-  );
-};
+}
 
 const styles = StyleSheet.create({
   deck: {
@@ -87,16 +95,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     color: gray,
-  },
-  button: {
-    flexDirection: 'row',
-    padding: 4,
-    margin: 4,
-    height: 40,
-    width: 80,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    backgroundColor: purple,
   },
 });
 
