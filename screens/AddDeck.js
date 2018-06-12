@@ -9,7 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import { Constants, AppLoading } from 'expo';
-import { onAddDeck } from '../actions/deck-actions';
+import { onAddDeck } from '../actions';
 import Header from '../components/ui/Header';
 import Footer from '../components/ui/Footer';
 
@@ -57,21 +57,21 @@ class AddDeck extends React.Component {
 
     // TODO: Add deck to decks data
     // TODO: Save to DB
-    this.props.dispatch(onAddDeck(newDeck));
+    this.props.onAddDeck(newDeck).then(res => {
+      const { title } = res.deck;
 
-    this.setState(() => ({
-      deckTitle: '',
-    }));
+      // Clear deckTitle from state
+      this.setState(() => ({
+        deckTitle: '',
+      }));
 
-    console.log(`Added ${newDeck} deck to storage`);
-
-    // TODO: Navigate to AddCard
-    this.props.navigation.navigate('AddCard', {
-      deck: newDeck,
-      entryId: newDeck.title,
+      // Navigate to AddCard
+      this.props.navigation.navigate('AddCard', {
+        deckId: title,
+      });
     });
 
-    // TODO: Show notification
+    // TODO: Setup Local notification message to remind to study
     // clearLocalNotifications().then(setLocalNotification);
   };
 
@@ -139,4 +139,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect()(AddDeck);
+export default connect(null, { onAddDeck })(AddDeck);
