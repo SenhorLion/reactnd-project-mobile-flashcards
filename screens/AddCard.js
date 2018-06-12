@@ -20,15 +20,15 @@ import {
   white,
   antiFlashWhite,
 } from '../utils/colors';
-import { onAddCard } from '../actions/deck-actions';
+import { onAddCard } from '../actions';
 import { getDeck } from '../api/index';
 import AppModal from '../components/ui/AppModal';
 
 class AddCard extends React.Component {
   state = {
     isReady: false,
-    question: '',
-    answer: '',
+    question: null,
+    answer: null,
     modalVisible: false,
   };
 
@@ -45,7 +45,14 @@ class AddCard extends React.Component {
     const { question, answer } = this.state;
     const { deck, deckId } = this.props.navigation.state.params;
 
-    // TODO: check for values
+    // Check we have question || answer values
+    if (!question || !answer) {
+      console.log('You must add both a question and a answer!');
+
+      // TODO: Display a modal message to user
+      // - must refactor modal to handle mulitple uses
+      return;
+    }
 
     const newCard = {
       question,
@@ -53,20 +60,16 @@ class AddCard extends React.Component {
     };
 
     this.setState({
-      question: '',
-      answer: '',
+      question: null,
+      answer: null,
     });
 
-    this.props.dispatch(onAddCard(deckId, newCard));
-
-    // ToastAndroid.show('New Card Added, Add another one?', ToastAndroid.SHORT);
-
-    this.setModalVisible(true);
-
-    // Notification on succesfully added card
-    console.log('Added Card, Add another one?');
-
-    // Allow user to add more cards
+    this.props.onAddCard(deckId, newCard).then(res => {
+      // Notification on succesfully added card
+      this.setModalVisible(true);
+      // Allow user to add more cards
+      console.log('Added Card, Add another one?');
+    });
   };
 
   setModalVisible = visible => {
@@ -81,21 +84,18 @@ class AddCard extends React.Component {
     this.setState({ modalVisible: false });
   };
 
-  modalAction = () => {
-    console.log('@modalAction');
-  };
-
   // NOTE: getAsyncDeck - used just for testing at the mo, remove if
   getAsyncDeck = async deckId => {
     console.log('\n@@@getAsyncDeck :: deckId', deckId);
     const deck = await getDeck(deckId);
-
-    console.log('\treturned deck', deck);
   };
 
   render() {
-    const { deck, deckId } = this.props.navigation.state.params;
+    const { deck, deckId } = this.props;
     const { question, answer } = this.state;
+    const isDisabled = !!(question === null || answer === null);
+
+    console.log('isDisabled', isDisabled);
 
     return (
       <View style={styles.container}>
@@ -172,4 +172,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect()(AddCard);
+const mapStateToProps = ({ decks }, ownProps) => {
+  const { deckId } = ownProps.navigation.state.params;
+  const deck = decks.items[deckId];
+
+  return {
+    deckId,
+    deck,
+  };
+};
+
+export default connect(mapStateToProps, { onAddCard })(AddCard);
