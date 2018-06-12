@@ -131,3 +131,36 @@ export const addCardToDeck = (title, card) => {
     );
   });
 };
+
+/**
+ * @function deleteCardFromDeck
+ * @param {string} deckId
+ * @param {number} cardIndex
+ */
+export const deleteCardFromDeck = (deckId, cardIndex) => {
+  console.log('API::deleteCardFromDeck::', deckId, cardIndex);
+
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(result => {
+    const decks = JSON.parse(result);
+
+    const filteredCards = [
+      // from the start to the one we want to delete
+      ...decks[deckId].questions.slice(0, cardIndex),
+      // after the deleted one, to the end
+      ...decks[deckId].questions.slice(cardIndex + 1),
+    ];
+
+    const updatedDecks = {
+      ...decks,
+      [deckId]: {
+        ...decks[deckId],
+        questions: filteredCards,
+      },
+    };
+
+    return AsyncStorage.setItem(
+      DECKS_STORAGE_KEY,
+      JSON.stringify(updatedDecks)
+    );
+  });
+};

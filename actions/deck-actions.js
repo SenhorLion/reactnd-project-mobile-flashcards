@@ -73,4 +73,4 @@ const onDeleteCard = (deckId, cardIndex) => dispatch => {
   });
 };
 
-export { fetchAllDecks, onAddDeck, onAddCard, onDeleteDeck };
+export { fetchAllDecks, onAddDeck, onAddCard, onDeleteDeck, onDeleteCard };
