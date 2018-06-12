@@ -100,14 +100,14 @@ const applyDeleteDeck = (state, action) => {
  * return {object} new deck
  */
 const applyAddCardToDeck = (state, action) => {
-  const { entryId, card } = action;
+  const { deckId, card } = action;
 
   const newDeck = Object.assign({}, state, {
     items: {
       ...state.items,
-      [entryId]: {
-        ...state.items[entryId],
-        questions: [...state.items[entryId].questions, card],
+      [deckId]: {
+        ...state.items[deckId],
+        questions: [...state.items[deckId].questions, card],
       },
     },
   });
@@ -115,7 +115,7 @@ const applyAddCardToDeck = (state, action) => {
   return newDeck;
 };
 /**
- * Removes a card form a deck
+ * Remove a card from a deck
  * @function applyDeleteCardFromDeck
  * @param {object} state
  * @param {object} action
@@ -124,16 +124,12 @@ const applyAddCardToDeck = (state, action) => {
 const applyDeleteCardFromDeck = (state, action) => {
   const { deckId, cardIndex } = action;
 
-  console.log('==> applyDeleteCardFromDeck', state, action);
-
   const filteredCards = [
     // from the start to the one we want to delete
     ...state.items[deckId].questions.slice(0, cardIndex),
     // after the deleted one, to the end
     ...state.items[deckId].questions.slice(cardIndex + 1),
   ];
-
-  console.log('filteredCards', filteredCards);
 
   const newDeck = Object.assign({}, state, {
     items: {
@@ -144,7 +140,6 @@ const applyDeleteCardFromDeck = (state, action) => {
       },
     },
   });
-  console.log('newDeck', newDeck);
 
   return newDeck;
 };

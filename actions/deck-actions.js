@@ -28,9 +28,9 @@ export const deleteDeck = deckId => ({
   deckId,
 });
 
-export const addCard = (entryId, card) => ({
+export const addCard = (deckId, card) => ({
   type: ADD_CARD,
-  entryId,
+  deckId,
   card,
 });
 
@@ -61,15 +61,15 @@ const onDeleteDeck = deckId => dispatch => {
   });
 };
 
-const onAddCard = (entryId, card) => dispatch => {
-  return API.addCardToDeck(entryId, card).then(cardData => {
-    return dispatch(addCard(entryId, card));
+const onAddCard = (deckId, card) => dispatch => {
+  return API.addCardToDeck(deckId, card).then(cardData => {
+    return dispatch(addCard(deckId, card));
   });
 };
 
-const onDeleteCard = (entryId, entryIndex) => dispatch => {
-  return API.deleteCardFromDeck(entryId, entryIndex).then(cardData => {
-    return dispatch(deleteCard(entryId, entryIndex));
+const onDeleteCard = (deckId, cardIndex) => dispatch => {
+  return API.deleteCardFromDeck(deckId, cardIndex).then(cardData => {
+    return dispatch(deleteCard(deckId, cardIndex));
   });
 };
 

@@ -1,11 +1,4 @@
 import deepFreeze from 'deep-freeze';
-import {
-  FETCH_DECKS_REQUEST,
-  FETCH_DECKS_SUCCESS,
-  ADD_DECK,
-  DELETE_DECK,
-  ADD_CARD,
-} from '../../actions/actionTypes';
 
 import {
   requestAllDecks,
@@ -15,6 +8,7 @@ import {
   deleteCard,
   addCard,
 } from '../../actions/index';
+
 import decks from '../decks';
 
 describe('decks reducer tests', () => {
@@ -150,7 +144,7 @@ describe('decks reducer tests', () => {
   /**
    * DELETE A DECK
    */
-  it('should DELETE a Deck wihtout mutating state', () => {
+  it('should DELETE a Deck without mutating state', () => {
     const defaultState = {
       isFetching: false,
       items: {
@@ -198,7 +192,7 @@ describe('decks reducer tests', () => {
     //   answer: 'The componentDidMount lifecycle event',
     // },
 
-    const entryId = 'React';
+    const deckId = 'React';
     const newCard = {
       question: 'What is React?',
       answer: 'A library for managing user interfaces',
@@ -219,7 +213,7 @@ describe('decks reducer tests', () => {
       },
     };
 
-    expect(decks(defaultState, addCard(entryId, newCard))).toEqual(expected);
+    expect(decks(defaultState, addCard(deckId, newCard))).toEqual(expected);
   });
 
   /**
