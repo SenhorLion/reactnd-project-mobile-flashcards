@@ -37,10 +37,13 @@ class AppModal extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.isVisible !== prevProps.isVisible) {
       const { closeModal, closeModalTimer } = this.props;
-      //  Start clear timer
-      // clear any existing timer first
-      clearTimeout(this.timerID);
-      this.timerID = setTimeout(() => closeModal(), closeModalTimer);
+
+      if (closeModalTimer) {
+        // Clear any existing timer first
+        // then Start clear timer
+        clearTimeout(this.timerID);
+        this.timerID = setTimeout(() => closeModal(), closeModalTimer);
+      }
     }
   }
 
@@ -69,6 +72,8 @@ class AppModal extends Component {
   }
 }
 
-AppModal.defaultProps = { closeModalTimer: 3000 };
+// Set defaultProps
+// - closeModalTimer: 0 - so a specific modal must set this to activate timer to close modal
+AppModal.defaultProps = { closeModalTimer: 0 };
 
 export default AppModal;
