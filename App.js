@@ -27,6 +27,7 @@ import Decks from './screens/Decks';
 import DeckDetail from './screens/DeckDetail';
 import AddDeck from './screens/AddDeck';
 import AddCard from './screens/AddCard';
+import EditCard from './screens/EditCard';
 import AppStatusBar from './components/ui/AppStatusBar';
 
 // NOTE: composeWithDevTools not currently working in redux dev
@@ -105,6 +106,16 @@ const MainNavigator = createStackNavigator({
       },
     },
   },
+  EditCard: {
+    screen: EditCard,
+    navigationOptions: {
+      title: 'Edit Deck',
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      },
+    },
+  },
   // Quiz: {
   //   screen: Quiz,
   //   navigationOptions: {
@@ -156,7 +167,6 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: white,
     alignItems: 'stretch',
     justifyContent: 'space-between',
   },
