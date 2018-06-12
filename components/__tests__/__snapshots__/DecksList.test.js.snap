@@ -143,7 +143,7 @@ exports[`displays all decks when decks are loaded and exist 1`] = `
               "height": 40,
               "justifyContent": "space-around",
               "margin": 4,
-              "marginTop": 20,
+              "marginTop": 10,
               "opacity": 1,
               "padding": 4,
               "width": 150,
