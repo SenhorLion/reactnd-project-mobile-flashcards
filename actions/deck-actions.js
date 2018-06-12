@@ -1,5 +1,6 @@
 import {
   ADD_CARD,
+  DELETE_CARD,
   ADD_DECK,
   DELETE_DECK,
   FETCH_DECKS_REQUEST,
@@ -33,6 +34,12 @@ export const addCard = (entryId, card) => ({
   card,
 });
 
+export const deleteCard = (deckId, cardIndex) => ({
+  type: DELETE_CARD,
+  deckId,
+  cardIndex,
+});
+
 const fetchAllDecks = () => dispatch => {
   dispatch(requestAllDecks());
 
@@ -57,6 +64,12 @@ const onDeleteDeck = deckId => dispatch => {
 const onAddCard = (entryId, card) => dispatch => {
   return API.addCardToDeck(entryId, card).then(cardData => {
     return dispatch(addCard(entryId, card));
+  });
+};
+
+const onDeleteCard = (entryId, entryIndex) => dispatch => {
+  return API.deleteCardFromDeck(entryId, entryIndex).then(cardData => {
+    return dispatch(deleteCard(entryId, entryIndex));
   });
 };
 

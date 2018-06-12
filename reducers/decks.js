@@ -2,6 +2,7 @@ import {
   FETCH_DECKS_REQUEST,
   FETCH_DECKS_SUCCESS,
   ADD_CARD,
+  DELETE_CARD,
   ADD_DECK,
   DELETE_DECK,
 } from '../actions/actionTypes';
@@ -20,8 +21,6 @@ import {
  */
 const applyFetchDecks = (state, action) => {
   const { decks } = action;
-
-  console.log('==> applyFetchDecks :: state: ', state, 'action: ', action);
 
   return Object.assign({}, state, {
     isFetching: false,
@@ -45,12 +44,6 @@ const applyFetchDecks = (state, action) => {
  * @return {Object} new state
  */
 const applyFetchDecksRequest = (state, action) => {
-  console.log(
-    '==> applyFetchDecksRequest :: state: ',
-    state,
-    'action: ',
-    action
-  );
   return { ...state, isFetching: true };
 };
 
@@ -68,7 +61,6 @@ const applyFetchDecksRequest = (state, action) => {
  */
 const applyAddDeck = (state, action) => {
   const { deck } = action;
-  console.log('==> applyAddDeck :: ', 'state:', state, 'action:', action);
 
   const newDeck = Object.assign({}, state, {
     items: {
@@ -76,7 +68,6 @@ const applyAddDeck = (state, action) => {
       [deck.title]: deck,
     },
   });
-  console.log('\tnewDeck', newDeck);
 
   return newDeck;
 };
@@ -99,6 +90,63 @@ const applyDeleteDeck = (state, action) => {
   return Object.assign({}, state, {
     items: filterDecks,
   });
+};
+
+/**
+ * Adds a new card to a deck
+ * @function applyAddCardToDeck
+ * @param {object} state
+ * @param {object} action
+ * return {object} new deck
+ */
+const applyAddCardToDeck = (state, action) => {
+  const { entryId, card } = action;
+
+  const newDeck = Object.assign({}, state, {
+    items: {
+      ...state.items,
+      [entryId]: {
+        ...state.items[entryId],
+        questions: [...state.items[entryId].questions, card],
+      },
+    },
+  });
+
+  return newDeck;
+};
+/**
+ * Removes a card form a deck
+ * @function applyDeleteCardFromDeck
+ * @param {object} state
+ * @param {object} action
+ * return {object}
+ */
+const applyDeleteCardFromDeck = (state, action) => {
+  const { deckId, cardIndex } = action;
+
+  console.log('==> applyDeleteCardFromDeck', state, action);
+
+  const filteredCards = [
+    // from the start to the one we want to delete
+    ...state.items[deckId].questions.slice(0, cardIndex),
+    // after the deleted one, to the end
+    ...state.items[deckId].questions.slice(cardIndex + 1),
+  ];
+
+  console.log('filteredCards', filteredCards);
+
+  const newDeck = Object.assign({}, state, {
+    items: {
+      ...state.items,
+      [deckId]: {
+        ...state.items[deckId],
+        questions: filteredCards,
+      },
+    },
+  });
+  console.log('newDeck', newDeck);
+
+  return newDeck;
 };
 
 /**
@@ -128,23 +176,11 @@ const decks = (state = defaultState, action) => {
     }
 
     case ADD_CARD: {
-      const { entryId, card } = action;
+      return applyAddCardToDeck(state, action);
+    }
 
-      console.log('==> ADD_CARD', state, action);
-
-      const newDeck = Object.assign({}, state, {
-        items: {
-          ...state.items,
-          [entryId]: {
-            ...state.items[entryId],
-            questions: [...state.items[entryId].questions, card],
-          },
-        },
-      });
-
-      console.log('\tnewDeckzzz', newDeck);
-
-      return newDeck;
+    case DELETE_CARD: {
+      return applyDeleteCardFromDeck(state, action);
     }
 
     default:

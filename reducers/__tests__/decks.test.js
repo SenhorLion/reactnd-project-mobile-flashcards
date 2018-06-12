@@ -12,6 +12,7 @@ import {
   receiveAllDecks,
   addDeck,
   deleteDeck,
+  deleteCard,
   addCard,
 } from '../../actions/index';
 import decks from '../decks';
@@ -149,7 +150,6 @@ describe('decks reducer tests', () => {
   /**
    * DELETE A DECK
    */
-
   it('should DELETE a Deck wihtout mutating state', () => {
     const defaultState = {
       isFetching: false,
@@ -220,5 +220,89 @@ describe('decks reducer tests', () => {
     };
 
     expect(decks(defaultState, addCard(entryId, newCard))).toEqual(expected);
+  });
+
+  /**
+   * DELETE A CARD FROM DECK
+   */
+  it('should Delete a Card from a Deck wihtout mutating state', () => {
+    const defaultState = {
+      isFetching: false,
+      items: {
+        React: {
+          title: 'React',
+          questions: [
+            {
+              question: 'What is React?',
+              answer: 'A library for managing user interfaces',
+            },
+          ],
+        },
+      },
+    };
+
+    deepFreeze(defaultState);
+
+    const deckId = 'React';
+    const cardIndex = 0;
+
+    const expected = {
+      isFetching: false,
+      items: {
+        React: {
+          title: 'React',
+          questions: [],
+        },
+      },
+    };
+
+    expect(decks(defaultState, deleteCard(deckId, cardIndex))).toEqual(
+      expected
+    );
+  });
+
+  it('should Delete a Card from a Deck wihtout mutating state', () => {
+    const defaultState = {
+      isFetching: false,
+      items: {
+        React: {
+          title: 'React',
+          questions: [
+            {
+              question: 'What is React?',
+              answer: 'A library for managing user interfaces',
+            },
+            {
+              question: 'Where do you make Ajax requests in React?',
+              answer: 'The componentDidMount lifecycle event',
+            },
+          ],
+        },
+      },
+    };
+
+    deepFreeze(defaultState);
+
+    const deckId = 'React';
+    const cardIndex = 1;
+
+    const expected = {
+      isFetching: false,
+      items: {
+        React: {
+          title: 'React',
+          questions: [
+            {
+              question: 'What is React?',
+              answer: 'A library for managing user interfaces',
+            },
+          ],
+        },
+      },
+    };
+
+    expect(decks(defaultState, deleteCard(deckId, cardIndex))).toEqual(
+      expected
+    );
   });
 });
