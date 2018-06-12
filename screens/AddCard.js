@@ -35,15 +35,15 @@ class AddCard extends React.Component {
   componentDidMount() {
     console.log('@componentDidMount');
 
-    const { deck, entryId } = this.props.navigation.state.params;
+    const { deck, deckId } = this.props.navigation.state.params;
 
     // NOTE: getAsyncDeck for testing at the mo, remove if not using!
-    this.getAsyncDeck(entryId);
+    this.getAsyncDeck(deckId);
   }
 
   handleAddCard = () => {
     const { question, answer } = this.state;
-    const { deck, entryId } = this.props.navigation.state.params;
+    const { deck, deckId } = this.props.navigation.state.params;
 
     // TODO: check for values
 
@@ -57,7 +57,7 @@ class AddCard extends React.Component {
       answer: '',
     });
 
-    this.props.dispatch(onAddCard(entryId, newCard));
+    this.props.dispatch(onAddCard(deckId, newCard));
 
     // ToastAndroid.show('New Card Added, Add another one?', ToastAndroid.SHORT);
 
@@ -86,15 +86,15 @@ class AddCard extends React.Component {
   };
 
   // NOTE: getAsyncDeck - used just for testing at the mo, remove if
-  getAsyncDeck = async entryId => {
-    console.log('\n@@@getAsyncDeck :: entryId', entryId);
-    const deck = await getDeck(entryId);
+  getAsyncDeck = async deckId => {
+    console.log('\n@@@getAsyncDeck :: deckId', deckId);
+    const deck = await getDeck(deckId);
 
     console.log('\treturned deck', deck);
   };
 
   render() {
-    const { deck, entryId } = this.props.navigation.state.params;
+    const { deck, deckId } = this.props.navigation.state.params;
     const { question, answer } = this.state;
 
     return (
@@ -137,18 +137,11 @@ class AddCard extends React.Component {
           backdropColor={black}
           isVisible={this.state.modalVisible}
           closeModal={this.closeModal}
-          closeModalTimer={1000}
+          closeModalTimer={1250}
           onBackdropPress={this.toggleModalVisible}
         >
           <View>
             <Text>New card added!</Text>
-            <ButtonTouchableOpacity
-              width={150}
-              backgroundColor={lightPurple}
-              onPress={this.toggleModalVisible}
-            >
-              <Text>Close Modal</Text>
-            </ButtonTouchableOpacity>
           </View>
         </AppModal>
       </View>
