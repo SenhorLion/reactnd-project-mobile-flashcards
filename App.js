@@ -23,6 +23,7 @@ import rootReducer from './reducers';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
 import { white, purple } from './utils/colors';
+import Quiz from './screens/Quiz';
 import Decks from './screens/Decks';
 import DeckDetail from './screens/DeckDetail';
 import AddDeck from './screens/AddDeck';
@@ -116,16 +117,16 @@ const MainNavigator = createStackNavigator({
       },
     },
   },
-  // Quiz: {
-  //   screen: Quiz,
-  //   navigationOptions: {
-  //     title: 'Quiz',
-  //     headerTintColor: white,
-  //     headerStyle: {
-  //       backgroundColor: purple,
-  //     },
-  //   },
-  // },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      title: 'Quiz',
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      },
+    },
+  },
   AddCard: {
     screen: AddCard,
     navigationOptions: {

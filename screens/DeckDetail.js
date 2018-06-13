@@ -204,7 +204,10 @@ class DeckDetail extends Component {
             marginTop={20}
             width={150}
             backgroundColor={lightPurple}
-            onPress={() => console.log('Start Quiz')}
+            onPress={() => {
+              console.log('Start Quiz');
+              navigation.navigate('Quiz', { deck, deckId });
+            }}
           >
             <FontAwesome name="comments" size={20} color={antiFlashWhite} />
             <Text style={{ fontSize: 18, color: antiFlashWhite }}>
