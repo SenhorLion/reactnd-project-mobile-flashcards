@@ -22,14 +22,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   title: {
+    textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 24,
     color: purple,
+    marginTop: 10,
   },
   cardCount: {
+    textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 20,
     color: gray,
+    marginBottom: 10,
   },
 });
 
@@ -85,9 +89,8 @@ class EditCard extends Component {
 
     return (
       <ScrollView style={styles.container}>
-        <View>
-          <Text>deckId - {deckId}</Text>
-          <Text style={styles.title}>Edit: {deck.title}</Text>
+        <View styles={{ flex: 1, padding: 10 }}>
+          <Text style={styles.title}>Cards for {deck.title}</Text>
           <Text style={styles.cardCount}>{`${numOfCards} ${
             numOfCards > 1 ? 'cards' : 'card'
           }`}</Text>
