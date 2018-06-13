@@ -52,10 +52,11 @@ class Card extends Component {
   };
 
   render() {
-    const { card, cardIndex, handleDeleteCard } = this.props;
+    const { card, handleDeleteCard } = this.props;
     return (
       <View style={styles.card}>
         <View style={styles.cardContainer}>
+          <Text>id: {card.id}</Text>
           <Text>Question: {card.question}</Text>
           <Text>Answer: {card.answer}</Text>
 
@@ -63,7 +64,7 @@ class Card extends Component {
             backgroundColor={lightPurple}
             marginTop={10}
             width={150}
-            onPress={() => handleDeleteCard(card, cardIndex)}
+            onPress={() => handleDeleteCard(card)}
           >
             <FontAwesome name="trash" size={20} color={antiFlashWhite} />
             <Text style={{ fontSize: 18, color: antiFlashWhite }}>

@@ -1,15 +1,61 @@
 import deepFreeze from 'deep-freeze';
-
+import cuid from 'cuid';
 import {
   requestAllDecks,
   receiveAllDecks,
   addDeck,
+  editDeck,
   deleteDeck,
   deleteCard,
   addCard,
 } from '../../actions/index';
 
 import decks from '../decks';
+
+const defaultDecksData = {
+  cjid9dgxu0000zx8urifcccii: {
+    id: 'cjid9dgxu0000zx8urifcccii',
+    timestamp: 1528905228099,
+    title: 'React',
+    questions: [
+      {
+        id: 'cjid9dgxu0000zx8urifcccaa',
+        question: 'What is React?',
+        answer: 'A library for managing user interfaces',
+      },
+      {
+        id: 'cjid9dgxu0000zx8urifcccbb',
+        question: 'Where do you make Ajax requests in React?',
+        answer: 'The componentDidMount lifecycle event',
+      },
+    ],
+  },
+  cjid9dgxx0001zx8ui54qdjuv: {
+    id: 'cjid9dgxx0001zx8ui54qdjuv',
+    timestamp: 1528905210982,
+    title: 'JavaScript',
+    questions: [
+      {
+        id: 'cjid9dgxu0000zx8urifcccdd',
+        question: 'What is a closure?',
+        answer:
+          'The combination of a function and the lexical environment within which that function was declared.',
+      },
+    ],
+  },
+  cjid9dgy00002zx8uasq10rav: {
+    id: 'cjid9dgy00002zx8uasq10rav',
+    timestamp: 1528905242807,
+    title: 'Redux',
+    questions: [
+      {
+        id: 'cjid9dgxu0000zx8urifcccee',
+        question: 'What is a state?',
+        answer: 'Lorem ipsum dolor sit amec.',
+      },
+    ],
+  },
+};
 
 describe('decks reducer tests', () => {
   it('should handle initial state', () => {
@@ -28,7 +74,7 @@ describe('decks reducer tests', () => {
     expect(decks(undefined, requestAllDecks())).toEqual(defaultState);
   });
 
-  it('should return correct data structure for FETCH_DECKS_REQUEST', () => {
+  it('should return correct data structure for FETCH_DECKS_SUCCESS', () => {
     const defaultState = {
       isFetching: true,
       items: {},
@@ -38,36 +84,22 @@ describe('decks reducer tests', () => {
     deepFreeze(defaultState);
 
     const decksPayload = {
-      React: {
+      cjid9dgxu0000zx8urifcccii: {
+        id: 'cjid9dgxu0000zx8urifcccii',
+        timestamp: 1528905228099,
         title: 'React',
-        questions: [
-          {
-            question: 'What is React?',
-            answer: 'A library for managing user interfaces',
-          },
-          {
-            question: 'Where do you make Ajax requests in React?',
-            answer: 'The componentDidMount lifecycle event',
-          },
-        ],
+        questions: [],
       },
     };
 
     const expected = {
       isFetching: false,
       items: {
-        React: {
+        cjid9dgxu0000zx8urifcccii: {
+          id: 'cjid9dgxu0000zx8urifcccii',
+          timestamp: 1528905228099,
           title: 'React',
-          questions: [
-            {
-              question: 'What is React?',
-              answer: 'A library for managing user interfaces',
-            },
-            {
-              question: 'Where do you make Ajax requests in React?',
-              answer: 'The componentDidMount lifecycle event',
-            },
-          ],
+          questions: [],
         },
       },
     };
@@ -89,6 +121,8 @@ describe('decks reducer tests', () => {
     deepFreeze(defaultState);
 
     const deckPayload = {
+      id: 'cjid9dgxu0000zx8urifcccii',
+      timestamp: 1528905228099,
       title: 'React',
       questions: [],
     };
@@ -96,7 +130,9 @@ describe('decks reducer tests', () => {
     const expected = {
       isFetching: false,
       items: {
-        React: {
+        cjid9dgxu0000zx8urifcccii: {
+          id: 'cjid9dgxu0000zx8urifcccii',
+          timestamp: 1528905228099,
           title: 'React',
           questions: [],
         },
@@ -110,9 +146,17 @@ describe('decks reducer tests', () => {
     const defaultState = {
       isFetching: false,
       items: {
-        React: {
+        cjid9dgxu0000zx8urifcccii: {
+          id: 'cjid9dgxu0000zx8urifcccii',
+          timestamp: 1528905228099,
           title: 'React',
-          questions: [],
+          questions: [
+            {
+              id: 'cjid9dgxu0000zx8urifcccaa',
+              question: 'What is React?',
+              answer: 'A library for managing user interfaces',
+            },
+          ],
         },
       },
     };
@@ -120,19 +164,31 @@ describe('decks reducer tests', () => {
     deepFreeze(defaultState);
 
     const deckPayload = {
-      title: 'Test',
+      id: 'cjid9dgxx0001zx8ui54qdjuv',
+      timestamp: 1528905228099,
+      title: 'ES6',
       questions: [],
     };
 
     const expected = {
       isFetching: false,
       items: {
-        React: {
+        cjid9dgxu0000zx8urifcccii: {
+          id: 'cjid9dgxu0000zx8urifcccii',
+          timestamp: 1528905228099,
           title: 'React',
-          questions: [],
+          questions: [
+            {
+              id: 'cjid9dgxu0000zx8urifcccaa',
+              question: 'What is React?',
+              answer: 'A library for managing user interfaces',
+            },
+          ],
         },
-        Test: {
-          title: 'Test',
+        cjid9dgxx0001zx8ui54qdjuv: {
+          id: 'cjid9dgxx0001zx8ui54qdjuv',
+          timestamp: 1528905228099,
+          title: 'ES6',
           questions: [],
         },
       },
@@ -148,7 +204,9 @@ describe('decks reducer tests', () => {
     const defaultState = {
       isFetching: false,
       items: {
-        React: {
+        cjid9dgxu0000zx8urifcccii: {
+          id: 'cjid9dgxu0000zx8urifcccii',
+          timestamp: 1528905228099,
           title: 'React',
           questions: [],
         },
@@ -157,7 +215,7 @@ describe('decks reducer tests', () => {
 
     deepFreeze(defaultState);
 
-    const deckId = 'React';
+    const deckId = 'cjid9dgxu0000zx8urifcccii';
 
     const expected = {
       isFetching: false,
@@ -174,7 +232,9 @@ describe('decks reducer tests', () => {
     const defaultState = {
       isFetching: false,
       items: {
-        React: {
+        cjid9dgxu0000zx8urifcccii: {
+          id: 'cjid9dgxu0000zx8urifcccii',
+          timestamp: 1528905228099,
           title: 'React',
           questions: [],
         },
@@ -183,17 +243,9 @@ describe('decks reducer tests', () => {
 
     deepFreeze(defaultState);
 
-    // {
-    //   question: 'What is React?',
-    //   answer: 'A library for managing user interfaces',
-    // },
-    // {
-    //   question: 'Where do you make Ajax requests in React?',
-    //   answer: 'The componentDidMount lifecycle event',
-    // },
-
-    const deckId = 'React';
-    const newCard = {
+    const deckId = 'cjid9dgxu0000zx8urifcccii';
+    const card = {
+      id: 'cjid9dgxu0000zx8urifcccaa',
       question: 'What is React?',
       answer: 'A library for managing user interfaces',
     };
@@ -201,10 +253,13 @@ describe('decks reducer tests', () => {
     const expected = {
       isFetching: false,
       items: {
-        React: {
+        cjid9dgxu0000zx8urifcccii: {
+          id: 'cjid9dgxu0000zx8urifcccii',
+          timestamp: 1528905228099,
           title: 'React',
           questions: [
             {
+              id: 'cjid9dgxu0000zx8urifcccaa',
               question: 'What is React?',
               answer: 'A library for managing user interfaces',
             },
@@ -213,7 +268,7 @@ describe('decks reducer tests', () => {
       },
     };
 
-    expect(decks(defaultState, addCard(deckId, newCard))).toEqual(expected);
+    expect(decks(defaultState, addCard(deckId, card))).toEqual(expected);
   });
 
   /**
@@ -223,10 +278,13 @@ describe('decks reducer tests', () => {
     const defaultState = {
       isFetching: false,
       items: {
-        React: {
+        cjid9dgxu0000zx8urifcccii: {
+          id: 'cjid9dgxu0000zx8urifcccii',
+          timestamp: 1528905228099,
           title: 'React',
           questions: [
             {
+              id: 'cjid9dgxu0000zx8urifcccaa',
               question: 'What is React?',
               answer: 'A library for managing user interfaces',
             },
@@ -237,36 +295,40 @@ describe('decks reducer tests', () => {
 
     deepFreeze(defaultState);
 
-    const deckId = 'React';
-    const cardIndex = 0;
+    const deckId = 'cjid9dgxu0000zx8urifcccii';
+    const cardId = 'cjid9dgxu0000zx8urifcccaa';
 
     const expected = {
       isFetching: false,
       items: {
-        React: {
+        cjid9dgxu0000zx8urifcccii: {
+          id: 'cjid9dgxu0000zx8urifcccii',
+          timestamp: 1528905228099,
           title: 'React',
           questions: [],
         },
       },
     };
 
-    expect(decks(defaultState, deleteCard(deckId, cardIndex))).toEqual(
-      expected
-    );
+    expect(decks(defaultState, deleteCard(deckId, cardId))).toEqual(expected);
   });
 
-  it('should Delete a Card from a Deck wihtout mutating state', () => {
+  it('should Delete a Card from a Deck without mutating state', () => {
     const defaultState = {
       isFetching: false,
       items: {
-        React: {
+        cjid9dgxu0000zx8urifcccii: {
+          id: 'cjid9dgxu0000zx8urifcccii',
+          timestamp: 1528905228099,
           title: 'React',
           questions: [
             {
+              id: 'cjid9dgxu0000zx8urifcccaa',
               question: 'What is React?',
               answer: 'A library for managing user interfaces',
             },
             {
+              id: 'cjid9dgxu0000zx8urifcccbb',
               question: 'Where do you make Ajax requests in React?',
               answer: 'The componentDidMount lifecycle event',
             },
@@ -277,16 +339,44 @@ describe('decks reducer tests', () => {
 
     deepFreeze(defaultState);
 
-    const deckId = 'React';
-    const cardIndex = 1;
+    const deckId = 'cjid9dgxu0000zx8urifcccii';
+    const cardId = 'cjid9dgxu0000zx8urifcccaa';
 
     const expected = {
       isFetching: false,
       items: {
-        React: {
+        cjid9dgxu0000zx8urifcccii: {
+          id: 'cjid9dgxu0000zx8urifcccii',
+          timestamp: 1528905228099,
           title: 'React',
           questions: [
             {
+              id: 'cjid9dgxu0000zx8urifcccbb',
+              question: 'Where do you make Ajax requests in React?',
+              answer: 'The componentDidMount lifecycle event',
+            },
+          ],
+        },
+      },
+    };
+
+    expect(decks(defaultState, deleteCard(deckId, cardId))).toEqual(expected);
+  });
+
+  /**
+   * EDIT a Deck
+   */
+  it('should Edit a Deck without mutating state', () => {
+    const defaultState = {
+      isFetching: false,
+      items: {
+        cjid9dgxu0000zx8urifcccii: {
+          id: 'cjid9dgxu0000zx8urifcccii',
+          timestamp: 1528905228099,
+          title: 'React',
+          questions: [
+            {
+              id: 'cjid9dgxu0000zx8urifcccaa',
               question: 'What is React?',
               answer: 'A library for managing user interfaces',
             },
@@ -295,7 +385,41 @@ describe('decks reducer tests', () => {
       },
     };
 
-    expect(decks(defaultState, deleteCard(deckId, cardIndex))).toEqual(
+    deepFreeze(defaultState);
+
+    const deckId = 'cjid9dgxu0000zx8urifcccii';
+    const deckPayload = {
+      id: 'cjid9dgxu0000zx8urifcccii',
+      timestamp: 1528905228099,
+      title: 'Reaction',
+      questions: [
+        {
+          id: 'cjid9dgxu0000zx8urifcccaa',
+          question: 'What is React?',
+          answer: 'A library for managing user interfaces',
+        },
+      ],
+    };
+
+    const expected = {
+      isFetching: false,
+      items: {
+        cjid9dgxu0000zx8urifcccii: {
+          id: 'cjid9dgxu0000zx8urifcccii',
+          timestamp: 1528905228099,
+          title: 'Reaction',
+          questions: [
+            {
+              id: 'cjid9dgxu0000zx8urifcccaa',
+              question: 'What is React?',
+              answer: 'A library for managing user interfaces',
+            },
+          ],
+        },
+      },
+    };
+
+    expect(decks(defaultState, editDeck(deckId, deckPayload))).toEqual(
       expected
     );
   });

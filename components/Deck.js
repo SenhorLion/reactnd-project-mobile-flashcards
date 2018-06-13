@@ -15,7 +15,7 @@ class Deck extends Component {
   render() {
     const {
       deck,
-      deck: { title, questions },
+      deck: { id, title, questions },
       handleDeleteDeck,
       navigation,
     } = this.props;
@@ -41,7 +41,7 @@ class Deck extends Component {
             onPress={() => {
               return navigation.navigate('DeckDetail', {
                 deck,
-                deckId: title,
+                deckId: id,
               });
             }}
           >

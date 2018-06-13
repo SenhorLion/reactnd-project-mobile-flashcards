@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import cuid from 'cuid';
 import {
   StyleSheet,
   Text,
@@ -55,6 +56,7 @@ class AddCard extends React.Component {
     }
 
     const newCard = {
+      id: cuid(),
       question,
       answer,
     };
@@ -67,8 +69,7 @@ class AddCard extends React.Component {
     this.props.onAddCard(deckId, newCard).then(res => {
       // Notification on succesfully added card
       this.setModalVisible(true);
-      // Allow user to add more cards
-      console.log('Added Card, Add another one?');
+      // Allow user to add more cards...
     });
   };
 
@@ -88,6 +89,8 @@ class AddCard extends React.Component {
   getAsyncDeck = async deckId => {
     console.log('\n@@@getAsyncDeck :: deckId', deckId);
     const deck = await getDeck(deckId);
+
+    console.log('\tdeck', deck);
   };
 
   render() {

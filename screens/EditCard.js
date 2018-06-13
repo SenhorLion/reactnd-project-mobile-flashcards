@@ -38,25 +38,24 @@ class EditCard extends Component {
     isReady: false,
     modalVisible: false,
     cardSelected: null,
-    cardIndex: null,
   };
 
-  handleDeleteCard = (card, cardIndex) => {
-    console.log('EDIT_CARD :: handleDeleteCard', card, cardIndex);
+  handleDeleteCard = card => {
+    console.log('EDIT_CARD :: handleDeleteCard', card, card.id);
 
-    this.setState({ cardSelected: card, cardIndex }, () => {
+    this.setState({ cardSelected: card }, () => {
       this.toggleModalVisible();
     });
   };
 
   confirmDeleteCard = () => {
-    const { cardSelected, cardIndex } = this.state;
+    const { cardSelected } = this.state;
     const { deckId } = this.props.navigation.state.params;
 
-    console.log('deckId', deckId, 'cardIndex', cardIndex);
+    console.log('deckId', deckId, 'cardId', cardSelected.id);
 
     this.props
-      .onDeleteCard(deckId, cardIndex)
+      .onDeleteCard(deckId, cardSelected.id)
       .then(res => {
         this.toggleModalVisible();
         this.clearSelectedDeck();
@@ -67,7 +66,6 @@ class EditCard extends Component {
   clearSelectedDeck = () => {
     this.setState(prevState => ({
       cardSelected: null,
-      cardIndex: null,
     }));
   };
 
@@ -96,11 +94,10 @@ class EditCard extends Component {
         </View>
 
         {deck.questions &&
-          deck.questions.map((card, index) => {
+          deck.questions.map(card => {
             return (
               <Card
                 key={cuid()}
-                cardIndex={index}
                 card={card}
                 handleDeleteCard={this.handleDeleteCard}
               />

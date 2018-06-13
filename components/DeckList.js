@@ -35,7 +35,7 @@ class DeckList extends Component {
   confirmDeleteDeck = () => {
     const { deckSelected } = this.state;
 
-    this.props.onDeleteDeck(deckSelected.title).then(res => {
+    this.props.onDeleteDeck(deckSelected.id).then(res => {
       this.toggleModalVisible();
       this.clearSelectedDeck();
     });

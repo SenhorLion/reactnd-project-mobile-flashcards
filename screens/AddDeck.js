@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import cuid from 'cuid';
 import {
   StyleSheet,
   Text,
@@ -42,23 +43,23 @@ class AddDeck extends React.Component {
   handleAddDeck = () => {
     const { deckTitle } = this.state;
 
-    console.log('@handleAddDeck', deckTitle);
-
-    // TODO: check input values
+    // check there is input values
     if (!deckTitle) {
-      // return  error notification
+      // TODO: return  error notification
       console.warn('You must submit a title for the deck');
+
       return;
     }
+
     const newDeck = {
+      id: cuid(),
+      timestamp: Date.now(),
       title: deckTitle,
       questions: [],
     };
 
-    // TODO: Add deck to decks data
-    // TODO: Save to DB
     this.props.onAddDeck(newDeck).then(res => {
-      const { title } = res.deck;
+      const { id } = res.deck;
 
       // Clear deckTitle from state
       this.setState(() => ({
@@ -67,7 +68,7 @@ class AddDeck extends React.Component {
 
       // Navigate to AddCard
       this.props.navigation.navigate('AddCard', {
-        deckId: title,
+        deckId: id,
       });
     });
 

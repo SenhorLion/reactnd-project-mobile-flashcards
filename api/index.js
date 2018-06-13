@@ -2,45 +2,58 @@ import { AsyncStorage } from 'react-native';
 
 const DECKS_STORAGE_KEY = 'mobileflashcards:deck';
 
+// {
+//   id: '8xf0y6ziyjabvozdd253nd',
+//   timestamp: 1467166872634,
+//   title: 'Udacity is the best place to learn React',
+//   body: 'Everyone says so after all.',
+//   author: 'thingtwo',
+//   category: 'react',
+//   voteScore: 6,
+//   deleted: false,
+//   commentCount: 2,
+// },
+
 const decksData = {
-  React: {
+  cjid9dgxu0000zx8urifcccii: {
+    id: 'cjid9dgxu0000zx8urifcccii',
+    timestamp: 1528905228099,
     title: 'React',
     questions: [
       {
+        id: 'cjid9dgxu0000zx8urifcccaa',
         question: 'What is React?',
         answer: 'A library for managing user interfaces',
       },
       {
+        id: 'cjid9dgxu0000zx8urifcccbb',
         question: 'Where do you make Ajax requests in React?',
         answer: 'The componentDidMount lifecycle event',
       },
     ],
   },
-  JavaScript: {
+  cjid9dgxx0001zx8ui54qdjuv: {
+    id: 'cjid9dgxx0001zx8ui54qdjuv',
+    timestamp: 1528905210982,
     title: 'JavaScript',
     questions: [
       {
+        id: 'cjid9dgxu0000zx8urifcccdd',
         question: 'What is a closure?',
         answer:
           'The combination of a function and the lexical environment within which that function was declared.',
       },
     ],
   },
-  Redux: {
+  cjid9dgy00002zx8uasq10rav: {
+    id: 'cjid9dgy00002zx8uasq10rav',
+    timestamp: 1528905242807,
     title: 'Redux',
     questions: [
       {
+        id: 'cjid9dgxu0000zx8urifcccee',
         question: 'What is a state?',
         answer: 'Lorem ipsum dolor sit amec.',
-      },
-    ],
-  },
-  Wot: {
-    title: 'Wot',
-    questions: [
-      {
-        question: 'What is Wot?',
-        answer: 'Lorem ipsum dolor sit amec wot wot wot.',
       },
     ],
   },
@@ -90,12 +103,28 @@ export const addDeck = deck => {
   console.log('API::addDeck::', JSON.stringify(deck, null, 2));
   // TODO: sanitize data
   const newDeck = {
-    [deck.title]: {
+    [deck.id]: {
       ...deck,
     },
   };
 
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(newDeck));
+};
+
+export const editDeck = (deckId, deck) => {
+  console.log('API::editDeck::', deckId, JSON.stringify(deck, null, 2));
+
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(result => {
+    const decks = JSON.parse(result);
+
+    // then update with edited deck
+    const updatedDecks = Object.assign({}, decks, {
+      ...decks,
+      [deckId]: deck,
+    });
+
+    AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(updatedDecks));
+  });
 };
 
 export const deleteDeck = deckId => {
@@ -111,17 +140,17 @@ export const deleteDeck = deckId => {
   });
 };
 
-export const addCardToDeck = (title, card) => {
-  console.log('API::addCardToDeck::', title, card);
+export const addCardToDeck = (deckId, card) => {
+  console.log('API::addCardToDeck::', deckId, card);
 
   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(data => {
     const decks = JSON.parse(data);
 
     const updatedDecks = {
       ...decks,
-      [title]: {
-        ...decks[title],
-        questions: [...decks[title].questions, card],
+      [deckId]: {
+        ...decks[deckId],
+        questions: [...decks[deckId].questions, card],
       },
     };
 
@@ -137,18 +166,15 @@ export const addCardToDeck = (title, card) => {
  * @param {string} deckId
  * @param {number} cardIndex
  */
-export const deleteCardFromDeck = (deckId, cardIndex) => {
-  console.log('API::deleteCardFromDeck::', deckId, cardIndex);
+export const deleteCardFromDeck = (deckId, cardId) => {
+  console.log('API::deleteCardFromDeck::', deckId, cardId);
 
   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(result => {
     const decks = JSON.parse(result);
 
-    const filteredCards = [
-      // from the start to the one we want to delete
-      ...decks[deckId].questions.slice(0, cardIndex),
-      // after the deleted one, to the end
-      ...decks[deckId].questions.slice(cardIndex + 1),
-    ];
+    const filteredCards = decks[deckId].questions.filter(
+      card => card.id !== cardId
+    );
 
     const updatedDecks = {
       ...decks,
