@@ -88,7 +88,7 @@ class EditCard extends Component {
     const numOfCards = deck.questions.length;
 
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <View styles={{ flex: 1, padding: 10 }}>
           <Text style={styles.title}>Cards for {deck.title}</Text>
           <Text style={styles.cardCount}>{`${numOfCards} ${
@@ -96,16 +96,18 @@ class EditCard extends Component {
           }`}</Text>
         </View>
 
-        {deck.questions &&
-          deck.questions.map(card => {
-            return (
-              <Card
-                key={cuid()}
-                card={card}
-                handleDeleteCard={this.handleDeleteCard}
-              />
-            );
-          })}
+        <ScrollView style={styles.container}>
+          {deck.questions &&
+            deck.questions.map(card => {
+              return (
+                <Card
+                  key={cuid()}
+                  card={card}
+                  handleDeleteCard={this.handleDeleteCard}
+                />
+              );
+            })}
+        </ScrollView>
 
         <AppModal
           backdropColor={black}
@@ -132,7 +134,7 @@ class EditCard extends Component {
             </ButtonTouchableOpacity>
           </View>
         </AppModal>
-      </ScrollView>
+      </View>
     );
   }
 }
