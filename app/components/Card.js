@@ -56,7 +56,7 @@ class Card extends Component {
     return (
       <View style={styles.card}>
         <View style={styles.cardContainer}>
-          <Text>id: {card.id}</Text>
+          <Text>card id: {card.id}</Text>
           <Text>Question: {card.question}</Text>
           <Text>Answer: {card.answer}</Text>
 
