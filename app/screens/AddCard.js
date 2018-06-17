@@ -24,6 +24,7 @@ import {
 import { onAddCard } from '../actions';
 import { getDeck } from '../api/index';
 import AppModal from '../components/ui/AppModal';
+import { InputText } from '../components/TextInput';
 
 class AddCard extends React.Component {
   state = {
@@ -102,23 +103,20 @@ class AddCard extends React.Component {
 
     return (
       <View style={styles.container}>
-        <View>
+        {/* <Header title="Add Card" backgroundColor={purple} marginBottom={6} /> */}
+        <View style={{ flex: 1, alignItems: 'center' }}>
           <Text style={styles.title}>{deck.title}</Text>
 
-          <TextInput
-            style={styles.textInput}
+          <InputText
             underlineColorAndroid="transparent"
             placeholder="Add Question"
-            placeholderTextColor={black}
             onChangeText={question => this.setState(() => ({ question }))}
             value={question}
           />
 
-          <TextInput
-            style={styles.textInput}
+          <InputText
             underlineColorAndroid="transparent"
             placeholder="Add Answer"
-            placeholderTextColor={black}
             onChangeText={answer => this.setState(() => ({ answer }))}
             value={answer}
           />

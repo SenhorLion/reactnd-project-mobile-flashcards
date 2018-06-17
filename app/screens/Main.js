@@ -42,13 +42,29 @@ const store = createStore(
 
 const AddDeckStack = createStackNavigator({
   // AddDeck: AddDeck,
+  // AddCard: AddCard,
   AddDeck: {
     screen: AddDeck,
     navigationOptions: {
-      header: null,
+      // header: null,
+      title: 'Add Deck',
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      },
     },
   },
-  AddCard: AddCard,
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      // header: null,
+      title: 'Add Card',
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      },
+    },
+  },
 });
 
 // TODO make Tabs navigation its own module

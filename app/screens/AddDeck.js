@@ -4,7 +4,6 @@ import cuid from 'cuid';
 import {
   StyleSheet,
   Text,
-  TextInput,
   View,
   TouchableOpacity,
   Platform,
@@ -13,6 +12,7 @@ import { Constants, AppLoading } from 'expo';
 import { onAddDeck } from '../actions';
 import Header from '../components/ui/Header';
 import Footer from '../components/ui/Footer';
+import { InputText } from '../components/TextInput';
 
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import {
@@ -81,17 +81,15 @@ class AddDeck extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Header title="Add Deck" backgroundColor={purple} marginBottom={6} />
+        {/* <Header title="Add Deck" backgroundColor={purple} marginBottom={6} /> */}
         <View
           style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
         >
           <Text style={styles.title}>Enter the title for this Deck:</Text>
 
-          <TextInput
-            style={styles.textInput}
+          <InputText
             underlineColorAndroid="transparent"
             placeholder="Deck Title"
-            placeholderTextColor={black}
             onChangeText={deckTitle => this.setState(() => ({ deckTitle }))}
             value={deckTitle}
           />
