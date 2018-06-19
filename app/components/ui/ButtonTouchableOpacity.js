@@ -13,7 +13,7 @@ const ButtonTouchableOpacity = props => {
   const {
     marginTop,
     width,
-    backgroundColor = '#f0f',
+    backgroundColor = '#fff',
     onPress,
     children,
   } = props;

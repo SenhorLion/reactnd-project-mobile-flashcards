@@ -7,6 +7,8 @@ import {
   TextInput,
   TouchableHighlight,
   View,
+  ScrollView,
+  KeyboardAvoidingView,
   Platform,
 } from 'react-native';
 import { Constants, AppLoading } from 'expo';
@@ -86,7 +88,7 @@ class AddCard extends React.Component {
     this.setState({ modalVisible: false });
   };
 
-  // NOTE: getAsyncDeck - used just for testing at the mo, remove if
+  // NOTE: getAsyncDeck - used just for testing at the mo, remove if not going to use
   getAsyncDeck = async deckId => {
     console.log('\n@@@getAsyncDeck :: deckId', deckId);
     const deck = await getDeck(deckId);
@@ -97,25 +99,23 @@ class AddCard extends React.Component {
   render() {
     const { deck, deckId } = this.props;
     const { question, answer } = this.state;
-    const isDisabled = !!(question === null || answer === null);
-
-    console.log('isDisabled', isDisabled);
 
     return (
       <View style={styles.container}>
-        {/* <Header title="Add Card" backgroundColor={purple} marginBottom={6} /> */}
-        <View style={{ flex: 1, alignItems: 'center' }}>
+        <KeyboardAvoidingView
+          style={{ alignItems: 'center', justifyContent: 'center' }}
+          behavior="position"
+        >
           <Text style={styles.title}>{deck.title}</Text>
+          <Text style={styles.desc}>Add a new card</Text>
 
           <InputText
-            underlineColorAndroid="transparent"
             placeholder="Add Question"
             onChangeText={question => this.setState(() => ({ question }))}
             value={question}
           />
 
           <InputText
-            underlineColorAndroid="transparent"
             placeholder="Add Answer"
             onChangeText={answer => this.setState(() => ({ answer }))}
             value={answer}
@@ -132,7 +132,7 @@ class AddCard extends React.Component {
               Add Card
             </Text>
           </ButtonTouchableOpacity>
-        </View>
+        </KeyboardAvoidingView>
 
         <AppModal
           backdropColor={black}
@@ -153,23 +153,21 @@ class AddCard extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
     backgroundColor: '#fff',
-  },
-
-  textInput: {
-    margin: 10,
-    padding: 15,
-    height: 50,
-    backgroundColor: antiFlashWhite,
-    borderRadius: 3,
-    color: black,
   },
   title: {
     fontWeight: 'bold',
     fontSize: 24,
     color: purple,
     textAlign: 'center',
-    alignItems: 'center',
+  },
+  desc: {
+    fontWeight: 'normal',
+    textAlign: 'center',
+    fontSize: 20,
+    color: purple,
+    paddingVertical: 10,
   },
 });
 

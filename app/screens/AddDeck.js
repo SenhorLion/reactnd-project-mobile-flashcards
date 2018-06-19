@@ -67,9 +67,14 @@ class AddDeck extends React.Component {
       }));
 
       // Navigate to AddCard
-      this.props.navigation.navigate('AddCard', {
+      this.props.navigation.navigate('DeckDetail', {
         deckId: id,
+        deck: res.deck,
       });
+      // // Navigate to AddCard
+      // this.props.navigation.navigate('AddCard', {
+      //   deckId: id,
+      // });
     });
 
     // TODO: Setup Local notification message to remind to study
@@ -85,10 +90,9 @@ class AddDeck extends React.Component {
         <View
           style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
         >
-          <Text style={styles.title}>Enter the title for this Deck:</Text>
+          <Text style={styles.title}>Enter a title for this Deck:</Text>
 
           <InputText
-            underlineColorAndroid="transparent"
             placeholder="Deck Title"
             onChangeText={deckTitle => this.setState(() => ({ deckTitle }))}
             value={deckTitle}

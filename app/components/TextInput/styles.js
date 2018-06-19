@@ -10,8 +10,9 @@ export default EStyleSheet.create({
     width: '90%',
     height: INPUT_HEIGHT,
     borderRadius: BORDER_RADIUS,
-    // flexDirection: 'row',
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     marginVertical: 10,
   },
   containerDisabled: {

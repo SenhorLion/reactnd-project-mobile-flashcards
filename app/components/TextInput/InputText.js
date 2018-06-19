@@ -10,6 +10,7 @@ const InputText = props => {
     label,
     value,
     placeholder = '',
+    clearButtonMode = 'always',
     editable = true,
   } = props;
 
@@ -24,6 +25,7 @@ const InputText = props => {
       <TextInput
         style={styles.input}
         underlineColorAndroid="transparent"
+        clearButtonMode={clearButtonMode}
         {...props}
       />
     </View>

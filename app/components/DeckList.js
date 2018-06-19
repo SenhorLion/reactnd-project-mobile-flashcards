@@ -1,22 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import Modal from 'react-native-modal';
-import { AppLoading } from 'expo';
-import { fetchDecksData } from '../api';
-import {
-  black,
-  purple,
-  lightPurple,
-  white,
-  gray,
-  antiFlashWhite,
-} from '../utils/colors';
-import { FontAwesome } from '@expo/vector-icons';
-import ButtonTouchableOpacity from './ui/ButtonTouchableOpacity';
+import { View, Text, StyleSheet, ScrollView, FlatList } from 'react-native';
+import { black } from '../utils/colors';
 import AppModal from './ui/AppModal';
-import { enforcePromiseDelay } from '../utils/helpers';
 import Deck from './Deck';
-import ErrorBoundary from '../error/ErrorBoundary';
+import { DeleteModalConfirm } from './Modals';
 
 class DeckList extends Component {
   state = {
@@ -112,24 +99,11 @@ class DeckList extends Component {
           closeModal={this.closeModal}
           onBackdropPress={this.toggleModalVisible}
         >
-          <View>
-            <Text>Delete Deck?</Text>
-            <ButtonTouchableOpacity
-              width={150}
-              backgroundColor={lightPurple}
-              onPress={this.confirmDeleteDeck}
-            >
-              <Text>Delete</Text>
-            </ButtonTouchableOpacity>
-
-            <ButtonTouchableOpacity
-              width={150}
-              backgroundColor={gray}
-              onPress={this.toggleModalVisible}
-            >
-              <Text>Cancel</Text>
-            </ButtonTouchableOpacity>
-          </View>
+          <DeleteModalConfirm
+            title="Delete Deck"
+            confirmDelete={this.confirmDeleteDeck}
+            confirmCancel={this.toggleModalVisible}
+          />
         </AppModal>
       </ScrollView>
     );

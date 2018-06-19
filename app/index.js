@@ -10,11 +10,16 @@ EStyleSheet.build({
   $primaryGreen: '#00bd9d',
   $primaryPurple: '#9e768f',
 
+  $purple: '#292477',
+  $lightPurple: '#7c53c3',
   $white: '#FFFFFF',
+  $antiFlashWhite: '#f2f3f4',
   $borderSeparator: '#e2e2e2',
   $inputText: '#797979',
   $lightGray: '#F0F0F0',
   $darkText: '#343434',
+  $gray: '#757575',
+  $black: '#222222',
 
   // $outline: 1, // => use to see component layout!
 });

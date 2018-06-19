@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import {
   black,
+  indigo,
   purple,
   lightPurple,
   white,
   gray,
   antiFlashWhite,
+  grey400,
 } from '../utils/colors';
 import { FontAwesome } from '@expo/vector-icons';
 import ButtonTouchableOpacity from './ui/ButtonTouchableOpacity';
@@ -35,7 +37,7 @@ class Deck extends Component {
           <Text style={[styles.titleText, {}]}>{title}</Text>
           <Text style={styles.subText}>{`${questions.length} cards`}</Text>
           <ButtonTouchableOpacity
-            backgroundColor={purple}
+            backgroundColor={indigo}
             marginTop={10}
             width={150}
             onPress={() => {
@@ -52,7 +54,7 @@ class Deck extends Component {
           </ButtonTouchableOpacity>
 
           <ButtonTouchableOpacity
-            backgroundColor={lightPurple}
+            backgroundColor={grey400}
             marginTop={10}
             width={150}
             onPress={() => handleDeleteDeck(deck)}

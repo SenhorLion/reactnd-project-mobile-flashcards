@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Platform } from 'react-native';
 import { connect } from 'react-redux';
-import { FontAwesome } from '@expo/vector-icons';
 import cuid from 'cuid';
-import {
-  black,
-  gray,
-  purple,
-  lightPurple,
-  white,
-  antiFlashWhite,
-} from '../utils/colors';
+import { black, gray, purple, lightPurple } from '../utils/colors';
 import ButtonTouchableOpacity from '../components/ui/ButtonTouchableOpacity';
 import Card from '../components/Card';
 import AppModal from '../components/ui/AppModal';
 import { onDeleteCard } from '../actions';
+import { DeleteModalConfirm } from '../components/Modals';
 
 const styles = StyleSheet.create({
   container: {
@@ -50,6 +43,12 @@ class EditCard extends Component {
     this.setState({ cardSelected: card }, () => {
       this.toggleModalVisible();
     });
+  };
+
+  handleEditCard = card => {
+    console.log('EDIT_CARD :: handleEditCard', card, card.id);
+
+    this.setState({ isEditMode: true });
   };
 
   confirmDeleteCard = () => {
@@ -115,24 +114,11 @@ class EditCard extends Component {
           closeModal={this.closeModal}
           onBackdropPress={this.toggleModalVisible}
         >
-          <View>
-            <Text>Delete Card?</Text>
-            <ButtonTouchableOpacity
-              width={150}
-              backgroundColor={lightPurple}
-              onPress={this.confirmDeleteCard}
-            >
-              <Text>Delete</Text>
-            </ButtonTouchableOpacity>
-
-            <ButtonTouchableOpacity
-              width={150}
-              backgroundColor={gray}
-              onPress={this.toggleModalVisible}
-            >
-              <Text>Cancel</Text>
-            </ButtonTouchableOpacity>
-          </View>
+          <DeleteModalConfirm
+            title="Delete Card"
+            confirmDelete={this.confirmDeleteCard}
+            confirmCancel={this.toggleModalVisible}
+          />
         </AppModal>
       </View>
     );

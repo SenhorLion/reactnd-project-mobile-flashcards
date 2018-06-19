@@ -76,7 +76,7 @@ exports[`renders Deck component without crashing 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "backgroundColor": "#292477",
+          "backgroundColor": "#3F51B5",
           "flexDirection": "row",
           "height": 40,
           "justifyContent": "space-around",
@@ -129,7 +129,7 @@ exports[`renders Deck component without crashing 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "backgroundColor": "#7c53c3",
+          "backgroundColor": "#BDBDBD",
           "flexDirection": "row",
           "height": 40,
           "justifyContent": "space-around",
@@ -242,7 +242,7 @@ exports[`renders deck 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "backgroundColor": "#292477",
+          "backgroundColor": "#3F51B5",
           "flexDirection": "row",
           "height": 40,
           "justifyContent": "space-around",
@@ -295,7 +295,7 @@ exports[`renders deck 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "backgroundColor": "#7c53c3",
+          "backgroundColor": "#BDBDBD",
           "flexDirection": "row",
           "height": 40,
           "justifyContent": "space-around",
