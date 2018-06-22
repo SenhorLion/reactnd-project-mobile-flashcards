@@ -17,6 +17,13 @@ export default EStyleSheet.create({
     fontSize: 20,
     color: '$grey400',
   },
+  titleCompleted: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: '$green',
+    marginTop: 20,
+  },
   quizHeader: {
     paddingVertical: 20,
   },

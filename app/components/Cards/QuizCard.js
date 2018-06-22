@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
-import { antiFlashWhite, indigo, red } from '../../utils/colors';
+import { antiFlashWhite, indigo, green, red } from '../../utils/colors';
 import { FontAwesome } from '@expo/vector-icons';
 import ButtonTouchableOpacity from '../ui/ButtonTouchableOpacity';
 import styles from './styles';
@@ -62,7 +62,7 @@ class QuizCard extends Component {
           <View style={styles.answer}>
             <Text style={styles.titleText}>{answer}👋</Text>
             <ButtonTouchableOpacity
-              backgroundColor={indigo}
+              backgroundColor={green}
               marginTop={10}
               width={150}
               onPress={() => this.correctAnswer()}

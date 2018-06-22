@@ -6,6 +6,26 @@ import styles from './styles';
 import ButtonTouchableOpacity from '../ui/ButtonTouchableOpacity';
 import { antiFlashWhite, indigo } from '../../utils/colors';
 import { QuizCard } from '../Cards';
+import { wordsOfEncouragement, wordsOfPraise } from '../../data';
+import { connectableObservableDescriptor } from 'rxjs/observable/ConnectableObservable';
+
+const randomMessage = score => {
+  console.log('@randomMessage', score);
+  let randIndex = 0;
+  let message = 'not found';
+
+  if (score === 100) {
+    randIndex = Math.floor(Math.random() * wordsOfPraise.length);
+    message = wordsOfPraise[randIndex];
+  } else {
+    randIndex = Math.floor(Math.random() * wordsOfEncouragement.length);
+    message = wordsOfEncouragement[randIndex];
+  }
+
+  console.log('\t message ::', message);
+
+  return message;
+};
 
 class QuizComponent extends Component {
   state = {
@@ -13,6 +33,7 @@ class QuizComponent extends Component {
     currentCardIndex: 0,
     correctCount: 0,
     shuffledQuestions: [],
+    quizCompleteMessage: '',
   };
 
   componentDidMount() {
@@ -48,6 +69,7 @@ class QuizComponent extends Component {
       currentCardIndex: 0,
       correctCount: 0,
       shuffledQuestions: this.shuffleCards(deck.questions),
+      quizCompleteMessage: '',
     });
   };
 
@@ -55,10 +77,13 @@ class QuizComponent extends Component {
     const { currentCardIndex, shuffledQuestions } = this.state;
 
     if (currentCardIndex === shuffledQuestions.length - 1) {
-      this.setState(prevState => ({
-        isComplete: true,
-        correctCount: prevState.correctCount + 1,
-      }));
+      // Update count state THEN call game complete
+      this.setState(
+        prevState => ({
+          correctCount: prevState.correctCount + 1,
+        }),
+        () => this.onGameComplete()
+      );
     } else {
       this.setState(prevState => ({
         currentCardIndex: prevState.currentCardIndex + 1,
@@ -71,14 +96,27 @@ class QuizComponent extends Component {
     const { currentCardIndex, shuffledQuestions } = this.state;
 
     if (currentCardIndex === shuffledQuestions.length - 1) {
-      this.setState({
-        isComplete: true,
-      });
+      this.onGameComplete();
     } else {
       this.setState(prevState => ({
         currentCardIndex: prevState.currentCardIndex + 1,
       }));
     }
+  };
+
+  onGameComplete = () => {
+    console.log('onGameComplete');
+
+    const { correctCount, shuffledQuestions } = this.state;
+
+    const numOfCards = shuffledQuestions.length;
+    const percentageCorrect = Math.floor(correctCount / numOfCards * 100);
+    const quizCompleteMessage = randomMessage(percentageCorrect);
+
+    this.setState({
+      isComplete: true,
+      quizCompleteMessage,
+    });
   };
 
   render() {
@@ -88,6 +126,7 @@ class QuizComponent extends Component {
       currentCardIndex,
       correctCount,
       shuffledQuestions,
+      quizCompleteMessage,
     } = this.state;
     const numOfCards = shuffledQuestions.length;
 
@@ -99,11 +138,18 @@ class QuizComponent extends Component {
       <View style={styles.container}>
         <View style={styles.quizHeader}>
           <Text style={styles.title}>{deck.title}</Text>
-          <Text
-            style={styles.cardCount}
-          >{`${currentCardNumber} of ${numOfCards} ${
-            numOfCards > 1 ? 'cards' : 'card'
-          }`}</Text>
+          {isComplete ? (
+            <View>
+              <Text style={styles.titleCompleted}>Completed!</Text>
+              <Text style={styles.titleCompleted}>{quizCompleteMessage}</Text>
+            </View>
+          ) : (
+            <Text
+              style={styles.cardCount}
+            >{`${currentCardNumber} of ${numOfCards} ${
+              numOfCards > 1 ? 'cards' : 'card'
+            }`}</Text>
+          )}
         </View>
 
         <View style={styles.quizBody}>
