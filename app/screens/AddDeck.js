@@ -6,22 +6,15 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { Constants, AppLoading } from 'expo';
 import { onAddDeck } from '../actions';
-import Header from '../components/ui/Header';
-import Footer from '../components/ui/Footer';
 import { InputText } from '../components/TextInput';
 
-import { FontAwesome, Ionicons } from '@expo/vector-icons';
-import {
-  black,
-  purple,
-  lightPurple,
-  white,
-  antiFlashWhite,
-} from '../utils/colors';
+import { FontAwesome } from '@expo/vector-icons';
+import { black, purple, antiFlashWhite } from '../utils/colors';
+import { Container } from '../components/Container';
 
 // TODO: Make Button into a module component
 const AddDeckButton = ({ onPress }) => (
@@ -66,15 +59,11 @@ class AddDeck extends React.Component {
         deckTitle: '',
       }));
 
-      // Navigate to AddCard
+      // Navigate to Deck Detail, from where you can add cards
       this.props.navigation.navigate('DeckDetail', {
         deckId: id,
         deck: res.deck,
       });
-      // // Navigate to AddCard
-      // this.props.navigation.navigate('AddCard', {
-      //   deckId: id,
-      // });
     });
 
     // TODO: Setup Local notification message to remind to study
@@ -85,21 +74,22 @@ class AddDeck extends React.Component {
     const { deckTitle } = this.state;
 
     return (
-      <View style={styles.container}>
-        {/* <Header title="Add Deck" backgroundColor={purple} marginBottom={6} /> */}
-        <View
-          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-        >
-          <Text style={styles.title}>Enter a title for this Deck:</Text>
+      <Container>
+        <KeyboardAvoidingView behavior="padding">
+          <View
+            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+          >
+            <Text style={styles.title}>Enter a title for this Deck:</Text>
 
-          <InputText
-            placeholder="Deck Title"
-            onChangeText={deckTitle => this.setState(() => ({ deckTitle }))}
-            value={deckTitle}
-          />
-          <AddDeckButton onPress={this.handleAddDeck} />
-        </View>
-      </View>
+            <InputText
+              placeholder="Deck Title"
+              onChangeText={deckTitle => this.setState(() => ({ deckTitle }))}
+              value={deckTitle}
+            />
+            <AddDeckButton onPress={this.handleAddDeck} />
+          </View>
+        </KeyboardAvoidingView>
+      </Container>
     );
   }
 }

@@ -1,32 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import cuid from 'cuid';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableHighlight,
-  View,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
-import { Constants, AppLoading } from 'expo';
-import Header from '../components/ui/Header';
+import { StyleSheet, Text, View, KeyboardAvoidingView } from 'react-native';
 import ButtonTouchableOpacity from '../components/ui/ButtonTouchableOpacity';
-import { FontAwesome, Ionicons } from '@expo/vector-icons';
-import {
-  black,
-  gray,
-  purple,
-  lightPurple,
-  white,
-  antiFlashWhite,
-} from '../utils/colors';
+import { FontAwesome } from '@expo/vector-icons';
+import { black, purple, lightPurple, antiFlashWhite } from '../utils/colors';
 import { onAddCard } from '../actions';
 import { getDeck } from '../api/index';
 import AppModal from '../components/ui/AppModal';
 import { InputText } from '../components/TextInput';
+import { Container } from '../components/Container';
 
 class AddCard extends React.Component {
   state = {
@@ -101,37 +84,38 @@ class AddCard extends React.Component {
     const { question, answer } = this.state;
 
     return (
-      <View style={styles.container}>
+      <Container>
         <KeyboardAvoidingView
-          style={{ alignItems: 'center', justifyContent: 'center' }}
-          behavior="position"
+          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+          behavior="padding"
         >
-          <Text style={styles.title}>{deck.title}</Text>
-          <Text style={styles.desc}>Add a new card</Text>
+          <View style={{ flex: 1, alignItems: 'center', marginTop: 20 }}>
+            <Text style={styles.desc}>Add a new card</Text>
 
-          <InputText
-            placeholder="Add Question"
-            onChangeText={question => this.setState(() => ({ question }))}
-            value={question}
-          />
+            <InputText
+              placeholder="Add Question"
+              onChangeText={question => this.setState(() => ({ question }))}
+              value={question}
+            />
 
-          <InputText
-            placeholder="Add Answer"
-            onChangeText={answer => this.setState(() => ({ answer }))}
-            value={answer}
-          />
+            <InputText
+              placeholder="Add Answer"
+              onChangeText={answer => this.setState(() => ({ answer }))}
+              value={answer}
+            />
 
-          <ButtonTouchableOpacity
-            marginTop={20}
-            width={150}
-            backgroundColor={lightPurple}
-            onPress={this.handleAddCard}
-          >
-            <FontAwesome name="plus" size={20} color={antiFlashWhite} />
-            <Text style={{ fontSize: 18, color: antiFlashWhite }}>
-              Add Card
-            </Text>
-          </ButtonTouchableOpacity>
+            <ButtonTouchableOpacity
+              marginTop={20}
+              width={150}
+              backgroundColor={lightPurple}
+              onPress={this.handleAddCard}
+            >
+              <FontAwesome name="plus" size={20} color={antiFlashWhite} />
+              <Text style={{ fontSize: 18, color: antiFlashWhite }}>
+                Add Card
+              </Text>
+            </ButtonTouchableOpacity>
+          </View>
         </KeyboardAvoidingView>
 
         <AppModal
@@ -145,7 +129,7 @@ class AddCard extends React.Component {
             <Text>New card added!</Text>
           </View>
         </AppModal>
-      </View>
+      </Container>
     );
   }
 }
@@ -168,6 +152,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: purple,
     paddingVertical: 10,
+    marginTop: 20,
   },
 });
 
