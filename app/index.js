@@ -1,6 +1,8 @@
 import React from 'react';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+import Main from './screens/Main';
+
 // Global app style variables
 
 // TODO: Change colours here to match app
@@ -10,20 +12,28 @@ EStyleSheet.build({
   $primaryGreen: '#00bd9d',
   $primaryPurple: '#9e768f',
 
-  $purple: '#292477',
-  $lightPurple: '#7c53c3',
-  $white: '#FFFFFF',
   $antiFlashWhite: '#f2f3f4',
+  $amber: '#FFC107',
   $borderSeparator: '#e2e2e2',
-  $inputText: '#797979',
-  $lightGray: '#F0F0F0',
-  $darkText: '#343434',
-  $gray: '#757575',
   $black: '#222222',
+  $blue: '#4e4cb8',
+  $cyan: '#00BCD4',
+  $darkText: '#343434',
+  $indigo: '#3F51B5',
+  $inputText: '#797979',
+  $gray: '#757575',
+  $green: '#bada55',
+  $grey400: '#BDBDBD',
+  $lightGreen: '#8BC34A',
+  $lightGray: '#e2e2e2',
+  $lightPurple: '#7c53c3',
+  $orange: '#f26f28',
+  $purple: '#292477',
+  $red: '#b71845',
+  $pink: '#b93fb3',
+  $white: '#fff',
 
   // $outline: 1, // => use to see component layout!
 });
-
-import Main from './screens/Main';
 
 export default () => <Main />;
