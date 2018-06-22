@@ -52,18 +52,6 @@ class Deck extends Component {
               View deck
             </Text>
           </ButtonTouchableOpacity>
-
-          <ButtonTouchableOpacity
-            backgroundColor={grey400}
-            marginTop={10}
-            width={150}
-            onPress={() => handleDeleteDeck(deck)}
-          >
-            <FontAwesome name="trash" size={20} color={antiFlashWhite} />
-            <Text style={{ fontSize: 18, color: antiFlashWhite }}>
-              Delete deck
-            </Text>
-          </ButtonTouchableOpacity>
         </View>
       </View>
     );

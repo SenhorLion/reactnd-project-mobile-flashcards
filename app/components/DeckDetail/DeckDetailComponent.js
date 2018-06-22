@@ -26,6 +26,7 @@ const DeckDetailComponent = props => {
     onHandleEdit,
     onHandleCancelEdit,
     onHandleChangeText,
+    onHandleDeleteDeck,
     onSubmitEdit,
     isEditMode,
     deckTitle,
@@ -160,7 +161,7 @@ const DeckDetailComponent = props => {
                 }
                 size={40}
                 iconText="Delete"
-                onPress={() => console.log('@DELETE DECK', deckId)}
+                onPress={() => onHandleDeleteDeck(deck)}
               />
             </View>
           </View>
