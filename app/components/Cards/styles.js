@@ -32,7 +32,15 @@ export default EStyleSheet.create({
   },
 
   editCardContainer: {
-    backgroundColor: '$primaryLight',
+    backgroundColor: '$grey100',
     padding: 20,
+    borderWidth: 1,
+    borderColor: '$primaryLight',
+    borderRadius: 4,
+  },
+  editLabel: {
+    fontSize: 18,
+    fontWeight: '500',
+    color: '$primary',
   },
 });

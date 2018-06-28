@@ -37,6 +37,7 @@ class Card extends Component {
     const { question, answer } = this.state;
 
     if (!answer || !question) {
+      // TODO: Add notification to user
       console.log('You must enter data to save');
       return;
     }
@@ -75,59 +76,101 @@ class Card extends Component {
 
     return (
       <View style={styles.card}>
-        <View style={styles.cardContainer}>
-          {isEditMode ? (
-            <View style={styles.editCardContainer}>
-              <Text style={styles.title}>Question:</Text>
-              <InputText
-                placeholder="Edit Question"
-                clearButtonMode="while-editing"
-                onChangeText={question => this.setState({ question })}
-                name="question"
-                value={question}
-              />
-              <Text style={styles.title}>Answer:</Text>
-              <InputText
-                placeholder="Edit Answer"
-                clearButtonMode="while-editing"
-                onChangeText={answer => this.setState({ answer })}
-                name="answer"
-                value={answer}
-              />
+        {isEditMode ? (
+          <View style={styles.editCardContainer}>
+            <Text style={styles.editLabel}>Question:</Text>
+            <InputText
+              placeholder="Edit Question"
+              clearButtonMode="while-editing"
+              onChangeText={question => this.setState({ question })}
+              name="question"
+              value={question}
+            />
+            <Text style={styles.editLabel}>Answer:</Text>
+            <InputText
+              placeholder="Edit Answer"
+              clearButtonMode="while-editing"
+              onChangeText={answer => this.setState({ answer })}
+              name="answer"
+              value={answer}
+            />
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <ButtonTouchableOpacity
+                marginTop={20}
+                width={150}
+                backgroundColor={primary}
+                onPress={() => this.onHandleSaveCard()}
+              >
+                <Text style={{ fontSize: 18, color: antiFlashWhite }}>
+                  Save
+                </Text>
+              </ButtonTouchableOpacity>
+
+              <ButtonTouchableOpacity
+                marginTop={20}
+                width={150}
+                backgroundColor={grey400}
+                color={primary}
+                onPress={() => this.onHandleCancelEdit()}
+              >
+                <Text style={{ fontSize: 18, color: antiFlashWhite }}>
+                  Cancel
+                </Text>
+              </ButtonTouchableOpacity>
+            </View>
+          </View>
+        ) : (
+          <View
+            style={[
+              styles.cardContainer,
+              {
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+              },
+            ]}
+          >
+            <View
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                bottom: 0,
+                width: 30,
+
+                padding: 2,
+                backgroundColor: primaryLight,
+              }}
+            >
+              <Text style={{ textAlign: 'center', color: antiFlashWhite }}>
+                {this.props.index}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'column',
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginLeft: 30,
+                padding: 5,
+              }}
+            >
               <View
                 style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
+                  alignSelf: 'baseline',
+                  paddingHorizontal: 10,
+                  paddingBottom: 10,
                 }}
               >
-                <ButtonTouchableOpacity
-                  marginTop={20}
-                  width={150}
-                  backgroundColor={primary}
-                  onPress={() => this.onHandleSaveCard()}
-                >
-                  <Text style={{ fontSize: 18, color: antiFlashWhite }}>
-                    Save
-                  </Text>
-                </ButtonTouchableOpacity>
-
-                <ButtonTouchableOpacity
-                  marginTop={20}
-                  width={150}
-                  backgroundColor={grey400}
-                  color={primary}
-                  onPress={() => this.onHandleCancelEdit()}
-                >
-                  <Text style={{ fontSize: 18, color: antiFlashWhite }}>
-                    Cancel
-                  </Text>
-                </ButtonTouchableOpacity>
+                <Text>Question: {card.question}</Text>
+                <Text>Answer: {card.answer}</Text>
               </View>
-            </View>
-          ) : (
-            <View>
-              <Text>Question: {card.question}</Text>
-              <Text>Answer: {card.answer}</Text>
 
               <View style={styles.iconButtonRow}>
                 <IconButton
@@ -141,7 +184,6 @@ class Card extends Component {
                     />
                   }
                   size={40}
-                  iconText="Edit"
                   onPress={() => this.onHandleEdit(card)}
                 />
 
@@ -156,13 +198,12 @@ class Card extends Component {
                     />
                   }
                   size={40}
-                  iconText="Delete"
                   onPress={() => handleDeleteCard(card)}
                 />
               </View>
             </View>
-          )}
-        </View>
+          </View>
+        )}
       </View>
     );
   }

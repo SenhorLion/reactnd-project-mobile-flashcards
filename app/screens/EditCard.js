@@ -106,9 +106,10 @@ class EditCard extends Component {
 
         <ScrollView style={styles.container}>
           {deck.questions &&
-            deck.questions.map(card => {
+            deck.questions.map((card, index) => {
               return (
                 <Card
+                  index={Number(index) + 1}
                   key={cuid()}
                   card={card}
                   handleDeleteCard={this.handleDeleteCard}
