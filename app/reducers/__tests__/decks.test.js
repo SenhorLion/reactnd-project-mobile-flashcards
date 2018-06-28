@@ -8,6 +8,7 @@ import {
   deleteDeck,
   deleteCard,
   addCard,
+  editCard,
 } from '../../actions/index';
 
 import decks from '../decks';
@@ -270,6 +271,119 @@ describe('decks reducer tests', () => {
 
     expect(decks(defaultState, addCard(deckId, card))).toEqual(expected);
   });
+
+  /**
+   * EDIT A CARD
+   */
+  it('should Edit a Card wihtout mutating state', () => {
+    const defaultState = {
+      isFetching: false,
+      items: {
+        cjid9dgxu0000zx8urifcccii: {
+          id: 'cjid9dgxu0000zx8urifcccii',
+          timestamp: 1528905228099,
+          title: 'React',
+          questions: [
+            {
+              id: 'cjid9dgxu0000zx8urifcccaa',
+              question: 'What is React?',
+              answer: 'A library for managing user interfaces',
+            },
+          ],
+        },
+      },
+    };
+
+    deepFreeze(defaultState);
+
+    const deckId = 'cjid9dgxu0000zx8urifcccii';
+    const card = {
+      id: 'cjid9dgxu0000zx8urifcccaa',
+      question: 'What is Reaction?',
+      answer: 'A library for managing user interfaces view layer',
+    };
+
+    const expected = {
+      isFetching: false,
+      items: {
+        cjid9dgxu0000zx8urifcccii: {
+          id: 'cjid9dgxu0000zx8urifcccii',
+          timestamp: 1528905228099,
+          title: 'React',
+          questions: [
+            {
+              id: 'cjid9dgxu0000zx8urifcccaa',
+              question: 'What is Reaction?',
+              answer: 'A library for managing user interfaces view layer',
+            },
+          ],
+        },
+      },
+    };
+
+    expect(decks(defaultState, editCard(deckId, card))).toEqual(expected);
+  });
+
+  it('should Edit a Card wihtout mutating state', () => {
+    const defaultState = {
+      isFetching: false,
+      items: {
+        cjid9dgxu0000zx8urifcccii: {
+          id: 'cjid9dgxu0000zx8urifcccii',
+          timestamp: 1528905228099,
+          title: 'React',
+          questions: [
+            {
+              id: 'cjid9dgxu0000zx8urifcccaa',
+              question: 'What is React?',
+              answer: 'A library for managing user interfaces',
+            },
+            {
+              id: 'cjid9dgxu0000zx8urifcccbca',
+              question: 'What is Redux?',
+              answer: 'A library for managing state',
+            },
+          ],
+        },
+      },
+    };
+
+    deepFreeze(defaultState);
+
+    const deckId = 'cjid9dgxu0000zx8urifcccii';
+    const card = {
+      id: 'cjid9dgxu0000zx8urifcccbca',
+      question: 'What is Reduxy?',
+      answer: 'The single source of truth',
+    };
+
+    const expected = {
+      isFetching: false,
+      items: {
+        cjid9dgxu0000zx8urifcccii: {
+          id: 'cjid9dgxu0000zx8urifcccii',
+          timestamp: 1528905228099,
+          title: 'React',
+          questions: [
+            {
+              id: 'cjid9dgxu0000zx8urifcccaa',
+              question: 'What is React?',
+              answer: 'A library for managing user interfaces',
+            },
+            {
+              id: 'cjid9dgxu0000zx8urifcccbca',
+              question: 'What is Reduxy?',
+              answer: 'The single source of truth',
+            },
+          ],
+        },
+      },
+    };
+
+    expect(decks(defaultState, editCard(deckId, card))).toEqual(expected);
+  });
+
+  ///
 
   /**
    * DELETE A CARD FROM DECK

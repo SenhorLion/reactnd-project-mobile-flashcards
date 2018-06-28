@@ -60,20 +60,16 @@ const decksData = {
 };
 
 const setDummyData = () => {
-  console.log('API::@setDummyData');
   AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decksData));
 
   return decksData;
 };
 
 const formatResults = results => {
-  console.log('API::@formatResults', results);
   return results ? JSON.parse(results) : setDummyData();
 };
 
 export const fetchAllDecks = () => {
-  console.log('API::@fetchAllDecks');
-
   // FOR TESTING: Clear storage
   // AsyncStorage.clear();
 
@@ -100,7 +96,6 @@ const asyncFetchAllDecks = () => {
 };
 
 export const addDeck = deck => {
-  console.log('API::addDeck::', JSON.stringify(deck, null, 2));
   // TODO: sanitize data
   const newDeck = {
     [deck.id]: {
@@ -112,8 +107,6 @@ export const addDeck = deck => {
 };
 
 export const editDeck = (deckId, deck) => {
-  console.log('API::editDeck::', deckId, JSON.stringify(deck, null, 2));
-
   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(result => {
     const decks = JSON.parse(result);
 
@@ -128,8 +121,6 @@ export const editDeck = (deckId, deck) => {
 };
 
 export const deleteDeck = deckId => {
-  console.log('API::deleteDeck::', deckId);
-
   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(result => {
     const decks = JSON.parse(result);
 
@@ -141,8 +132,6 @@ export const deleteDeck = deckId => {
 };
 
 export const addCardToDeck = (deckId, card) => {
-  console.log('API::addCardToDeck::', deckId, card);
-
   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(data => {
     const decks = JSON.parse(data);
 
@@ -162,13 +151,42 @@ export const addCardToDeck = (deckId, card) => {
 };
 
 /**
+ * @method editCard
+ * @param {string} deckId
+ * @param {object} card
+ */
+export const editCard = (deckId, card) => {
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(data => {
+    const decks = JSON.parse(data);
+
+    const updatedQuestions = decks[deckId].questions.map(question => {
+      if (question.id === card.id) {
+        return card;
+      }
+      return question;
+    });
+
+    const updatedDecks = {
+      ...decks,
+      [deckId]: {
+        ...decks[deckId],
+        questions: updatedQuestions,
+      },
+    };
+
+    return AsyncStorage.setItem(
+      DECKS_STORAGE_KEY,
+      JSON.stringify(updatedDecks)
+    );
+  });
+};
+
+/**
  * @function deleteCardFromDeck
  * @param {string} deckId
  * @param {number} cardIndex
  */
 export const deleteCardFromDeck = (deckId, cardId) => {
-  console.log('API::deleteCardFromDeck::', deckId, cardId);
-
   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(result => {
     const decks = JSON.parse(result);
 

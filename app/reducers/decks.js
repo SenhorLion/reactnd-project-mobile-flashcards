@@ -2,6 +2,7 @@ import {
   FETCH_DECKS_REQUEST,
   FETCH_DECKS_SUCCESS,
   ADD_CARD,
+  EDIT_CARD,
   EDIT_DECK,
   DELETE_CARD,
   ADD_DECK,
@@ -198,6 +199,36 @@ const applyEditDeck = (state, action) => {
 };
 
 /**
+ * Edit a card
+ * @function applyEditCard
+ * @param {object} state
+ * @param {object} action
+ * return {object} new state
+ */
+const applyEditCard = (state, action) => {
+  const { deckId } = action;
+
+  const updatedQuestions = state.items[deckId].questions.map(card => {
+    if (card.id === action.card.id) {
+      return action.card;
+    }
+    return card;
+  });
+
+  const newDeck = Object.assign({}, state, {
+    items: {
+      ...state.items,
+      [deckId]: {
+        ...state.items[deckId],
+        questions: updatedQuestions,
+      },
+    },
+  });
+
+  return newDeck;
+};
+
+/**
  * Default Deck state
  */
 const defaultState = {
@@ -225,6 +256,10 @@ const decks = (state = defaultState, action) => {
 
     case ADD_CARD: {
       return applyAddCardToDeck(state, action);
+    }
+
+    case EDIT_CARD: {
+      return applyEditCard(state, action);
     }
 
     case EDIT_DECK: {

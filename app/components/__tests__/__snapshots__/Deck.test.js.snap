@@ -5,7 +5,7 @@ exports[`renders Deck component without crashing 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "backgroundColor": "#f2f3f4",
+      "backgroundColor": "#F5F5F5",
       "flex": 1,
       "justifyContent": "center",
       "marginBottom": 4,
@@ -31,9 +31,9 @@ exports[`renders Deck component without crashing 1`] = `
       style={
         Array [
           Object {
-            "color": "#292477",
+            "color": "#00838f",
             "fontSize": 24,
-            "fontWeight": "bold",
+            "fontWeight": "700",
             "textAlign": "center",
           },
           Object {},
@@ -48,8 +48,9 @@ exports[`renders Deck component without crashing 1`] = `
       ellipsizeMode="tail"
       style={
         Object {
-          "color": "#757575",
+          "color": "#00838f",
           "fontSize": 20,
+          "fontWeight": "300",
           "textAlign": "center",
         }
       }
@@ -75,15 +76,9 @@ exports[`renders Deck component without crashing 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         Object {
-          "alignItems": "center",
-          "backgroundColor": "#3F51B5",
-          "flexDirection": "row",
-          "height": 40,
-          "justifyContent": "space-around",
-          "margin": 4,
+          "backgroundColor": "#00838f",
           "marginTop": 10,
           "opacity": 1,
-          "padding": 4,
           "width": 150,
         }
       }
@@ -118,7 +113,7 @@ exports[`renders deck 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "backgroundColor": "#f2f3f4",
+      "backgroundColor": "#F5F5F5",
       "flex": 1,
       "justifyContent": "center",
       "marginBottom": 4,
@@ -144,9 +139,9 @@ exports[`renders deck 1`] = `
       style={
         Array [
           Object {
-            "color": "#292477",
+            "color": "#00838f",
             "fontSize": 24,
-            "fontWeight": "bold",
+            "fontWeight": "700",
             "textAlign": "center",
           },
           Object {},
@@ -161,8 +156,9 @@ exports[`renders deck 1`] = `
       ellipsizeMode="tail"
       style={
         Object {
-          "color": "#757575",
+          "color": "#00838f",
           "fontSize": 20,
+          "fontWeight": "300",
           "textAlign": "center",
         }
       }
@@ -188,15 +184,9 @@ exports[`renders deck 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         Object {
-          "alignItems": "center",
-          "backgroundColor": "#3F51B5",
-          "flexDirection": "row",
-          "height": 40,
-          "justifyContent": "space-around",
-          "margin": 4,
+          "backgroundColor": "#00838f",
           "marginTop": 10,
           "opacity": 1,
-          "padding": 4,
           "width": 150,
         }
       }
@@ -231,7 +221,7 @@ exports[`renders no deck avaialble message when no deck exists 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "backgroundColor": "#f2f3f4",
+      "backgroundColor": "#F5F5F5",
       "flex": 1,
       "justifyContent": "center",
       "marginBottom": 4,
