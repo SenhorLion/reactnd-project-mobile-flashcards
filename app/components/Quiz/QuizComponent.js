@@ -154,6 +154,7 @@ class QuizComponent extends Component {
     this.setState({
       isComplete: true,
       quizCompleteMessage,
+      percentageCorrect,
     });
 
     // make sure card starts in correct orientation
@@ -181,17 +182,33 @@ class QuizComponent extends Component {
   };
 
   renderQuizCompleteStats = () => {
-    const { correctCount, shuffledQuestions, quizCompleteMessage } = this.state;
+    const {
+      correctCount,
+      percentageCorrect,
+      shuffledQuestions,
+      quizCompleteMessage,
+    } = this.state;
     const numOfCards = shuffledQuestions.length;
-    const percentageCorrect = Math.floor(correctCount / numOfCards * 100);
+
+    const messageStyles = [styles.completeMessage];
+    const statsStyles = [styles.statsText];
+
+    if (percentageCorrect < 100) {
+      messageStyles.push({
+        color: redA700,
+      });
+      statsStyles.push({
+        color: redA700,
+      });
+    }
 
     return (
       <View style={styles.statsView}>
-        <Text style={styles.completeMessage}>{quizCompleteMessage}</Text>
+        <Text style={messageStyles}>{quizCompleteMessage}</Text>
         <Text
-          style={styles.statsText}
+          style={statsStyles}
         >{`${correctCount} out of ${numOfCards} correct`}</Text>
-        <Text style={[styles.statsText, styles.statsTextHeavy]}>
+        <Text style={[statsStyles, styles.statsTextHeavy]}>
           {this.renderPercentComplete()}
         </Text>
       </View>
@@ -250,7 +267,6 @@ class QuizComponent extends Component {
     const {
       isComplete,
       currentCardIndex,
-      correctCount,
       shuffledQuestions,
       isQuestion,
     } = this.state;
