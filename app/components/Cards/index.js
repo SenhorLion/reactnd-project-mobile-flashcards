@@ -1,5 +1,4 @@
-import QuizCard from './QuizCard';
+import Card from './Card';
 import styles from './styles';
 
-// TODO: Move Card.js into this module
-export { QuizCard, styles };
+export { Card, styles };

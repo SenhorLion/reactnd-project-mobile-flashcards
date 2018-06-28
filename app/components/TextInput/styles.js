@@ -6,8 +6,8 @@ const BORDER_RADIUS = 4;
 
 export default EStyleSheet.create({
   container: {
-    backgroundColor: '$lightGray',
-    width: '90%',
+    backgroundColor: '$white', //'$grey50',
+    width: '100%',
     height: INPUT_HEIGHT,
     borderRadius: BORDER_RADIUS,
     flexDirection: 'row',
@@ -16,13 +16,13 @@ export default EStyleSheet.create({
     marginVertical: 10,
   },
   containerDisabled: {
-    backgroundColor: '$lightGray',
+    backgroundColor: '$grey100',
   },
   labelText: {
     fontWeight: '600',
     fontSize: 20,
     paddingHorizontal: 16,
-    color: '$primaryBlue',
+    color: '$primary',
   },
   input: {
     height: INPUT_HEIGHT,

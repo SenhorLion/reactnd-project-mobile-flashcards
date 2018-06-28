@@ -7,6 +7,7 @@ const IconButton = ({
   iconBackground,
   onPress = () => {},
   size,
+  marginTop = 0,
   icon = null,
   iconText = null,
 }) => {
@@ -17,6 +18,7 @@ const IconButton = ({
   if (visible) {
     iconStyles.push(styles.iconVisible);
   }
+
   if (size) {
     iconStyles.push({
       width: size,
@@ -24,6 +26,13 @@ const IconButton = ({
       borderRadius: borderRadiusSize,
     });
   }
+
+  if (marginTop) {
+    iconStyles.push({
+      marginTop,
+    });
+  }
+
   if (iconBackground) {
     iconStyles.push({ backgroundColor: iconBackground });
   }

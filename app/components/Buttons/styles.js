@@ -19,6 +19,18 @@ export default EStyleSheet.create({
     paddingVertical: 5,
   },
   iconVisible: {
-    backgroundColor: '$primaryBlue',
+    backgroundColor: '$primary',
+  },
+  button: {
+    flexDirection: 'row',
+    padding: 4,
+    margin: 4,
+    height: 40,
+    width: 80,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    backgroundColor: '$primary',
+    borderWidth: 1,
+    borderColor: '$primaryText',
   },
 });

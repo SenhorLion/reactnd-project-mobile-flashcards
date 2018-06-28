@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { View, Text, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
-import ButtonTouchableOpacity from './ButtonTouchableOpacity';
+import { ButtonTouchableOpacity } from '../Buttons';
 import {
   black,
   gray,
