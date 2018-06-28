@@ -5,6 +5,18 @@ import AppModal from './ui/AppModal';
 import Deck from './Deck';
 import { DeleteModalConfirm } from './Modals';
 
+import {
+  antiFlashWhite,
+  primary,
+  primaryLight,
+  primaryDark,
+  grey400,
+  highlight,
+  highlightLight,
+  highlightDark,
+  redA700,
+} from '../utils/colors';
+
 class DeckList extends Component {
   state = {
     modalVisible: false,
@@ -59,7 +71,7 @@ class DeckList extends Component {
             justifyContent: 'center',
           }}
         >
-          <Text dataTestId="loading" style={{ fontSize: 20 }}>
+          <Text dataTestId="loading" style={styles.loadingText}>
             Loading Decks...
           </Text>;
         </View>
@@ -75,7 +87,7 @@ class DeckList extends Component {
             justifyContent: 'center',
           }}
         >
-          <Text dataTestId="loading" style={{ fontSize: 20 }}>
+          <Text dataTestId="loading" style={styles.loadingText}>
             No Decks available to show.
           </Text>;
         </View>
@@ -113,6 +125,10 @@ class DeckList extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 6,
+  },
+  loadingText: {
+    fontSize: 26,
+    color: primary,
   },
 });
 

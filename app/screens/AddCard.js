@@ -2,9 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import cuid from 'cuid';
 import { StyleSheet, Text, View, KeyboardAvoidingView } from 'react-native';
-import ButtonTouchableOpacity from '../components/ui/ButtonTouchableOpacity';
+import { ButtonTouchableOpacity } from '../components/Buttons';
 import { FontAwesome } from '@expo/vector-icons';
-import { black, purple, lightPurple, antiFlashWhite } from '../utils/colors';
+import {
+  black,
+  grey50,
+  grey100,
+  primary,
+  antiFlashWhite,
+} from '../utils/colors';
 import { onAddCard } from '../actions';
 import { getDeck } from '../api/index';
 import AppModal from '../components/ui/AppModal';
@@ -86,11 +92,22 @@ class AddCard extends React.Component {
     return (
       <Container>
         <KeyboardAvoidingView
-          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingHorizontal: 20,
+          }}
           behavior="padding"
         >
-          <View style={{ flex: 1, alignItems: 'center', marginTop: 20 }}>
-            <Text style={styles.desc}>Add a new card</Text>
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              marginTop: 20,
+            }}
+          >
+            <Text style={styles.title}>Add a new card</Text>
 
             <InputText
               placeholder="Add Question"
@@ -107,7 +124,7 @@ class AddCard extends React.Component {
             <ButtonTouchableOpacity
               marginTop={20}
               width={150}
-              backgroundColor={lightPurple}
+              backgroundColor={primary}
               onPress={this.handleAddCard}
             >
               <FontAwesome name="plus" size={20} color={antiFlashWhite} />
@@ -126,7 +143,7 @@ class AddCard extends React.Component {
           onBackdropPress={this.toggleModalVisible}
         >
           <View>
-            <Text>New card added!</Text>
+            <Text style={styles.title}>New card added!</Text>
           </View>
         </AppModal>
       </Container>
@@ -138,19 +155,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: grey100,
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 24,
-    color: purple,
+    fontSize: 26,
+    color: primary,
     textAlign: 'center',
+    paddingBottom: 5,
   },
   desc: {
-    fontWeight: 'normal',
+    fontWeight: '500',
     textAlign: 'center',
-    fontSize: 20,
-    color: purple,
+    fontSize: 26,
+    color: primary,
     paddingVertical: 10,
     marginTop: 20,
   },

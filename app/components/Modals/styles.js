@@ -7,12 +7,12 @@ export default EStyleSheet.create({
     flexDirection: 'row',
   },
   buttonText: {
-    color: '$white',
+    color: '$primaryText',
   },
   title: {
     fontSize: 24,
     fontWeight: '600',
-    color: '$purple',
+    color: '$primary',
     paddingBottom: 10,
   },
 });

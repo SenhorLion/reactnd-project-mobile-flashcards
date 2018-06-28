@@ -1,25 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View, Platform } from 'react-native';
 import {
-  gray,
-  lightGray,
-  green,
-  indigo,
-  lightGreen,
-  amber,
-  cyan,
+  primary,
+  primaryLight,
   grey400,
-  purple,
-  lightPurple,
+  redA700,
+  highlight,
+  secondaryLight,
   antiFlashWhite,
 } from '../../utils/colors';
 
-import { FontAwesome, Ionicons } from '@expo/vector-icons';
-import ButtonTouchableOpacity from '../ui/ButtonTouchableOpacity';
-import ButtonIcon from '../ui/ButtonIcon';
+import { FontAwesome } from '@expo/vector-icons';
 import styles from './styles';
 import { InputText } from '../TextInput';
-import { IconButton } from '../Buttons';
+import { IconButton, ButtonTouchableOpacity } from '../Buttons';
 
 const DeckDetailComponent = props => {
   const {
@@ -34,7 +28,9 @@ const DeckDetailComponent = props => {
     deck,
     deckId,
   } = props;
+
   const numOfCards = deck.questions.length;
+
   const navigateToRoute = (route, deck, deckId) =>
     navigation.navigate(route, { deck, deckId });
 
@@ -42,21 +38,15 @@ const DeckDetailComponent = props => {
     <View style={styles.container}>
       <View>
         {!isEditMode ? (
-          <View style={{ alignItems: 'center', padding: 10 }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}
-            />
+          <View style={styles.header}>
             <Text style={styles.title}>{deck.title}</Text>
             <Text style={styles.cardCount}>{`${numOfCards} ${
               numOfCards > 1 ? 'cards' : 'card'
             }`}</Text>
           </View>
         ) : (
-          <View style={{ alignItems: 'center', paddingVertical: 10 }}>
-            <Text>Edit Deck title</Text>
+          <View style={styles.header}>
+            <Text style={styles.title}>Edit Deck title</Text>
             <InputText
               placeholder="Edit title"
               clearButtonMode="while-editing"
@@ -73,7 +63,7 @@ const DeckDetailComponent = props => {
               <ButtonTouchableOpacity
                 marginTop={20}
                 width={150}
-                backgroundColor={indigo}
+                backgroundColor={primary}
                 onPress={() => onSubmitEdit()}
               >
                 <Text style={{ fontSize: 18, color: antiFlashWhite }}>
@@ -85,7 +75,7 @@ const DeckDetailComponent = props => {
                 marginTop={20}
                 width={150}
                 backgroundColor={grey400}
-                color={gray}
+                color={primary}
                 onPress={() => onHandleCancelEdit()}
               >
                 <Text style={{ fontSize: 18, color: antiFlashWhite }}>
@@ -103,7 +93,7 @@ const DeckDetailComponent = props => {
                 <ButtonTouchableOpacity
                   marginTop={20}
                   width={150}
-                  backgroundColor={indigo}
+                  backgroundColor={primary}
                   onPress={() => navigateToRoute('Quiz', deck, deckId)}
                 >
                   <Text style={{ fontSize: 18, color: antiFlashWhite }}>
@@ -117,7 +107,7 @@ const DeckDetailComponent = props => {
               {numOfCards && (
                 <IconButton
                   visible={true}
-                  iconBackground={amber}
+                  iconBackground={highlight}
                   icon={
                     <FontAwesome
                       name={`th-list`}
@@ -133,7 +123,7 @@ const DeckDetailComponent = props => {
 
               <IconButton
                 visible={true}
-                iconBackground={lightPurple}
+                iconBackground={secondaryLight}
                 icon={
                   <FontAwesome name="pencil" size={20} color={antiFlashWhite} />
                 }
@@ -144,7 +134,7 @@ const DeckDetailComponent = props => {
 
               <IconButton
                 visible={true}
-                iconBackground={cyan}
+                iconBackground={primaryLight}
                 icon={
                   <FontAwesome name="plus" size={20} color={antiFlashWhite} />
                 }
@@ -155,7 +145,7 @@ const DeckDetailComponent = props => {
 
               <IconButton
                 visible={true}
-                iconBackground={grey400}
+                iconBackground={redA700}
                 icon={
                   <FontAwesome name="trash" size={20} color={antiFlashWhite} />
                 }

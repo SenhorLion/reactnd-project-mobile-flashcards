@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Platform } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  FlatList,
+  Platform,
+} from 'react-native';
 import { connect } from 'react-redux';
 import cuid from 'cuid';
-import { black, gray, purple, lightPurple } from '../utils/colors';
-import ButtonTouchableOpacity from '../components/ui/ButtonTouchableOpacity';
-import Card from '../components/Card';
+import { black, primary } from '../utils/colors';
+import { Card } from '../components/Cards';
 import AppModal from '../components/ui/AppModal';
-import { onDeleteCard } from '../actions';
+import { onDeleteCard, onEditCard } from '../actions';
 import { DeleteModalConfirm } from '../components/Modals';
 
 const styles = StyleSheet.create({
@@ -16,16 +22,16 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 24,
-    color: purple,
-    marginTop: 10,
+    fontWeight: '700',
+    fontSize: 26,
+    color: primary,
+    marginTop: 20,
   },
   cardCount: {
     textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: gray,
+    fontWeight: '400',
+    fontSize: 22,
+    color: primary,
     marginBottom: 10,
   },
 });
@@ -37,18 +43,21 @@ class EditCard extends Component {
     cardSelected: null,
   };
 
+  handleSaveCard = card => {
+    console.log('EDIT_CARD :: handleSaveCard\n\t', card);
+
+    const { deckId, onEditCard } = this.props;
+    console.log('\tDECK_ID', this.props.deckId);
+
+    onEditCard(deckId, card);
+  };
+
   handleDeleteCard = card => {
     console.log('EDIT_CARD :: handleDeleteCard', card, card.id);
 
     this.setState({ cardSelected: card }, () => {
       this.toggleModalVisible();
     });
-  };
-
-  handleEditCard = card => {
-    console.log('EDIT_CARD :: handleEditCard', card, card.id);
-
-    this.setState({ isEditMode: true });
   };
 
   confirmDeleteCard = () => {
@@ -103,6 +112,7 @@ class EditCard extends Component {
                   key={cuid()}
                   card={card}
                   handleDeleteCard={this.handleDeleteCard}
+                  handleSaveCard={this.handleSaveCard}
                 />
               );
             })}
@@ -135,4 +145,5 @@ const mapStateToProps = ({ decks }, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { onDeleteCard })(EditCard);
+// TODO: Add onEditCard action
+export default connect(mapStateToProps, { onDeleteCard, onEditCard })(EditCard);

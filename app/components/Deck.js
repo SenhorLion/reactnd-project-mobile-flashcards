@@ -3,15 +3,25 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import {
   black,
   indigo,
+  highlight,
+  highlightLight,
+  highlightDark,
+  primary,
+  primaryLight,
+  primaryDark,
+  primaryText,
   purple,
-  lightPurple,
-  white,
-  gray,
+  secondary,
+  secondaryLight,
+  secondaryDark,
+  secondaryText,
   antiFlashWhite,
+  grey50,
+  grey100,
   grey400,
 } from '../utils/colors';
 import { FontAwesome } from '@expo/vector-icons';
-import ButtonTouchableOpacity from './ui/ButtonTouchableOpacity';
+import { ButtonTouchableOpacity } from './Buttons';
 
 class Deck extends Component {
   render() {
@@ -37,7 +47,7 @@ class Deck extends Component {
           <Text style={[styles.titleText, {}]}>{title}</Text>
           <Text style={styles.subText}>{`${questions.length} cards`}</Text>
           <ButtonTouchableOpacity
-            backgroundColor={indigo}
+            backgroundColor={primary}
             marginTop={10}
             width={150}
             onPress={() => {
@@ -63,7 +73,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: antiFlashWhite,
+    backgroundColor: grey100,
     marginLeft: 4,
     marginRight: 4,
     marginBottom: 4,
@@ -75,16 +85,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   titleText: {
-    fontWeight: 'bold',
+    fontWeight: '700',
     textAlign: 'center',
     fontSize: 24,
-    color: purple,
+    color: primary,
   },
   subText: {
-    // flex: 1,
+    fontWeight: '300',
     textAlign: 'center',
     fontSize: 20,
-    color: gray,
+    color: primary,
   },
 });
 

@@ -1,38 +1,35 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Platform,
-  StatusBar,
-} from 'react-native';
-import {
-  TabNavigator,
-  StackNavigator,
-  createStackNavigator,
-  createBottomTabNavigator,
-} from 'react-navigation';
+import { StyleSheet, View } from 'react-native';
 
 import { AppLoading } from 'expo';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { composeWithDevTools } from 'remote-redux-devtools';
 
 import rootReducer from '../reducers';
-import { purple } from '../utils/colors';
+import { primary, primaryLight, purple } from '../utils/colors';
 
 import AppStatusBar from '../components/ui/AppStatusBar';
 import MainNavigator from '../Navigator';
-import { Container } from '../components/Container';
 
 // NOTE: composeWithDevTools not currently working in redux dev
-const composeEnhancers = composeWithDevTools({ realtime: true });
-const middleWare = [thunk];
+// const composeEnhancers = composeWithDevTools({ realtime: true });
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+const middlewares = [thunk];
+
+// NOTE: No enhancers used for now, can be added here
+const enhancers = [];
+
+// only use logger outside of prod
+if (process.env.NODE_ENV !== 'production') {
+  middlewares.push(createLogger());
+}
+
 const store = createStore(
   rootReducer /* preloadState */,
-  composeEnhancers(applyMiddleware(...middleWare))
+  composeEnhancers(applyMiddleware(...middlewares), ...enhancers)
 );
 
 export default class Main extends Component {
@@ -52,10 +49,10 @@ export default class Main extends Component {
 
     return (
       <Provider store={store}>
-        <Container>
-          <AppStatusBar backgroundColor={purple} barStyle="light-content" />
+        <View style={styles.container}>
+          <AppStatusBar backgroundColor={primary} barStyle="light-content" />
           <MainNavigator />
-        </Container>
+        </View>
       </Provider>
     );
   }

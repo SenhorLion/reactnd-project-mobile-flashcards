@@ -1,19 +1,25 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 export default EStyleSheet.create({
   container: {
-    // alignItems: 'center',
+    alignItems: 'center',
+    // justifyContent: 'center',
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '$grey100', //'#fff',
+  },
+  header: {
+    alignItems: 'center',
+    marginTop: 30,
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 24,
-    color: '$purple',
+    fontSize: 26,
+    color: '$primary',
+    paddingBottom: 5,
   },
   cardCount: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: '$gray',
+    fontWeight: '500',
+    fontSize: 22,
+    color: '$primary',
   },
   textInput: {
     margin: 10,
@@ -33,7 +39,6 @@ export default EStyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
-    // paddingVertical: 10,
-    paddingTop: 30,
+    paddingVertical: 20,
   },
 });
