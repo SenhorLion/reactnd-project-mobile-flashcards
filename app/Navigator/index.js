@@ -14,31 +14,26 @@ import AddCard from '../screens/AddCard';
 import EditCard from '../screens/EditCard';
 import Quiz from '../screens/Quiz';
 
-// const HomeStack = createStackNavigator(
-//   {
-//     Home: {
-//       screen: Home,
-//       navigationOptions: {
-//         header: () => null,
-//       },
-//     },
-//     Options: {
-//       screen: Options,
-//       navigationOptions: {
-//         headerTitle: 'Options',
-//       },
-//     },
-//     Themes: {
-//       screen: Themes,
-//       navigationOptions: {
-//         headerTitle: 'Themes',
-//       },
-//     },
-//   },
-//   {
-//     headerMode: 'screen',
-//   }
-// );
+import { primary, primaryText } from '../utils/colors';
+
+const headerDefaultStyle = {
+  backgroundColor: primary,
+};
+
+const navigatorDefaultOptions = {
+  headerTintColor: primaryText,
+  headerStyle: headerDefaultStyle,
+};
+
+const QuizStack = createStackNavigator({
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      header: null,
+      headerTitle: 'Back',
+    },
+  },
+});
 
 const HomeStack = createStackNavigator(
   {
@@ -51,41 +46,29 @@ const HomeStack = createStackNavigator(
     DeckDetail: {
       screen: DeckDetail,
       navigationOptions: ({ navigation }) => ({
-        headerTitle: 'Deck', //navigation.state.params.deck.title,
-        headerTintColor: white,
-        headerStyle: {
-          backgroundColor: purple,
-        },
+        ...navigatorDefaultOptions,
+        headerTitle: 'Deck',
       }),
     },
     EditCard: {
       screen: EditCard,
       navigationOptions: ({ navigation }) => ({
+        ...navigatorDefaultOptions,
         headerTitle: navigation.state.params.deck.title,
-        headerTintColor: white,
-        headerStyle: {
-          backgroundColor: purple,
-        },
       }),
     },
     AddCard: {
       screen: AddCard,
       navigationOptions: ({ navigation }) => ({
+        ...navigatorDefaultOptions,
         headerTitle: navigation.state.params.deck.title,
-        headerTintColor: white,
-        headerStyle: {
-          backgroundColor: purple,
-        },
       }),
     },
     Quiz: {
       screen: Quiz,
       navigationOptions: {
+        ...navigatorDefaultOptions,
         headerTitle: 'Quiz',
-        headerTintColor: white,
-        headerStyle: {
-          backgroundColor: purple,
-        },
       },
     },
   },
@@ -98,37 +81,30 @@ const HomeStack = createStackNavigator(
   }
 );
 
+// TODO: This navigation doesnt feel quite right,
+// especially when ading a new deck ...
 const DeckStack = createStackNavigator(
   {
     AddDeck: {
       screen: AddDeck,
       navigationOptions: {
         // header: null,
+        ...navigatorDefaultOptions,
         headerTitle: 'Add Deck',
-        headerTintColor: white,
-        headerStyle: {
-          backgroundColor: purple,
-        },
       },
     },
     DeckDetail: {
       screen: DeckDetail,
       navigationOptions: ({ navigation }) => ({
+        ...navigatorDefaultOptions,
         headerTitle: 'Deck', //navigation.state.params.deck.title,
-        headerTintColor: white,
-        headerStyle: {
-          backgroundColor: purple,
-        },
       }),
     },
     AddCard: {
       screen: AddCard,
       navigationOptions: {
+        ...navigatorDefaultOptions,
         headerTitle: 'Add Card',
-        headerTintColor: white,
-        headerStyle: {
-          backgroundColor: purple,
-        },
       },
     },
   },
@@ -165,6 +141,8 @@ export default createBottomTabNavigator(
   },
   {
     navigationOptions: {},
-    tabBarOptions: {},
+    tabBarOptions: {
+      activeTintColor: primary,
+    },
   }
 );
