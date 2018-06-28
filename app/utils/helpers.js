@@ -1,24 +1,9 @@
-import React from 'react';
-import { View, StyleSheet, AsyncStorage } from 'react-native';
+import { AsyncStorage } from 'react-native';
 import { Notifications, Permissions } from 'expo';
-import {
-  FontAwesome,
-  MaterialIcons,
-  MaterialCommunityIcons,
-} from '@expo/vector-icons';
-import {
-  white,
-  black,
-  red,
-  pink,
-  purple,
-  lightPurple,
-  blue,
-  orange,
-  green,
-} from './colors';
 
-const NOTIFICATION_KEY = 'UdaciFitness:notifications';
+const NOTIFICATION_KEY = 'mobileflashcards:notifications';
+
+export const getRandomNumber = max => Math.floor(Math.random() * max) + 0;
 
 export function timeToString(time = Date.now()) {
   const date = new Date(time);
@@ -30,7 +15,7 @@ export function timeToString(time = Date.now()) {
 
 export const getDailyReminderValue = () => {
   return {
-    today: ":wave Don't forget to log data",
+    today: "👋 Don't forget to log data",
   };
 };
 
@@ -42,8 +27,8 @@ export const clearLocalNotifications = () => {
 
 const createLocalNotification = () => {
   return {
-    title: 'Log your stats!',
-    body: 'Dont forget to log your stats for today!',
+    title: 'Study time!',
+    body: 'Dont forget to study today!',
     ios: {
       sound: true,
     },
