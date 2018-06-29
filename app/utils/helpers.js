@@ -41,6 +41,18 @@ const createLocalNotification = () => {
   };
 };
 
+export const askNotificationPermission = () => {
+  Permissions.askAsync(Permissions.NOTIFICATIONS)
+    .then(({ status }) => {
+      if (status === 'granted') {
+        return setLocalNotification();
+      }
+    })
+    .catch(error =>
+      console.warn('Error asking Permission for NOTIFICATIONS', error)
+    );
+};
+
 export const setLocalNotification = () => {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
@@ -50,10 +62,12 @@ export const setLocalNotification = () => {
           if (status === 'granted') {
             Notifications.cancelAllScheduledNotificationsAsync();
 
+            // Set a notification time to be tomorrow at 9am
+            // NB: timezone will vary based on device settings
             const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate(+1));
-            tomorrow.setHours(20);
-            tomorrow.setMinutes(20);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(9);
+            tomorrow.setMinutes(0);
             tomorrow.setSeconds(0);
 
             Notifications.scheduleLocalNotificationAsync(
