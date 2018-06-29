@@ -279,6 +279,17 @@ class QuizComponent extends Component {
       transform: [{ rotateY: this.backInterpolate }],
     };
 
+    // Hack Alert:
+    // To get around Android not supporting `backfaceVisibility`
+    // we add an opacity value to show / hide the relevant card,
+    // AND In addition, to cope with IOS getting all janky with `opacity`
+    // we only add it for Android
+    // TODO: Add a nicer fadeIn / fadeOut animation...
+    if (Platform.OS === 'android') {
+      frontAnimatedStyle['opacity'] = isQuestion ? 1 : 0;
+      backAnimatedStyle['opacity'] = isQuestion ? 0 : 1;
+    }
+
     return (
       <View
         style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
