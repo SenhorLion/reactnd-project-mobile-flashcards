@@ -71,9 +71,9 @@ class DeckList extends Component {
             justifyContent: 'center',
           }}
         >
-          <Text dataTestId="loading" style={styles.loadingText}>
+          <Text dataTestId="loading" style={styles.messageText}>
             Loading Decks...
-          </Text>;
+          </Text>
         </View>
       );
     }
@@ -87,9 +87,9 @@ class DeckList extends Component {
             justifyContent: 'center',
           }}
         >
-          <Text dataTestId="loading" style={styles.loadingText}>
+          <Text dataTestId="loading" style={styles.messageText}>
             No Decks available to show.
-          </Text>;
+          </Text>
         </View>
       );
     }
@@ -123,10 +123,7 @@ class DeckList extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 6,
-  },
-  loadingText: {
+  messageText: {
     fontSize: 26,
     color: primary,
   },
