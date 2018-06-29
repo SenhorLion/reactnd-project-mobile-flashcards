@@ -13,8 +13,9 @@ import { onAddDeck } from '../actions';
 import { InputText } from '../components/TextInput';
 
 import { FontAwesome } from '@expo/vector-icons';
-import { black, purple, antiFlashWhite } from '../utils/colors';
+import { black, primary, antiFlashWhite } from '../utils/colors';
 import { Container } from '../components/Container';
+import { ButtonTouchableOpacity } from '../components/Buttons';
 
 // TODO: Make Button into a module component
 const AddDeckButton = ({ onPress }) => (
@@ -86,7 +87,17 @@ class AddDeck extends React.Component {
               onChangeText={deckTitle => this.setState(() => ({ deckTitle }))}
               value={deckTitle}
             />
-            <AddDeckButton onPress={this.handleAddDeck} />
+            <ButtonTouchableOpacity
+              backgroundColor={primary}
+              marginTop={10}
+              width={150}
+              onPress={() => this.handleAddDeck()}
+            >
+              <FontAwesome name="plus" size={20} color={antiFlashWhite} />
+              <Text style={{ fontSize: 18, color: antiFlashWhite }}>
+                Add Deck
+              </Text>
+            </ButtonTouchableOpacity>
           </View>
         </KeyboardAvoidingView>
       </Container>
@@ -109,9 +120,9 @@ const styles = StyleSheet.create({
     color: black,
   },
   title: {
-    fontWeight: 'bold',
+    fontWeight: '400',
     fontSize: 24,
-    color: purple,
+    color: primary,
     textAlign: 'center',
     alignItems: 'center',
   },
@@ -123,10 +134,10 @@ const styles = StyleSheet.create({
     width: 80,
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: purple,
+    backgroundColor: primary,
   },
   submitBtnText: {
-    color: purple,
+    color: primary,
     fontSize: 22,
     textAlign: 'center',
   },

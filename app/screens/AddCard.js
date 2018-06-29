@@ -143,7 +143,7 @@ class AddCard extends React.Component {
           onBackdropPress={this.toggleModalVisible}
         >
           <View>
-            <Text style={styles.title}>New card added!</Text>
+            <Text style={styles.modalTitle}>New card added!</Text>
           </View>
         </AppModal>
       </Container>
@@ -158,8 +158,15 @@ const styles = StyleSheet.create({
     backgroundColor: grey100,
   },
   title: {
-    fontWeight: 'bold',
+    fontWeight: '700',
     fontSize: 26,
+    color: primary,
+    textAlign: 'center',
+    paddingBottom: 5,
+  },
+  modalTitle: {
+    fontWeight: '500',
+    fontSize: 24,
     color: primary,
     textAlign: 'center',
     paddingBottom: 5,

@@ -8,9 +8,9 @@ export default EStyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
     width: '90%',
-    height: 60,
-    marginTop: 20,
-    marginBottom: 16,
+    height: 70,
+    marginTop: 10,
+    marginBottom: 10,
   },
   bottomContainer: {
     alignItems: 'center',
@@ -21,7 +21,6 @@ export default EStyleSheet.create({
   cardContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: '$lightPurple',
     height: 300,
     width: '90%',
   },
@@ -29,15 +28,13 @@ export default EStyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '$grey100', //'$primaryLight', //'$grey100',
+    backgroundColor: '$grey100',
     backfaceVisibility: 'hidden',
     width: containerWidth,
-    // height: 300,
     borderRadius: 1,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: '$grey50',
     padding: 5,
-    // backgroundShadow:
   },
   cardBack: {
     position: 'absolute',

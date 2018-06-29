@@ -44,7 +44,7 @@ class Deck extends Component {
     return (
       <View style={styles.deck}>
         <View style={styles.deckContainer}>
-          <Text style={[styles.titleText, {}]}>{title}</Text>
+          <Text style={styles.titleText}>{title}</Text>
           <Text style={styles.subText}>{`${questions.length} cards`}</Text>
           <ButtonTouchableOpacity
             backgroundColor={primary}
@@ -74,10 +74,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: grey100,
-    marginLeft: 4,
-    marginRight: 4,
-    marginBottom: 4,
-    minHeight: 180,
+    marginLeft: 6,
+    marginRight: 6,
+    marginBottom: 6,
+    minHeight: 160,
+    borderRadius: 4,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: grey50,
   },
   deckContainer: {
     flex: 1,

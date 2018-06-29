@@ -13,9 +13,7 @@ const Header = ({
 
 const styles = StyleSheet.create({
   header: {
-    // flex: 1,
     height: 60,
-    // width: 100,
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -21,7 +21,6 @@ class Decks extends Component {
   };
 
   state = {
-    isReady: false,
     isDecksLoaded: false,
   };
 

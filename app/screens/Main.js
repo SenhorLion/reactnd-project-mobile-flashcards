@@ -1,24 +1,20 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { AppLoading } from 'expo';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
 import rootReducer from '../reducers';
-import { primary, primaryLight, purple } from '../utils/colors';
+import { primary } from '../utils/colors';
 
 import AppStatusBar from '../components/ui/AppStatusBar';
 import MainNavigator from '../Navigator';
+import { setLocalNotification } from '../utils/helpers';
 
-// NOTE: composeWithDevTools not currently working in redux dev
-// const composeEnhancers = composeWithDevTools({ realtime: true });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 const middlewares = [thunk];
-
 // NOTE: No enhancers used for now, can be added here
 const enhancers = [];
 
@@ -33,20 +29,11 @@ const store = createStore(
 );
 
 export default class Main extends Component {
-  state = {
-    isReady: false,
-  };
-
   componentDidMount() {
-    // setLocalNotification();
+    setLocalNotification();
   }
 
   render() {
-    // TODO: AppLoading not working?
-    // if (!this.state.isReady) {
-    //   return <AppLoading />;
-    // }
-
     return (
       <Provider store={store}>
         <View style={styles.container}>
@@ -61,7 +48,5 @@ export default class Main extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'stretch',
-    justifyContent: 'space-between',
   },
 });
