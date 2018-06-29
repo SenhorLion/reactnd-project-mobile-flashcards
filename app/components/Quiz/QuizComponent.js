@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, Animated, Platform } from 'react-native';
-import cuid from 'cuid';
 import { FontAwesome } from '@expo/vector-icons';
 import styles from './styles';
 import {
@@ -14,10 +13,16 @@ import {
   highlightDark,
   redA700,
 } from '../../utils/colors';
-import { getRandomNumber } from '../../utils/helpers';
+import {
+  getRandomNumber,
+  setLocalNotification,
+  clearLocalNotifications,
+} from '../../utils/helpers';
+
 import { wordsOfEncouragement, wordsOfPraise } from '../../data';
 import { IconButton, ButtonTouchableOpacity } from '../Buttons';
 
+// TODO: Move to utils module
 const randomMessage = score => {
   let randIndex = 0;
   let message = 'not found';
@@ -143,8 +148,6 @@ class QuizComponent extends Component {
   };
 
   onGameComplete = () => {
-    console.log('onGameComplete');
-
     const { correctCount, shuffledQuestions } = this.state;
 
     const numOfCards = shuffledQuestions.length;
@@ -157,10 +160,7 @@ class QuizComponent extends Component {
       percentageCorrect,
     });
 
-    // make sure card starts in correct orientation
-    // if (this.value >= 90) {
-    //   this.flipCard();
-    // }
+    clearLocalNotifications().then(setLocalNotification);
   };
 
   renderQuizCompleteHeader = () => {
@@ -253,8 +253,6 @@ class QuizComponent extends Component {
   };
 
   toggleQuestion = () => {
-    console.log('@toggleQuestion');
-
     this.flipCard();
 
     this.setState(prevState => ({
