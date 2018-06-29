@@ -65,8 +65,6 @@ class EditCard extends Component {
     const { cardSelected } = this.state;
     const { deckId } = this.props.navigation.state.params;
 
-    console.log('deckId', deckId, 'cardId', cardSelected.id);
-
     this.props
       .onDeleteCard(deckId, cardSelected.id)
       .then(res => {
@@ -91,6 +89,17 @@ class EditCard extends Component {
   closeModal = () => {
     this.setState({ modalVisible: false });
   };
+
+  componentDidUpdate() {
+    const { deckId, deck, navigation } = this.props;
+
+    if (!deck.questions.length) {
+      navigation.navigate('DeckDetail', {
+        deckId,
+        deck,
+      });
+    }
+  }
 
   render() {
     const { navigation, deck, deckId } = this.props;
