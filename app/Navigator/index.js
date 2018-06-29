@@ -6,7 +6,6 @@ import {
 import { StatusBar } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
-import { white, purple } from '../utils/colors';
 import Decks from '../screens/Decks';
 import DeckDetail from '../screens/DeckDetail';
 import AddDeck from '../screens/AddDeck';
@@ -14,7 +13,7 @@ import AddCard from '../screens/AddCard';
 import EditCard from '../screens/EditCard';
 import Quiz from '../screens/Quiz';
 
-import { primary, primaryText } from '../utils/colors';
+import { primary, primaryText, grey400 } from '../utils/colors';
 
 const headerDefaultStyle = {
   backgroundColor: primary,
@@ -24,16 +23,6 @@ const navigatorDefaultOptions = {
   headerTintColor: primaryText,
   headerStyle: headerDefaultStyle,
 };
-
-const QuizStack = createStackNavigator({
-  Quiz: {
-    screen: Quiz,
-    navigationOptions: {
-      header: null,
-      headerTitle: 'Back',
-    },
-  },
-});
 
 const HomeStack = createStackNavigator(
   {
@@ -143,6 +132,10 @@ export default createBottomTabNavigator(
     navigationOptions: {},
     tabBarOptions: {
       activeTintColor: primary,
+      inactiveTintColor: grey400,
+      style: {
+        paddingTop: 6,
+      },
     },
   }
 );
