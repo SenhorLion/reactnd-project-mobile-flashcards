@@ -4,6 +4,7 @@ import {
   Text,
   View,
   ScrollView,
+  KeyboardAvoidingView,
   FlatList,
   Platform,
 } from 'react-native';
@@ -103,20 +104,21 @@ class EditCard extends Component {
             numOfCards > 1 ? 'cards' : 'card'
           }`}</Text>
         </View>
-
         <ScrollView style={styles.container}>
-          {deck.questions &&
-            deck.questions.map((card, index) => {
-              return (
-                <Card
-                  index={Number(index) + 1}
-                  key={cuid()}
-                  card={card}
-                  handleDeleteCard={this.handleDeleteCard}
-                  handleSaveCard={this.handleSaveCard}
-                />
-              );
-            })}
+          <KeyboardAvoidingView behavior="padding">
+            {deck.questions &&
+              deck.questions.map((card, index) => {
+                return (
+                  <Card
+                    index={Number(index) + 1}
+                    key={cuid()}
+                    card={card}
+                    handleDeleteCard={this.handleDeleteCard}
+                    handleSaveCard={this.handleSaveCard}
+                  />
+                );
+              })}
+          </KeyboardAvoidingView>
         </ScrollView>
 
         <AppModal

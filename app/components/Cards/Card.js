@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, KeyboardAvoidingView } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import {
   antiFlashWhite,
@@ -77,53 +77,55 @@ class Card extends Component {
     return (
       <View style={styles.card}>
         {isEditMode ? (
-          <View style={styles.editCardContainer}>
-            <Text style={styles.editLabel}>Question:</Text>
-            <InputText
-              placeholder="Edit Question"
-              clearButtonMode="while-editing"
-              onChangeText={question => this.setState({ question })}
-              name="question"
-              value={question}
-            />
-            <Text style={styles.editLabel}>Answer:</Text>
-            <InputText
-              placeholder="Edit Answer"
-              clearButtonMode="while-editing"
-              onChangeText={answer => this.setState({ answer })}
-              name="answer"
-              value={answer}
-            />
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}
-            >
-              <ButtonTouchableOpacity
-                marginTop={20}
-                width={150}
-                backgroundColor={primary}
-                onPress={() => this.onHandleSaveCard()}
+          <KeyboardAvoidingView behavior="padding">
+            <View style={styles.editCardContainer}>
+              <Text style={styles.editLabel}>Question:</Text>
+              <InputText
+                placeholder="Edit Question"
+                clearButtonMode="while-editing"
+                onChangeText={question => this.setState({ question })}
+                name="question"
+                value={question}
+              />
+              <Text style={styles.editLabel}>Answer:</Text>
+              <InputText
+                placeholder="Edit Answer"
+                clearButtonMode="while-editing"
+                onChangeText={answer => this.setState({ answer })}
+                name="answer"
+                value={answer}
+              />
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
               >
-                <Text style={{ fontSize: 18, color: antiFlashWhite }}>
-                  Save
-                </Text>
-              </ButtonTouchableOpacity>
+                <ButtonTouchableOpacity
+                  marginTop={20}
+                  width={150}
+                  backgroundColor={primary}
+                  onPress={() => this.onHandleSaveCard()}
+                >
+                  <Text style={{ fontSize: 18, color: antiFlashWhite }}>
+                    Save
+                  </Text>
+                </ButtonTouchableOpacity>
 
-              <ButtonTouchableOpacity
-                marginTop={20}
-                width={150}
-                backgroundColor={grey400}
-                color={primary}
-                onPress={() => this.onHandleCancelEdit()}
-              >
-                <Text style={{ fontSize: 18, color: antiFlashWhite }}>
-                  Cancel
-                </Text>
-              </ButtonTouchableOpacity>
+                <ButtonTouchableOpacity
+                  marginTop={20}
+                  width={150}
+                  backgroundColor={grey400}
+                  color={primary}
+                  onPress={() => this.onHandleCancelEdit()}
+                >
+                  <Text style={{ fontSize: 18, color: antiFlashWhite }}>
+                    Cancel
+                  </Text>
+                </ButtonTouchableOpacity>
+              </View>
             </View>
-          </View>
+          </KeyboardAvoidingView>
         ) : (
           <View
             style={[
