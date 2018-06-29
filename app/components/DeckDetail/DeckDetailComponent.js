@@ -30,6 +30,7 @@ const DeckDetailComponent = props => {
   } = props;
 
   const numOfCards = deck.questions.length;
+  const cardsExist = !!numOfCards;
 
   const navigateToRoute = (route, deck, deckId) =>
     navigation.navigate(route, { deck, deckId });
@@ -88,7 +89,7 @@ const DeckDetailComponent = props => {
 
         {!isEditMode && (
           <View>
-            {numOfCards && (
+            {cardsExist && (
               <View style={styles.row}>
                 <ButtonTouchableOpacity
                   marginTop={20}
@@ -104,7 +105,7 @@ const DeckDetailComponent = props => {
             )}
 
             <View style={styles.iconButtonRow}>
-              {numOfCards && (
+              {cardsExist && (
                 <IconButton
                   visible={true}
                   iconBackground={highlight}
