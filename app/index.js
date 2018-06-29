@@ -2,10 +2,8 @@ import React from 'react';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import Main from './screens/Main';
-import Layout from './screens/Layout';
 
 // Global app style variables
-
 EStyleSheet.build({
   // MAIN THEME COLORS:
   // ===
@@ -25,7 +23,7 @@ EStyleSheet.build({
   $highlightDark: '#c7a500',
 
   // existing styling...
-
+  // TODO: Clean these up ie. delete most and use above theme
   $antiFlashWhite: '#f2f3f4',
   $borderSeparator: '#e2e2e2',
   $black: '#222222',
@@ -46,4 +44,3 @@ EStyleSheet.build({
 });
 
 export default () => <Main />;
-// export default () => <Layout />;
