@@ -43,7 +43,7 @@ class QuizComponent extends Component {
   }
 
   componentDidMount() {
-    const { deck, deckId } = this.props;
+    const { deck } = this.props;
 
     this.setState({
       shuffledQuestions: this.shuffleCards(deck.questions),
@@ -59,6 +59,7 @@ class QuizComponent extends Component {
     this.animatedValue.removeAllListeners();
   }
 
+  // TODO: Move to util module
   shuffleCards = arr => {
     const cards = [...arr];
     let cardsLength = cards.length - 1;
@@ -134,6 +135,7 @@ class QuizComponent extends Component {
       percentageCorrect,
     });
 
+    // Set up a new local notification to remind user to study!
     clearLocalNotifications().then(setLocalNotification);
   };
 
@@ -155,6 +157,7 @@ class QuizComponent extends Component {
     return `${percentageCorrect}%`;
   };
 
+  // TODO: Place the Quiz Complete stats in a new route / screen
   renderQuizCompleteStats = () => {
     const {
       correctCount,
@@ -167,6 +170,8 @@ class QuizComponent extends Component {
     const messageStyles = [styles.completeMessage];
     const statsStyles = [styles.statsText];
 
+    // If the score is less than 100%
+    // Add a red style to the messages and stats - bit harsh? oh well!
     if (percentageCorrect < 100) {
       messageStyles.push({
         color: redA700,
@@ -235,7 +240,7 @@ class QuizComponent extends Component {
   };
 
   render() {
-    const { navigation, deck, deckId } = this.props;
+    const { deck } = this.props;
     const {
       isComplete,
       currentCardIndex,
@@ -258,7 +263,7 @@ class QuizComponent extends Component {
     // we add an opacity value to show / hide the relevant card,
     // AND In addition, to cope with IOS getting all janky with `opacity`
     // we only add it for Android
-    // TODO: Add a nicer fadeIn / fadeOut animation...
+    // TODO: Add a nice fadeIn / fadeOut animation...
     if (Platform.OS === 'android') {
       frontAnimatedStyle['opacity'] = isQuestion ? 1 : 0;
       backAnimatedStyle['opacity'] = isQuestion ? 0 : 1;
@@ -282,8 +287,9 @@ class QuizComponent extends Component {
             <View>
               <Animated.View style={[styles.card, frontAnimatedStyle]}>
                 <View style={styles.cardContent}>
+                  <Text style={styles.cardLabel}>Question</Text>
                   <Text style={styles.questionText}>
-                    Q: {currentCard.question}
+                    {currentCard.question}
                   </Text>
                 </View>
               </Animated.View>
@@ -292,8 +298,9 @@ class QuizComponent extends Component {
                 style={[styles.card, styles.cardBack, backAnimatedStyle]}
               >
                 <View style={styles.cardContent}>
+                  <Text style={styles.cardLabel}>Answer</Text>
                   <Text style={[styles.questionText, styles.answerText]}>
-                    A: {currentCard.answer}
+                    {currentCard.answer}
                   </Text>
                 </View>
               </Animated.View>
@@ -314,7 +321,7 @@ class QuizComponent extends Component {
                 width={150}
                 onPress={() => this.retakeQuiz()}
               >
-                <FontAwesome name="backward" size={20} color={antiFlashWhite} />
+                <FontAwesome name="reply" size={20} color={antiFlashWhite} />
                 <Text style={{ fontSize: 18, color: antiFlashWhite }}>
                   Retake Quiz
                 </Text>
@@ -341,15 +348,11 @@ class QuizComponent extends Component {
             >
               <IconButton
                 visible={true}
-                iconBackground={grey400}
+                iconBackground={'transparent'}
                 icon={
-                  <FontAwesome
-                    name="backward"
-                    size={20}
-                    color={antiFlashWhite}
-                  />
+                  <FontAwesome name="arrow-left" size={30} color={grey400} />
                 }
-                size={40}
+                size={30}
                 marginTop={6}
                 onPress={() => this.toggleQuestion()}
               />
