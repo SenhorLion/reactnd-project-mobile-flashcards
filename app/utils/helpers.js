@@ -1,8 +1,16 @@
 import { AsyncStorage } from 'react-native';
 import { Notifications, Permissions } from 'expo';
 
+import { wordsOfEncouragement, wordsOfPraise } from '../data';
+
 const NOTIFICATION_KEY = 'mobileflashcards:notifications';
 
+/**
+ * Get a random number up to a given `max` number param
+ * @function getRandomNumber
+ * @param {number} max
+ * @return number
+ */
 export const getRandomNumber = max => Math.floor(Math.random() * max) + 0;
 
 export function timeToString(time = Date.now()) {
@@ -85,5 +93,32 @@ export const setLocalNotification = () => {
     });
 };
 
+/**
+ * Util function to add a response delay
+ * @function enforePromiseDelay
+ * @param {number} ms
+ * return Promise
+ */
 export const enforcePromiseDelay = ms =>
   new Promise(resolve => setTimeout(resolve, ms));
+
+/**
+ * Return a random message from either `wordsOfPraise` or `wordsOfEncouragement` Arrays
+ * @function getRandomMessage
+ * @param {number} score
+ * return string
+ */
+export const getRandomMessage = score => {
+  const MAX_TOP_SCORE = 100;
+  let randIndex = 0;
+  let message = '';
+
+  if (score === MAX_TOP_SCORE) {
+    randIndex = getRandomNumber(wordsOfPraise.length);
+    message = wordsOfPraise[randIndex];
+  } else {
+    randIndex = getRandomNumber(wordsOfEncouragement.length);
+    message = wordsOfEncouragement[randIndex];
+  }
+  return message;
+};

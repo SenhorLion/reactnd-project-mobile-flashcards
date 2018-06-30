@@ -2,40 +2,14 @@ import React, { Component } from 'react';
 import { View, Text, Animated, Platform } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import styles from './styles';
+import { antiFlashWhite, primary, grey400, redA700 } from '../../utils/colors';
 import {
-  antiFlashWhite,
-  primary,
-  primaryLight,
-  primaryDark,
-  grey400,
-  highlight,
-  highlightLight,
-  highlightDark,
-  redA700,
-} from '../../utils/colors';
-import {
-  getRandomNumber,
+  getRandomMessage,
   setLocalNotification,
   clearLocalNotifications,
 } from '../../utils/helpers';
 
-import { wordsOfEncouragement, wordsOfPraise } from '../../data';
 import { IconButton, ButtonTouchableOpacity } from '../Buttons';
-
-// TODO: Move to utils module
-const randomMessage = score => {
-  let randIndex = 0;
-  let message = 'not found';
-
-  if (score === 100) {
-    randIndex = getRandomNumber(wordsOfPraise.length);
-    message = wordsOfPraise[randIndex];
-  } else {
-    randIndex = getRandomNumber(wordsOfEncouragement.length);
-    message = wordsOfEncouragement[randIndex];
-  }
-  return message;
-};
 
 class QuizComponent extends Component {
   static navigationOptions = {
@@ -152,7 +126,7 @@ class QuizComponent extends Component {
 
     const numOfCards = shuffledQuestions.length;
     const percentageCorrect = Math.floor(correctCount / numOfCards * 100);
-    const quizCompleteMessage = randomMessage(percentageCorrect);
+    const quizCompleteMessage = getRandomMessage(percentageCorrect);
 
     this.setState({
       isComplete: true,
