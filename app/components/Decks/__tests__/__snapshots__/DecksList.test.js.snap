@@ -15,16 +15,10 @@ exports[`displays "No Decks available" message if no decks exist 1`] = `
     allowFontScaling={true}
     dataTestId="loading"
     ellipsizeMode="tail"
-    style={
-      Object {
-        "color": "#00838f",
-        "fontSize": 26,
-      }
-    }
+    style={undefined}
   >
     No Decks available to show.
   </Text>
-  ;
 </View>
 `;
 
@@ -43,16 +37,10 @@ exports[`displays "loading" message while decks are not loaded 1`] = `
     allowFontScaling={true}
     dataTestId="loading"
     ellipsizeMode="tail"
-    style={
-      Object {
-        "color": "#00838f",
-        "fontSize": 26,
-      }
-    }
+    style={undefined}
   >
     Loading Decks...
   </Text>
-  ;
 </View>
 `;
 
@@ -66,43 +54,16 @@ exports[`displays all decks when decks are loaded and exist 1`] = `
 >
   <View>
     <View
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "#F5F5F5",
-          "flex": 1,
-          "justifyContent": "center",
-          "marginBottom": 4,
-          "marginLeft": 4,
-          "marginRight": 4,
-          "minHeight": 180,
-        }
-      }
+      style={undefined}
     >
       <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flex": 1,
-            "justifyContent": "center",
-          }
-        }
+        style={undefined}
       >
         <Text
           accessible={true}
           allowFontScaling={true}
           ellipsizeMode="tail"
-          style={
-            Array [
-              Object {
-                "color": "#00838f",
-                "fontSize": 24,
-                "fontWeight": "700",
-                "textAlign": "center",
-              },
-              Object {},
-            ]
-          }
+          style={undefined}
         >
           React
         </Text>
@@ -110,14 +71,7 @@ exports[`displays all decks when decks are loaded and exist 1`] = `
           accessible={true}
           allowFontScaling={true}
           ellipsizeMode="tail"
-          style={
-            Object {
-              "color": "#00838f",
-              "fontSize": 20,
-              "fontWeight": "300",
-              "textAlign": "center",
-            }
-          }
+          style={undefined}
         >
           2 cards
         </Text>
@@ -359,15 +313,9 @@ exports[`renders without crashing 1`] = `
     allowFontScaling={true}
     dataTestId="loading"
     ellipsizeMode="tail"
-    style={
-      Object {
-        "color": "#00838f",
-        "fontSize": 26,
-      }
-    }
+    style={undefined}
   >
     Loading Decks...
   </Text>
-  ;
 </View>
 `;

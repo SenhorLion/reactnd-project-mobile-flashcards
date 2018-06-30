@@ -1,21 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, FlatList } from 'react-native';
-import { black } from '../utils/colors';
-import AppModal from './ui/AppModal';
+import { View, Text, ScrollView, FlatList } from 'react-native';
+import { black } from '../../utils/colors';
+import AppModal from '../ui/AppModal';
 import Deck from './Deck';
-import { DeleteModalConfirm } from './Modals';
-
-import {
-  antiFlashWhite,
-  primary,
-  primaryLight,
-  primaryDark,
-  grey400,
-  highlight,
-  highlightLight,
-  highlightDark,
-  redA700,
-} from '../utils/colors';
+import { DeleteModalConfirm } from '../Modals';
+import styles from './styles';
 
 class DeckList extends Component {
   state = {
@@ -24,8 +13,6 @@ class DeckList extends Component {
   };
 
   handleDeleteDeck = deck => {
-    console.log('DECK_LIST :: handleDeleteDeck', deck);
-
     this.setState({ deckSelected: deck }, () => {
       this.toggleModalVisible();
     });
@@ -121,12 +108,5 @@ class DeckList extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  messageText: {
-    fontSize: 26,
-    color: primary,
-  },
-});
 
 export default DeckList;

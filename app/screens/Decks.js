@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import Header from '../components/ui/Header';
-import DeckList from '../components/DeckList';
+import { DeckList } from '../components/Decks';
 import * as actions from '../actions';
 import { enforcePromiseDelay } from '../utils/helpers';
 import { primary } from '../utils/colors';

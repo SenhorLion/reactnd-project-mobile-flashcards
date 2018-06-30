@@ -6,14 +6,14 @@ import {
 import { StatusBar } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
-import Decks from '../screens/Decks';
-import DeckDetail from '../screens/DeckDetail';
-import AddDeck from '../screens/AddDeck';
-import AddCard from '../screens/AddCard';
-import EditCard from '../screens/EditCard';
-import Quiz from '../screens/Quiz';
+import Decks from '../../screens/Decks';
+import DeckDetail from '../../screens/DeckDetail';
+import AddDeck from '../../screens/AddDeck';
+import AddCard from '../../screens/AddCard';
+import EditCard from '../../screens/EditCard';
+import Quiz from '../../screens/Quiz';
 
-import { primary, primaryText, grey400 } from '../utils/colors';
+import { primary, primaryText, grey400 } from '../../utils/colors';
 
 const headerDefaultStyle = {
   backgroundColor: primary,
@@ -137,5 +137,9 @@ export default createBottomTabNavigator(
         paddingTop: 6,
       },
     },
+    cardStyle: {
+      paddingTop: StatusBar.currentHeight,
+    },
+    headerMode: 'screen',
   }
 );

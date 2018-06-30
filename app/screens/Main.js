@@ -10,7 +10,7 @@ import rootReducer from '../reducers';
 import { primary } from '../utils/colors';
 
 import AppStatusBar from '../components/ui/AppStatusBar';
-import MainNavigator from '../Navigator';
+import MainNavigator from '../components/Navigator';
 import { setLocalNotification } from '../utils/helpers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
