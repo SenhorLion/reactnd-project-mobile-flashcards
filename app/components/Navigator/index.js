@@ -62,7 +62,6 @@ const HomeStack = createStackNavigator(
     },
   },
   {
-    mode: 'modal',
     cardStyle: {
       paddingTop: StatusBar.currentHeight,
     },
@@ -72,12 +71,13 @@ const HomeStack = createStackNavigator(
 
 // TODO: This navigation doesnt feel quite right,
 // especially when ading a new deck ...
+// The idea is we can go straight to the Deck Detail view and Add cards after adding the new deck
+// There is probably a more elegant solution for this
 const DeckStack = createStackNavigator(
   {
     AddDeck: {
       screen: AddDeck,
       navigationOptions: {
-        // header: null,
         ...navigatorDefaultOptions,
         headerTitle: 'Add Deck',
       },
@@ -86,7 +86,7 @@ const DeckStack = createStackNavigator(
       screen: DeckDetail,
       navigationOptions: ({ navigation }) => ({
         ...navigatorDefaultOptions,
-        headerTitle: 'Deck', //navigation.state.params.deck.title,
+        headerTitle: 'Deck',
       }),
     },
     AddCard: {
@@ -98,7 +98,6 @@ const DeckStack = createStackNavigator(
     },
   },
   {
-    mode: 'modal',
     cardStyle: {
       paddingTop: StatusBar.currentHeight,
     },
