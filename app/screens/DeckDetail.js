@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 
-import { black } from '../utils/colors';
+import { black, primary } from '../utils/colors';
 import { onEditDeck, onDeleteDeck } from '../actions';
 import { DeckDetailComponent } from '../components/DeckDetail';
 import AppModal from '../components/ui/AppModal';
@@ -10,9 +10,7 @@ import { DeleteModalConfirm } from '../components/Modals';
 
 class DeckDetail extends Component {
   state = {
-    isReady: false,
     isEditMode: false,
-    deckContent: '',
     deckSelected: null,
     modalVisible: false,
   };
@@ -45,22 +43,22 @@ class DeckDetail extends Component {
     });
   };
 
-  onHandleEdit = deckId => {
-    this.setState(prevState => ({
+  onHandleEdit = () => {
+    this.setState({
       isEditMode: true,
-    }));
+    });
   };
 
   onHandleChangeText = deckTitle => {
-    this.setState(prevState => ({
+    this.setState({
       deckTitle,
-    }));
+    });
   };
 
   cancelEdit = () => {
-    this.setState(prevState => ({
+    this.setState({
       isEditMode: false,
-    }));
+    });
   };
 
   onHandleCancelEdit = event => {
@@ -126,7 +124,14 @@ class DeckDetail extends Component {
             onHandleDeleteDeck={this.onHandleDeleteDeck}
           />
         ) : (
-          <Text>No Deck exists for {deckId}</Text>
+          <Text
+            style={{
+              fontSize: 26,
+              color: primary,
+            }}
+          >
+            No Deck exists
+          </Text>
         )}
         <AppModal
           backdropColor={black}

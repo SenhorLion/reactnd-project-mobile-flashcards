@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  KeyboardAvoidingView,
-  FlatList,
-  Platform,
-} from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import cuid from 'cuid';
@@ -40,23 +32,17 @@ const styles = StyleSheet.create({
 
 class EditCard extends Component {
   state = {
-    isReady: false,
     modalVisible: false,
     cardSelected: null,
   };
 
   handleSaveCard = card => {
-    console.log('EDIT_CARD :: handleSaveCard\n\t', card);
-
     const { deckId, onEditCard } = this.props;
-    console.log('\tDECK_ID', this.props.deckId);
 
     onEditCard(deckId, card);
   };
 
   handleDeleteCard = card => {
-    console.log('EDIT_CARD :: handleDeleteCard', card, card.id);
-
     this.setState({ cardSelected: card }, () => {
       this.toggleModalVisible();
     });
@@ -103,7 +89,7 @@ class EditCard extends Component {
   }
 
   render() {
-    const { navigation, deck, deckId } = this.props;
+    const { deck } = this.props;
     const numOfCards = deck.questions.length;
 
     return (
@@ -161,5 +147,4 @@ const mapStateToProps = ({ decks }, ownProps) => {
   };
 };
 
-// TODO: Add onEditCard action
 export default connect(mapStateToProps, { onDeleteCard, onEditCard })(EditCard);

@@ -22,18 +22,11 @@ EStyleSheet.build({
   $highlightLight: '#ffff52',
   $highlightDark: '#c7a500',
 
-  // existing styling...
-  // TODO: Clean these up ie. delete most and use above theme
   $antiFlashWhite: '#f2f3f4',
-  $borderSeparator: '#e2e2e2',
   $black: '#222222',
-  $cyan: '#00BCD4',
-  $indigo: '#3F51B5',
+
   $inputText: '#797979',
-  $green: '#bada55',
-  $green200: '#A5D6A7',
-  $green300: '#81C784',
-  $green500: '#4CAF50',
+
   $grey50: '#FAFAFA',
   $grey100: '#F5F5F5',
   $grey400: '#BDBDBD',
