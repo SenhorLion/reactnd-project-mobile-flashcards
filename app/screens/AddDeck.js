@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-import { Constants, AppLoading } from 'expo';
 import { onAddDeck } from '../actions';
 import { InputText } from '../components/TextInput';
 
