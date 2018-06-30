@@ -8,6 +8,7 @@ import {
   FlatList,
   Platform,
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import cuid from 'cuid';
 import { black, primary } from '../utils/colors';
@@ -114,7 +115,10 @@ class EditCard extends Component {
           }`}</Text>
         </View>
         <ScrollView style={styles.container}>
-          <KeyboardAvoidingView behavior="padding">
+          <KeyboardAwareScrollView
+            resetScrollToCoords={{ x: 0, y: 0 }}
+            scrollEnabled={true}
+          >
             {deck.questions &&
               deck.questions.map((card, index) => {
                 return (
@@ -127,7 +131,7 @@ class EditCard extends Component {
                   />
                 );
               })}
-          </KeyboardAvoidingView>
+          </KeyboardAwareScrollView>
         </ScrollView>
 
         <AppModal
