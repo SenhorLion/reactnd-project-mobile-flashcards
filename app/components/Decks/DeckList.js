@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, FlatList } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { black } from '../../utils/colors';
 import AppModal from '../ui/AppModal';
 import Deck from './Deck';

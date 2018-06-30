@@ -69,8 +69,6 @@ const onAddDeck = deck => dispatch => {
 };
 
 const onEditDeck = (deckId, deck) => dispatch => {
-  console.log('ACTION::onEditDeck::', deckId, JSON.stringify(deck, null, 2));
-
   return API.editDeck(deckId, deck).then(deckData => {
     return dispatch(editDeck(deckId, deck));
   });

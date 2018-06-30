@@ -2,9 +2,8 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 export default EStyleSheet.create({
   container: {
     alignItems: 'center',
-    // justifyContent: 'center',
     flex: 1,
-    backgroundColor: '$grey100', //'#fff',
+    backgroundColor: '$grey100',
   },
   header: {
     alignItems: 'center',

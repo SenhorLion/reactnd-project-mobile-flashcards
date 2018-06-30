@@ -1,28 +1,12 @@
 import React, { Component } from 'react';
 
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
-import { ButtonTouchableOpacity } from '../Buttons';
-import {
-  black,
-  gray,
-  purple,
-  lightPurple,
-  white,
-  antiFlashWhite,
-} from '../../utils/colors';
+import { black, white } from '../../utils/colors';
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    backgroundColor: '#ccc',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
   modalContent: {
-    backgroundColor: 'white',
+    backgroundColor: white,
     padding: 22,
     justifyContent: 'center',
     alignItems: 'center',
@@ -54,8 +38,7 @@ class AppModal extends Component {
   render() {
     const {
       isVisible,
-      backdropColor = { lightPurple },
-      closeModal,
+      backdropColor = { black },
       onBackdropPress,
       children,
     } = this.props;

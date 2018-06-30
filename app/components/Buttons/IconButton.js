@@ -6,14 +6,13 @@ const IconButton = ({
   visible,
   iconBackground,
   onPress = () => {},
-  size,
+  size = 22,
   marginTop = 0,
   icon = null,
   iconText = null,
 }) => {
-  const BORDER_RADIUS = 22;
   const iconStyles = [styles.iconButton];
-  const borderRadiusSize = size ? size / 2 : BORDER_RADIUS;
+  const borderRadiusSize = size / 2;
 
   if (visible) {
     iconStyles.push(styles.iconVisible);

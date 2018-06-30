@@ -1,13 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import cuid from 'cuid';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView } from 'react-native';
 import { onAddDeck } from '../actions';
 import { InputText } from '../components/TextInput';
 
@@ -16,20 +10,8 @@ import { black, primary, antiFlashWhite } from '../utils/colors';
 import { Container } from '../components/Container';
 import { ButtonTouchableOpacity } from '../components/Buttons';
 
-// TODO: Make Button into a module component
-const AddDeckButton = ({ onPress }) => (
-  <TouchableOpacity
-    style={[styles.button, { marginTop: 20, width: 150 }]}
-    onPress={onPress}
-  >
-    <FontAwesome name="plus" size={20} color={antiFlashWhite} />
-    <Text style={{ fontSize: 18, color: antiFlashWhite }}>Add Deck</Text>
-  </TouchableOpacity>
-);
-
 class AddDeck extends React.Component {
   state = {
-    isReady: false,
     deckTitle: '',
   };
 
@@ -65,9 +47,6 @@ class AddDeck extends React.Component {
         deck: res.deck,
       });
     });
-
-    // TODO: Setup Local notification message to remind to study
-    // clearLocalNotifications().then(setLocalNotification);
   };
 
   render() {
@@ -76,9 +55,7 @@ class AddDeck extends React.Component {
     return (
       <Container>
         <KeyboardAvoidingView behavior="padding">
-          <View
-            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-          >
+          <View style={styles.container}>
             <Text style={styles.title}>Enter a title for this Deck:</Text>
 
             <InputText
@@ -107,16 +84,8 @@ class AddDeck extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  textInput: {
-    margin: 10,
-    padding: 15,
-    height: 50,
-    width: 280,
-    backgroundColor: antiFlashWhite,
-    borderRadius: 3,
-    color: black,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
     fontWeight: '400',
@@ -124,21 +93,6 @@ const styles = StyleSheet.create({
     color: primary,
     textAlign: 'center',
     alignItems: 'center',
-  },
-  button: {
-    flexDirection: 'row',
-    padding: 4,
-    margin: 4,
-    height: 40,
-    width: 80,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    backgroundColor: primary,
-  },
-  submitBtnText: {
-    color: primary,
-    fontSize: 22,
-    textAlign: 'center',
   },
 });
 

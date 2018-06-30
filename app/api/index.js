@@ -2,18 +2,6 @@ import { AsyncStorage } from 'react-native';
 
 const DECKS_STORAGE_KEY = 'mobileflashcards:deck';
 
-// {
-//   id: '8xf0y6ziyjabvozdd253nd',
-//   timestamp: 1467166872634,
-//   title: 'Udacity is the best place to learn React',
-//   body: 'Everyone says so after all.',
-//   author: 'thingtwo',
-//   category: 'react',
-//   voteScore: 6,
-//   deleted: false,
-//   commentCount: 2,
-// },
-
 const decksData = {
   cjid9dgxu0000zx8urifcccii: {
     id: 'cjid9dgxu0000zx8urifcccii',
@@ -70,17 +58,6 @@ export const getDeck = deckId => {
 
     return decks[deckId];
   });
-};
-
-const asyncFetchAllDecks = () => {
-  console.log('API::@asyncFetchAllDecks');
-
-  // FOR TESTING: Clear storage
-  // AsyncStorage.clear();
-
-  return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(decks =>
-    JSON.parse(decks)
-  );
 };
 
 export const addDeck = deck => {
