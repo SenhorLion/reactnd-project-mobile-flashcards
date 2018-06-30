@@ -13,6 +13,17 @@ const NOTIFICATION_KEY = 'mobileflashcards:notifications';
  */
 export const getRandomNumber = max => Math.floor(Math.random() * max) + 0;
 
+/**
+ * Return a pluralised string, or not...
+ * @function pluralize
+ * @param {string} str
+ * @param {number} count
+ * @return string
+ */
+export const pluralize = (str = '', count = 0) => {
+  return count > 1 || count === 0 ? `${str}s` : str;
+};
+
 export function timeToString(time = Date.now()) {
   const date = new Date(time);
   const todayUTC = new Date(

@@ -4,25 +4,21 @@ import { primary, antiFlashWhite } from '../../utils/colors';
 import { FontAwesome } from '@expo/vector-icons';
 import { ButtonTouchableOpacity } from '../Buttons';
 import styles from './styles';
+import { pluralize } from '../../utils/helpers';
 
 class Deck extends Component {
   render() {
     const { deck, deck: { id, title, questions }, navigation } = this.props;
+    const numOfCards = questions.length;
 
-    const hasDeck = !!(deck && Object.keys(deck).length);
-
-    if (!hasDeck) {
-      return (
-        <View style={styles.deck}>
-          <Text>No Deck exists</Text>
-        </View>
-      );
-    }
     return (
       <View style={styles.deck}>
         <View style={styles.deckContainer}>
           <Text style={styles.titleText}>{title}</Text>
-          <Text style={styles.subText}>{`${questions.length} cards`}</Text>
+          <Text style={styles.subText}>{`${numOfCards} ${pluralize(
+            'card',
+            numOfCards
+          )}`}</Text>
           <ButtonTouchableOpacity
             backgroundColor={primary}
             marginTop={10}

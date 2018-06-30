@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View, Platform } from 'react-native';
+import { Text, View } from 'react-native';
 import {
   primary,
   primaryLight,
@@ -9,7 +9,7 @@ import {
   secondaryLight,
   antiFlashWhite,
 } from '../../utils/colors';
-
+import { pluralize } from '../../utils/helpers';
 import { FontAwesome } from '@expo/vector-icons';
 import styles from './styles';
 import { InputText } from '../TextInput';
@@ -41,9 +41,10 @@ const DeckDetailComponent = props => {
         {!isEditMode ? (
           <View style={styles.header}>
             <Text style={styles.title}>{deck.title}</Text>
-            <Text style={styles.cardCount}>{`${numOfCards} ${
-              numOfCards > 1 ? 'cards' : 'card'
-            }`}</Text>
+            <Text style={styles.cardCount}>{`${numOfCards} ${pluralize(
+              'card',
+              numOfCards
+            )}`}</Text>
           </View>
         ) : (
           <View style={styles.header}>
