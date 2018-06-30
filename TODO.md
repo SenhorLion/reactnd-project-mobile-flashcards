@@ -1,27 +1,22 @@
 # TODOs
 
-## Deck Detail
+## Styling
 
-- Replace big buttons with smaller icon buttons
-  - View cards
-  - Add Card
-  - Start Quiz - maybe keep this big button
-- Colourize buttons
+- Background pattern or texture for main app background
+- "@material-ui/core": "^1.3.0", - for theming
 
-## Add Card
+## More test coverage
 
-- Replace modal notification with `react-dropdownalert`
-- When pressing `go back` navigate to Deck View and not `Add Deck` route
-- Cancel button
+- Snapshot testing for all components
+- Add more unit testing
 
-## Add Deck
+## Code cleanup
 
-- Replace modal notification with `react-dropdownalert`
-- When Deck added, navigate to Deck Detail View ~~Add Card route~~
+- remove extraneous code
+- tidy up components /
 
-## Edit Cards functionality
+## Features to Add
 
-- ~~Delete card~~
-- ~~Add card~~
-- Edit card question
-- Edit card Answer
+- Settings / Options screen
+  -- Change theme color (primary color)
+  -- User login and save data (to Firebase)?
