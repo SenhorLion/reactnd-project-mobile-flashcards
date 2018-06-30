@@ -45,18 +45,6 @@ const decksData = {
       },
     ],
   },
-  cjid9dgy00002zx8uasq10rav: {
-    id: 'cjid9dgy00002zx8uasq10rav',
-    timestamp: 1528905242807,
-    title: 'Redux',
-    questions: [
-      {
-        id: 'cjid9dgxu0000zx8urifcccee',
-        question: 'What is a state?',
-        answer: 'Lorem ipsum dolor sit amec.',
-      },
-    ],
-  },
 };
 
 const setDummyData = () => {
