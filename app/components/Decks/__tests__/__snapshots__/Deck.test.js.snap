@@ -74,7 +74,7 @@ exports[`renders Deck component without crashing 1`] = `
 </View>
 `;
 
-exports[`renders deck 1`] = `
+exports[`renders deck when no cards exists 1`] = `
 <View
   style={undefined}
 >
@@ -95,7 +95,7 @@ exports[`renders deck 1`] = `
       ellipsizeMode="tail"
       style={undefined}
     >
-      2 cards
+      0 cards
     </Text>
     <View
       accessibilityComponentType={undefined}
@@ -145,19 +145,5 @@ exports[`renders deck 1`] = `
       </Text>
     </View>
   </View>
-</View>
-`;
-
-exports[`renders no deck avaialble message when no deck exists 1`] = `
-<View
-  style={undefined}
->
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
-  >
-    No Deck exists
-  </Text>
 </View>
 `;
