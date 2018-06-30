@@ -1,5 +1,9 @@
 # TODOs
 
+## Decks View
+
+- Use `FlatList` instead of `ScrollView` toaid performance for long lists
+
 ## Styling
 
 - Background pattern or texture for main app background
@@ -9,11 +13,6 @@
 
 - Snapshot testing for all components
 - Add more unit testing
-
-## Code cleanup
-
-- remove extraneous code
-- tidy up components /
 
 ## Features to Add
 
