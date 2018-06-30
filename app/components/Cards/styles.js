@@ -29,8 +29,11 @@ export default EStyleSheet.create({
   },
   iconButtonRow: {
     flexDirection: 'row',
+    paddingBottom: 5,
   },
-
+  cardContent: {
+    paddingBottom: 4,
+  },
   editCardContainer: {
     backgroundColor: '$grey100',
     padding: 20,

@@ -166,12 +166,19 @@ class Card extends Component {
               <View
                 style={{
                   alignSelf: 'baseline',
-                  paddingHorizontal: 10,
+                  paddingHorizontal: 6,
                   paddingBottom: 10,
                 }}
               >
-                <Text>Question: {card.question}</Text>
-                <Text>Answer: {card.answer}</Text>
+                <Text
+                  style={[
+                    styles.cardContent,
+                    { fontWeight: '600', marginTop: 5 },
+                  ]}
+                >
+                  {card.question}
+                </Text>
+                <Text style={styles.cardContent}>{card.answer}</Text>
               </View>
 
               <View style={styles.iconButtonRow}>
