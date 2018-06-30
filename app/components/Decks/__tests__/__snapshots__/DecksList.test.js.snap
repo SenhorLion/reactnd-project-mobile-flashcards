@@ -193,7 +193,7 @@ exports[`displays all decks when decks are loaded and exist 1`] = `
           style={
             Object {
               "alignItems": "center",
-              "backgroundColor": "white",
+              "backgroundColor": "#ffffff",
               "borderColor": "rgba(0, 0, 0, 0.1)",
               "borderRadius": 4,
               "justifyContent": "center",
