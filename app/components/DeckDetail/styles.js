@@ -12,13 +12,13 @@ export default EStyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 26,
-    color: '$primary',
+    color: '$secondaryDark',
     paddingBottom: 5,
   },
   cardCount: {
     fontWeight: '500',
     fontSize: 22,
-    color: '$primary',
+    color: '$secondaryLight',
   },
   textInput: {
     margin: 10,

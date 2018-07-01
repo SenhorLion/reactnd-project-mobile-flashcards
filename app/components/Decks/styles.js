@@ -23,13 +23,13 @@ export default EStyleSheet.create({
     fontWeight: '700',
     textAlign: 'center',
     fontSize: 24,
-    color: '$primary',
+    color: '$secondaryDark',
   },
   subText: {
     fontWeight: '300',
     textAlign: 'center',
     fontSize: 20,
-    color: '$primary',
+    color: '$secondaryLight',
   },
   messageText: {
     fontSize: 26,

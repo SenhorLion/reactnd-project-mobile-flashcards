@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import cuid from 'cuid';
-import { black, primary } from '../utils/colors';
+import { black, secondaryLight, secondaryDark } from '../utils/colors';
 import { Card } from '../components/Cards';
 import AppModal from '../components/ui/AppModal';
 import { onDeleteCard, onEditCard } from '../actions';
@@ -18,14 +18,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '700',
     fontSize: 26,
-    color: primary,
+    color: secondaryDark,
     marginTop: 20,
   },
   cardCount: {
     textAlign: 'center',
     fontWeight: '400',
     fontSize: 22,
-    color: primary,
+    color: secondaryLight,
     marginBottom: 10,
   },
 });

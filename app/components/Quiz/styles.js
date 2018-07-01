@@ -54,14 +54,14 @@ export default EStyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     fontSize: 26,
-    color: '$primary',
+    color: '$secondaryDark',
     paddingBottom: 5,
   },
   subTitle: {
     fontWeight: '500',
     textAlign: 'center',
     fontSize: 22,
-    color: '$primary',
+    color: '$secondaryLight',
   },
   questionText: {
     fontWeight: '400',
@@ -108,7 +108,7 @@ export default EStyleSheet.create({
     fontWeight: '500',
     textAlign: 'center',
     fontSize: 20,
-    color: '$primary',
+    color: '$primaryLight',
     paddingBottom: 8,
   },
   statsTextHeavy: {

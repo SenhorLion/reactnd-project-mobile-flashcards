@@ -4,7 +4,13 @@ import cuid from 'cuid';
 import { StyleSheet, Text, View } from 'react-native';
 import { ButtonTouchableOpacity } from '../components/Buttons';
 import { FontAwesome } from '@expo/vector-icons';
-import { black, grey100, primary, antiFlashWhite } from '../utils/colors';
+import {
+  black,
+  grey100,
+  primary,
+  secondaryDark,
+  antiFlashWhite,
+} from '../utils/colors';
 import { onAddCard } from '../actions';
 import AppModal from '../components/ui/AppModal';
 import { InputText } from '../components/TextInput';
@@ -126,7 +132,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: '700',
     fontSize: 26,
-    color: primary,
+    color: secondaryDark,
     textAlign: 'center',
     paddingBottom: 5,
   },

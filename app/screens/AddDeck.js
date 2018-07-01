@@ -6,7 +6,7 @@ import { onAddDeck } from '../actions';
 import { InputText } from '../components/TextInput';
 
 import { FontAwesome } from '@expo/vector-icons';
-import { black, primary, antiFlashWhite } from '../utils/colors';
+import { primary, secondaryDark, antiFlashWhite } from '../utils/colors';
 import { Container } from '../components/Container';
 import { ButtonTouchableOpacity } from '../components/Buttons';
 
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: '400',
     fontSize: 24,
-    color: primary,
+    color: secondaryDark,
     textAlign: 'center',
     alignItems: 'center',
   },

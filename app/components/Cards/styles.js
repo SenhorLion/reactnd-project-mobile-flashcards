@@ -19,7 +19,7 @@ export default EStyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     fontSize: 24,
-    color: '$primary',
+    color: '$secondaryDark',
   },
   subText: {
     textAlign: 'center',
