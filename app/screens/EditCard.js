@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import cuid from 'cuid';
@@ -100,25 +100,28 @@ class EditCard extends Component {
             numOfCards > 1 ? 'cards' : 'card'
           }`}</Text>
         </View>
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
           <KeyboardAwareScrollView
             resetScrollToCoords={{ x: 0, y: 0 }}
             scrollEnabled={true}
           >
-            {deck.questions &&
-              deck.questions.map((card, index) => {
-                return (
+            {deck.questions && (
+              <FlatList
+                data={deck.questions}
+                renderItem={({ item, index }) => (
                   <Card
                     index={Number(index) + 1}
                     key={cuid()}
-                    card={card}
+                    card={item}
                     handleDeleteCard={this.handleDeleteCard}
                     handleSaveCard={this.handleSaveCard}
                   />
-                );
-              })}
+                )}
+                keyExtractor={item => cuid()}
+              />
+            )}
           </KeyboardAwareScrollView>
-        </ScrollView>
+        </View>
 
         <AppModal
           backdropColor={black}
