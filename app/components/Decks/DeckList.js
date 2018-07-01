@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import { black } from '../../utils/colors';
 import AppModal from '../ui/AppModal';
 import Deck from './Deck';
@@ -74,24 +74,27 @@ class DeckList extends Component {
             justifyContent: 'center',
           }}
         >
-          <Text dataTestId="loading" style={styles.messageText}>
-            No Decks available to show.
-          </Text>
+          <Text style={styles.messageText}>No Decks available to show.</Text>
         </View>
       );
     }
 
     return (
-      <ScrollView style={{ flex: 1 }}>
-        {hasDecks &&
-          Object.values(items).map(deck => (
-            <Deck
-              key={deck.title}
-              handleDeleteDeck={this.handleDeleteDeck}
-              deck={deck}
-              {...this.props}
-            />
-          ))}
+      <View style={{ flex: 1 }}>
+        {hasDecks && (
+          <FlatList
+            data={Object.values(items)}
+            renderItem={({ item }) => (
+              <Deck
+                key={item.id}
+                handleDeleteDeck={this.handleDeleteDeck}
+                deck={item}
+                {...this.props}
+              />
+            )}
+            keyExtractor={item => item.id}
+          />
+        )}
         <AppModal
           backdropColor={black}
           isVisible={this.state.modalVisible}
@@ -104,7 +107,7 @@ class DeckList extends Component {
             confirmCancel={this.toggleModalVisible}
           />
         </AppModal>
-      </ScrollView>
+      </View>
     );
   }
 }
