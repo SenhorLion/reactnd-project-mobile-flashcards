@@ -1,5 +1,4 @@
 import deepFreeze from 'deep-freeze';
-import cuid from 'cuid';
 import {
   requestAllDecks,
   receiveAllDecks,
@@ -10,88 +9,75 @@ import {
   addCard,
   editCard,
 } from '../../actions/index';
-
 import decks from '../decks';
 
-const defaultDecksData = {
+/**
+ * A helper function to handle creating a new deck
+ * @function createDeckPayload
+ * @return object
+ */
+const createDeckPayload = () => ({
   cjid9dgxu0000zx8urifcccii: {
     id: 'cjid9dgxu0000zx8urifcccii',
     timestamp: 1528905228099,
     title: 'React',
-    questions: [
-      {
-        id: 'cjid9dgxu0000zx8urifcccaa',
-        question: 'What is React?',
-        answer: 'A library for managing user interfaces',
-      },
-      {
-        id: 'cjid9dgxu0000zx8urifcccbb',
-        question: 'Where do you make Ajax requests in React?',
-        answer: 'The componentDidMount lifecycle event',
-      },
-    ],
+    questions: [],
   },
-  cjid9dgxx0001zx8ui54qdjuv: {
-    id: 'cjid9dgxx0001zx8ui54qdjuv',
-    timestamp: 1528905210982,
-    title: 'JavaScript',
-    questions: [
-      {
-        id: 'cjid9dgxu0000zx8urifcccdd',
-        question: 'What is a closure?',
-        answer:
-          'The combination of a function and the lexical environment within which that function was declared.',
-      },
-    ],
-  },
-  cjid9dgy00002zx8uasq10rav: {
-    id: 'cjid9dgy00002zx8uasq10rav',
-    timestamp: 1528905242807,
-    title: 'Redux',
-    questions: [
-      {
-        id: 'cjid9dgxu0000zx8urifcccee',
-        question: 'What is a state?',
-        answer: 'Lorem ipsum dolor sit amec.',
-      },
-    ],
-  },
-};
+});
+
+/**
+ * A factory function to handle creating a new deck
+ * @function createNewDeck
+ * @param {object} deck
+ */
+const createNewDeck = ({
+  id = 'cjid9dgxu0000zx8urifcccii',
+  timestamp = 1528905228099,
+  title = 'React',
+  questions = [],
+} = {}) => ({ id, timestamp, title, questions });
+
+/**
+ * A factory function to handle creating a new card
+ * @function createNewCard
+ * @param {object} param0
+ */
+const createNewCard = ({
+  id = 'cjid9dgxu0000zx8urifcccaa',
+  question = 'What is React?',
+  answer = 'A library for managing user interfaces',
+} = {}) => ({ id, question, answer });
+
+/**
+ * A factory function to handle default state
+ * @function createState
+ * @param {object} state
+ */
+const createState = ({ isFetching = false, items = {} } = {}) => ({
+  isFetching,
+  items,
+});
 
 describe('decks reducer tests', () => {
   it('should handle initial state', () => {
-    const defaultState = {
-      isFetching: true,
-      items: {},
-    };
+    const defaultState = createState({ isFetching: true });
+
     expect(decks(undefined, {})).toEqual(defaultState);
   });
 
   it('should return correct data structure for FETCH_DECKS_REQUEST', () => {
-    const defaultState = {
-      isFetching: true,
-      items: {},
-    };
+    const defaultState = createState({ isFetching: true });
+
     expect(decks(undefined, requestAllDecks())).toEqual(defaultState);
   });
 
   it('should return correct data structure for FETCH_DECKS_SUCCESS', () => {
-    const defaultState = {
-      isFetching: true,
-      items: {},
-    };
+    const defaultState = createState();
 
     // make sure state is not mutated
     deepFreeze(defaultState);
 
-    const decksPayload = {
-      cjid9dgxu0000zx8urifcccii: {
-        id: 'cjid9dgxu0000zx8urifcccii',
-        timestamp: 1528905228099,
-        title: 'React',
-        questions: [],
-      },
-    };
+    const decksPayload = createDeckPayload();
 
     const expected = {
       isFetching: false,
@@ -114,19 +100,11 @@ describe('decks reducer tests', () => {
    * ADD A DECK
    */
   it('should ADD a Deck wihtout mutating state', () => {
-    const defaultState = {
-      isFetching: false,
-      items: {},
-    };
+    const defaultState = createState();
 
     deepFreeze(defaultState);
 
-    const deckPayload = {
-      id: 'cjid9dgxu0000zx8urifcccii',
-      timestamp: 1528905228099,
-      title: 'React',
-      questions: [],
-    };
+    const deckPayload = createNewDeck();
 
     const expected = {
       isFetching: false,
@@ -144,8 +122,7 @@ describe('decks reducer tests', () => {
   });
 
   it('should ADD a new Deck wihtout mutating state', () => {
-    const defaultState = {
-      isFetching: false,
+    const defaultState = createState({
       items: {
         cjid9dgxu0000zx8urifcccii: {
           id: 'cjid9dgxu0000zx8urifcccii',
@@ -160,16 +137,16 @@ describe('decks reducer tests', () => {
           ],
         },
       },
-    };
+    });
 
     deepFreeze(defaultState);
 
-    const deckPayload = {
+    const deckPayload = createNewDeck({
       id: 'cjid9dgxx0001zx8ui54qdjuv',
       timestamp: 1528905228099,
       title: 'ES6',
       questions: [],
-    };
+    });
 
     const expected = {
       isFetching: false,
@@ -202,7 +179,7 @@ describe('decks reducer tests', () => {
    * DELETE A DECK
    */
   it('should DELETE a Deck without mutating state', () => {
-    const defaultState = {
+    const defaultState = createState({
       isFetching: false,
       items: {
         cjid9dgxu0000zx8urifcccii: {
@@ -212,7 +189,7 @@ describe('decks reducer tests', () => {
           questions: [],
         },
       },
-    };
+    });
 
     deepFreeze(defaultState);
 
@@ -230,7 +207,7 @@ describe('decks reducer tests', () => {
    * ADD A CARD TO DECK
    */
   it('should ADD a new Card to a Deck wihtout mutating state', () => {
-    const defaultState = {
+    const defaultState = createState({
       isFetching: false,
       items: {
         cjid9dgxu0000zx8urifcccii: {
@@ -240,16 +217,12 @@ describe('decks reducer tests', () => {
           questions: [],
         },
       },
-    };
+    });
 
     deepFreeze(defaultState);
 
     const deckId = 'cjid9dgxu0000zx8urifcccii';
-    const card = {
-      id: 'cjid9dgxu0000zx8urifcccaa',
-      question: 'What is React?',
-      answer: 'A library for managing user interfaces',
-    };
+    const card = createNewCard();
 
     const expected = {
       isFetching: false,
@@ -276,7 +249,7 @@ describe('decks reducer tests', () => {
    * EDIT A CARD
    */
   it('should Edit a Card wihtout mutating state', () => {
-    const defaultState = {
+    const defaultState = createState({
       isFetching: false,
       items: {
         cjid9dgxu0000zx8urifcccii: {
@@ -292,16 +265,17 @@ describe('decks reducer tests', () => {
           ],
         },
       },
-    };
+    });
 
     deepFreeze(defaultState);
 
     const deckId = 'cjid9dgxu0000zx8urifcccii';
-    const card = {
+
+    const card = createNewCard({
       id: 'cjid9dgxu0000zx8urifcccaa',
       question: 'What is Reaction?',
       answer: 'A library for managing user interfaces view layer',
-    };
+    });
 
     const expected = {
       isFetching: false,
@@ -325,8 +299,7 @@ describe('decks reducer tests', () => {
   });
 
   it('should Edit a Card wihtout mutating state', () => {
-    const defaultState = {
-      isFetching: false,
+    const defaultState = createState({
       items: {
         cjid9dgxu0000zx8urifcccii: {
           id: 'cjid9dgxu0000zx8urifcccii',
@@ -346,16 +319,17 @@ describe('decks reducer tests', () => {
           ],
         },
       },
-    };
+    });
 
     deepFreeze(defaultState);
 
     const deckId = 'cjid9dgxu0000zx8urifcccii';
-    const card = {
+
+    const card = createNewCard({
       id: 'cjid9dgxu0000zx8urifcccbca',
       question: 'What is Reduxy?',
       answer: 'The single source of truth',
-    };
+    });
 
     const expected = {
       isFetching: false,
@@ -389,8 +363,7 @@ describe('decks reducer tests', () => {
    * DELETE A CARD FROM DECK
    */
   it('should Delete a Card from a Deck wihtout mutating state', () => {
-    const defaultState = {
-      isFetching: false,
+    const defaultState = createState({
       items: {
         cjid9dgxu0000zx8urifcccii: {
           id: 'cjid9dgxu0000zx8urifcccii',
@@ -405,7 +378,7 @@ describe('decks reducer tests', () => {
           ],
         },
       },
-    };
+    });
 
     deepFreeze(defaultState);
 
@@ -428,8 +401,7 @@ describe('decks reducer tests', () => {
   });
 
   it('should Delete a Card from a Deck without mutating state', () => {
-    const defaultState = {
-      isFetching: false,
+    const defaultState = createState({
       items: {
         cjid9dgxu0000zx8urifcccii: {
           id: 'cjid9dgxu0000zx8urifcccii',
@@ -449,7 +421,7 @@ describe('decks reducer tests', () => {
           ],
         },
       },
-    };
+    });
 
     deepFreeze(defaultState);
 
@@ -481,8 +453,7 @@ describe('decks reducer tests', () => {
    * EDIT a Deck
    */
   it('should Edit a Deck without mutating state', () => {
-    const defaultState = {
-      isFetching: false,
+    const defaultState = createState({
       items: {
         cjid9dgxu0000zx8urifcccii: {
           id: 'cjid9dgxu0000zx8urifcccii',
@@ -497,23 +468,15 @@ describe('decks reducer tests', () => {
           ],
         },
       },
-    };
+    });
 
     deepFreeze(defaultState);
 
     const deckId = 'cjid9dgxu0000zx8urifcccii';
-    const deckPayload = {
+    const deckPayload = createNewDeck({
       id: 'cjid9dgxu0000zx8urifcccii',
-      timestamp: 1528905228099,
       title: 'Reaction',
-      questions: [
-        {
-          id: 'cjid9dgxu0000zx8urifcccaa',
-          question: 'What is React?',
-          answer: 'A library for managing user interfaces',
-        },
-      ],
-    };
+    });
 
     const expected = {
       isFetching: false,

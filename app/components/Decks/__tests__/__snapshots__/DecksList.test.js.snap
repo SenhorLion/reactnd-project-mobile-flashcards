@@ -13,7 +13,6 @@ exports[`displays "No Decks available" message if no decks exist 1`] = `
   <Text
     accessible={true}
     allowFontScaling={true}
-    dataTestId="loading"
     ellipsizeMode="tail"
     style={undefined}
   >
@@ -45,161 +44,61 @@ exports[`displays "loading" message while decks are not loaded 1`] = `
 `;
 
 exports[`displays all decks when decks are loaded and exist 1`] = `
-<RCTScrollView
+<View
   style={
     Object {
       "flex": 1,
     }
   }
 >
-  <View>
-    <View
-      style={undefined}
-    >
-      <View
-        style={undefined}
-      >
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
-          style={undefined}
-        >
-          React
-        </Text>
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
-          style={undefined}
-        >
-          2 cards
-        </Text>
-        <View
-          accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
-          accessibilityTraits={undefined}
-          accessible={true}
-          collapsable={undefined}
-          hasTVPreferredFocus={undefined}
-          hitSlop={undefined}
-          isTVSelectable={true}
-          nativeID={undefined}
-          onLayout={undefined}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
+  <RCTScrollView
+    data={
+      Array [
+        Object {
+          "questions": Array [
             Object {
-              "backgroundColor": "#00838f",
-              "marginTop": 10,
-              "opacity": 1,
-              "width": 150,
-            }
-          }
-          testID={undefined}
-          tvParallaxProperties={undefined}
-        >
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-          />
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#f2f3f4",
-                "fontSize": 18,
-              }
-            }
-          >
-            View deck
-          </Text>
-        </View>
-      </View>
-    </View>
-    <Modal
-      animationType="none"
-      hardwareAccelerated={false}
-      hideModalContentWhileAnimating={false}
-      onModalHide={[Function]}
-      onRequestClose={[Function]}
-      scrollOffset={0}
-      scrollOffsetMax={0}
-      scrollTo={null}
-      swipeThreshold={100}
-      transparent={true}
-      visible={false}
-    >
+              "answer": "A library for managing user interfaces",
+              "question": "What is React?",
+            },
+            Object {
+              "answer": "The componentDidMount lifecycle event",
+              "question": "Where do you make Ajax requests in React?",
+            },
+          ],
+          "title": "React",
+        },
+      ]
+    }
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    invertStickyHeaders={undefined}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    numColumns={1}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <View>
       <View
-        accessibilityComponentType={undefined}
-        accessibilityLabel={undefined}
-        accessibilityTraits={undefined}
-        accessible={true}
-        collapsable={undefined}
-        hitSlop={undefined}
-        nativeID={undefined}
-        onLayout={undefined}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "backgroundColor": "#000000",
-            "bottom": 0,
-            "height": 1334,
-            "left": 0,
-            "opacity": 0,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-            "width": 750,
-          }
-        }
-        testID={undefined}
-      />
-      <View
-        collapsable={undefined}
-        hideModalContentWhileAnimating={false}
-        onModalHide={[Function]}
-        pointerEvents="box-none"
-        scrollOffset={0}
-        scrollOffsetMax={0}
-        scrollTo={null}
-        style={
-          Object {
-            "flex": 1,
-            "justifyContent": "center",
-            "margin": 37.5,
-            "transform": Array [
-              Object {
-                "translateY": 0,
-              },
-            ],
-          }
-        }
-        swipeThreshold={100}
+        onLayout={[Function]}
+        style={null}
       >
         <View
-          style={
-            Object {
-              "alignItems": "center",
-              "backgroundColor": "#ffffff",
-              "borderColor": "rgba(0, 0, 0, 0.1)",
-              "borderRadius": 4,
-              "justifyContent": "center",
-              "padding": 22,
-            }
-          }
+          style={undefined}
         >
           <View
             style={undefined}
@@ -210,92 +109,239 @@ exports[`displays all decks when decks are loaded and exist 1`] = `
               ellipsizeMode="tail"
               style={undefined}
             >
-              Delete Deck
+              React
             </Text>
-            <View
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
               style={undefined}
             >
-              <View
-                accessibilityComponentType={undefined}
-                accessibilityLabel={undefined}
-                accessibilityTraits={undefined}
+              2 cards
+            </Text>
+            <View
+              accessibilityComponentType={undefined}
+              accessibilityLabel={undefined}
+              accessibilityTraits={undefined}
+              accessible={true}
+              collapsable={undefined}
+              hasTVPreferredFocus={undefined}
+              hitSlop={undefined}
+              isTVSelectable={true}
+              nativeID={undefined}
+              onLayout={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "#00838f",
+                  "marginTop": 10,
+                  "opacity": 1,
+                  "width": 150,
+                }
+              }
+              testID={undefined}
+              tvParallaxProperties={undefined}
+            >
+              <Text
                 accessible={true}
-                collapsable={undefined}
-                hasTVPreferredFocus={undefined}
-                hitSlop={undefined}
-                isTVSelectable={true}
-                nativeID={undefined}
-                onLayout={undefined}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+              />
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
                 style={
                   Object {
-                    "backgroundColor": "#00838f",
-                    "marginTop": undefined,
-                    "opacity": 1,
-                    "width": 150,
+                    "color": "#f2f3f4",
+                    "fontSize": 18,
                   }
                 }
-                testID={undefined}
-                tvParallaxProperties={undefined}
               >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  ellipsizeMode="tail"
-                  style={undefined}
-                >
-                  Delete
-                </Text>
-              </View>
-              <View
-                accessibilityComponentType={undefined}
-                accessibilityLabel={undefined}
-                accessibilityTraits={undefined}
-                accessible={true}
-                collapsable={undefined}
-                hasTVPreferredFocus={undefined}
-                hitSlop={undefined}
-                isTVSelectable={true}
-                nativeID={undefined}
-                onLayout={undefined}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                style={
-                  Object {
-                    "backgroundColor": "#BDBDBD",
-                    "marginTop": undefined,
-                    "opacity": 1,
-                    "width": 150,
-                  }
-                }
-                testID={undefined}
-                tvParallaxProperties={undefined}
-              >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  ellipsizeMode="tail"
-                  style={undefined}
-                >
-                  Cancel
-                </Text>
-              </View>
+                View deck
+              </Text>
             </View>
           </View>
         </View>
       </View>
-    </Modal>
-  </View>
-</RCTScrollView>
+    </View>
+  </RCTScrollView>
+  <Modal
+    animationType="none"
+    hardwareAccelerated={false}
+    hideModalContentWhileAnimating={false}
+    onModalHide={[Function]}
+    onRequestClose={[Function]}
+    scrollOffset={0}
+    scrollOffsetMax={0}
+    scrollTo={null}
+    swipeThreshold={100}
+    transparent={true}
+    visible={false}
+  >
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel={undefined}
+      accessibilityTraits={undefined}
+      accessible={true}
+      collapsable={undefined}
+      hitSlop={undefined}
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#000000",
+          "bottom": 0,
+          "height": 1334,
+          "left": 0,
+          "opacity": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "width": 750,
+        }
+      }
+      testID={undefined}
+    />
+    <View
+      collapsable={undefined}
+      hideModalContentWhileAnimating={false}
+      onModalHide={[Function]}
+      pointerEvents="box-none"
+      scrollOffset={0}
+      scrollOffsetMax={0}
+      scrollTo={null}
+      style={
+        Object {
+          "flex": 1,
+          "justifyContent": "center",
+          "margin": 37.5,
+          "transform": Array [
+            Object {
+              "translateY": 0,
+            },
+          ],
+        }
+      }
+      swipeThreshold={100}
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#ffffff",
+            "borderColor": "rgba(0, 0, 0, 0.1)",
+            "borderRadius": 4,
+            "justifyContent": "center",
+            "padding": 22,
+          }
+        }
+      >
+        <View
+          style={undefined}
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={undefined}
+          >
+            Delete Deck
+          </Text>
+          <View
+            style={undefined}
+          >
+            <View
+              accessibilityComponentType={undefined}
+              accessibilityLabel={undefined}
+              accessibilityTraits={undefined}
+              accessible={true}
+              collapsable={undefined}
+              hasTVPreferredFocus={undefined}
+              hitSlop={undefined}
+              isTVSelectable={true}
+              nativeID={undefined}
+              onLayout={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "#00838f",
+                  "marginTop": undefined,
+                  "opacity": 1,
+                  "width": 150,
+                }
+              }
+              testID={undefined}
+              tvParallaxProperties={undefined}
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={undefined}
+              >
+                Delete
+              </Text>
+            </View>
+            <View
+              accessibilityComponentType={undefined}
+              accessibilityLabel={undefined}
+              accessibilityTraits={undefined}
+              accessible={true}
+              collapsable={undefined}
+              hasTVPreferredFocus={undefined}
+              hitSlop={undefined}
+              isTVSelectable={true}
+              nativeID={undefined}
+              onLayout={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "#BDBDBD",
+                  "marginTop": undefined,
+                  "opacity": 1,
+                  "width": 150,
+                }
+              }
+              testID={undefined}
+              tvParallaxProperties={undefined}
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={undefined}
+              >
+                Cancel
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </Modal>
+</View>
 `;
 
 exports[`renders without crashing 1`] = `
