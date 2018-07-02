@@ -17,6 +17,16 @@ export default EStyleSheet.create({
   containerDisabled: {
     backgroundColor: '$grey100',
   },
+  errorStyle: {
+    borderColor: '$redA700',
+    borderWidth: 1,
+  },
+  errorMessage: {
+    fontWeight: '400',
+    fontSize: 16,
+    paddingVertical: 5,
+    color: '$redA700',
+  },
   labelText: {
     fontWeight: '600',
     fontSize: 20,
