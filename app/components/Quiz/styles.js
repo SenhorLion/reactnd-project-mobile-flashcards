@@ -80,7 +80,7 @@ export default EStyleSheet.create({
     top: 0,
     left: 0,
     padding: 5,
-    backgroundColor: '$grey400',
+    backgroundColor: '$secondaryLight',
     color: '$primaryText',
   },
   statsView: {
