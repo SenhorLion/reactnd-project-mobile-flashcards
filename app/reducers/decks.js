@@ -99,6 +99,7 @@ const applyAddDeck = (state, action) => {
   const { deck } = action;
 
   const newDeck = Object.assign({}, state, {
+    isFetching: false,
     items: {
       ...state.items,
       [deck.id]: deck,
@@ -191,7 +192,7 @@ const applyEditDeck = (state, action) => {
   const newDeck = Object.assign({}, state, {
     items: {
       ...state.items,
-      [deckId]: { ...deck },
+      [deckId]: { ...deck, questions: [...state.items[deckId].questions] },
     },
   });
 
