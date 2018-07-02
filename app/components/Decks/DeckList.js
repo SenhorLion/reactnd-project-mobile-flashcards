@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList } from 'react-native';
+import cuid from 'cuid';
 import { black } from '../../utils/colors';
 import AppModal from '../ui/AppModal';
 import Deck from './Deck';
@@ -92,7 +93,7 @@ class DeckList extends Component {
                 {...this.props}
               />
             )}
-            keyExtractor={item => item.id}
+            keyExtractor={item => cuid()}
           />
         )}
         <AppModal
