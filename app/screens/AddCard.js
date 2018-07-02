@@ -2,14 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import cuid from 'cuid';
 import { StyleSheet, Text, View } from 'react-native';
-import { ButtonTouchableOpacity } from '../components/Buttons';
+import { ButtonTouchableOpacity, IconButton } from '../components/Buttons';
 import { FontAwesome } from '@expo/vector-icons';
 import {
   black,
   grey100,
+  grey400,
   primary,
   secondaryDark,
   antiFlashWhite,
+  redA700,
 } from '../utils/colors';
 import { onAddCard } from '../actions';
 import AppModal from '../components/ui/AppModal';
@@ -21,6 +23,9 @@ class AddCard extends React.Component {
     question: null,
     answer: null,
     modalVisible: false,
+    modalFormErrorVisible: false,
+    questionError: false,
+    answerError: false,
   };
 
   handleAddCard = () => {
@@ -33,6 +38,11 @@ class AddCard extends React.Component {
 
       // TODO: Display a modal message to user
       // - must refactor modal to handle mulitple uses
+      this.setState({
+        modalFormErrorVisible: true,
+        questionError: !question,
+        answerError: !answer,
+      });
       return;
     }
 
@@ -42,15 +52,18 @@ class AddCard extends React.Component {
       answer,
     };
 
-    this.setState({
-      question: null,
-      answer: null,
-    });
-
     this.props.onAddCard(deckId, newCard).then(res => {
+      // reset state
+      this.setState({
+        question: null,
+        answer: null,
+        modalFormErrorVisible: false,
+        questionError: false,
+        answerError: false,
+      });
+
       // Notification on succesfully added card
       this.setModalVisible(true);
-      // Allow user to add more cards...
     });
   };
 
@@ -66,8 +79,14 @@ class AddCard extends React.Component {
     this.setState({ modalVisible: false });
   };
 
+  closeModalFormError = () => {
+    this.setState({
+      modalFormErrorVisible: false,
+    });
+  };
+
   render() {
-    const { question, answer } = this.state;
+    const { question, answer, questionError, answerError } = this.state;
 
     return (
       <Container>
@@ -85,12 +104,15 @@ class AddCard extends React.Component {
             placeholder="Add Question"
             onChangeText={question => this.setState(() => ({ question }))}
             value={question}
+            error={questionError}
           />
 
+          {/* error={questionError} */}
           <InputText
             placeholder="Add Answer"
             onChangeText={answer => this.setState(() => ({ answer }))}
             value={answer}
+            error={answerError}
           />
 
           <ButtonTouchableOpacity
@@ -117,6 +139,30 @@ class AddCard extends React.Component {
             <Text style={styles.modalTitle}>New card added!</Text>
           </View>
         </AppModal>
+
+        <AppModal
+          backdropColor={black}
+          isVisible={this.state.modalFormErrorVisible}
+          closeModal={this.closeModalFormError}
+          closeModalTimer={2000}
+          onBackdropPress={this.closeModalFormError}
+        >
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+          >
+            <Text style={[styles.modalTitle, { color: redA700 }]}>
+              Please enter a card value
+            </Text>
+            <IconButton
+              visible={true}
+              iconBackground={'transparent'}
+              icon={<FontAwesome name="times" size={26} color={redA700} />}
+              size={22}
+              marginTop={0}
+              onPress={() => this.closeModalFormError()}
+            />
+          </View>
+        </AppModal>
       </Container>
     );
   }
@@ -138,7 +184,7 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     fontWeight: '500',
-    fontSize: 24,
+    fontSize: 22,
     color: primary,
     textAlign: 'center',
     paddingBottom: 5,
